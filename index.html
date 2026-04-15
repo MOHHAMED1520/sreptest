@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>عايد | STEP 2026 — أقوى تجميعات النماذج 51 & 52</title>
+<meta name="description" content="موقع أكاديمية عايد لتحضير اختبار STEP 2026 — ملخصات + 100 سؤال تفاعلي + نتائج ذكية + دورات موصى بها"/>
+<link rel="stylesheet" href="css/shared.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"/>
+<style>
+/* ── HOME EXCLUSIVE ── */
+
+/* Hero */
+#hero {
+  min-height: 100vh;
+  background: var(--grad-hero);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 120px 0 80px;
+}
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); pointer-events: none;
+}
+.orb1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(15,53,92,0.7), transparent); top: -150px; right: -150px; animation: float 9s ease-in-out infinite; }
+.orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(247,174,27,0.1), transparent); bottom: -80px; left: 5%; animation: float 11s ease-in-out infinite 3s; }
+.orb3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(139,92,246,0.1), transparent); top: 40%; left: 35%; animation: float 13s ease-in-out infinite 6s; }
+
+/* Grid lines background */
+#hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(247,174,27,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247,174,27,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 70px; align-items: center;
+  position: relative; z-index: 1;
+}
+
+/* Left: content */
+.hero-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.hero-title {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 900; line-height: 1.12;
+  margin-bottom: 22px;
+}
+.hero-title .line-gold {
+  display: block;
+  background: var(--grad-gold);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-title .line-white { display: block; color: var(--text); }
+.hero-title .line-muted { display: block; color: var(--muted); font-size: 0.7em; font-weight: 700; }
+.hero-desc {
+  color: var(--muted); font-size: 1.05rem;
+  line-height: 1.9; margin-bottom: 36px;
+  max-width: 520px;
+}
+.hero-desc strong { color: var(--text2); }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+
+.hero-stats {
+  display: flex; gap: 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.h-stat {
+  flex: 1; padding: 18px 12px; text-align: center;
+  border-left: 1px solid var(--border);
+}
+.h-stat:last-child { border-left: none; }
+.h-stat .sn {
+  font-size: 1.6rem; font-weight: 900;
+  background: var(--grad-gold);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1;
+}
+.h-stat .sl { font-size: 0.68rem; color: var(--muted); margin-top: 5px; font-weight: 600; }
+
+/* Right: logo showcase */
+.hero-visual {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.logo-showcase {
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(15,53,92,0.6) 0%, rgba(7,14,26,0.3) 70%);
+  border: 2px solid rgba(247,174,27,0.2);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  animation: float 7s ease-in-out infinite;
+}
+.logo-showcase::before, .logo-showcase::after {
+  content: '';
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(247,174,27,0.1);
+  animation: pulse-ring 3s ease-out infinite;
+}
+.logo-showcase::before { width: 380px; height: 380px; animation-delay: 0s; }
+.logo-showcase::after  { width: 440px; height: 440px; animation-delay: 1.5s; }
+.logo-showcase img {
+  width: 200px; height: 200px;
+  object-fit: contain; filter: drop-shadow(0 0 30px rgba(247,174,27,0.3));
+}
+.logo-orbit-badge {
+  position: absolute;
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 16px; border-radius: 50px;
+  background: rgba(7,14,26,0.9);
+  border: 1px solid var(--border2);
+  font-size: 0.78rem; font-weight: 800;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+}
+.lob-1 { top: 30px; right: -40px; color: var(--gold); }
+.lob-2 { bottom: 50px; right: -60px; color: var(--success); }
+.lob-3 { top: 50%; left: -70px; transform: translateY(-50%); color: #a78bfa; }
+
+@media(max-width:900px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+  .hero-desc { margin: 0 auto 36px; }
+  .hero-badges { justify-content: center; }
+  .hero-btns { justify-content: center; }
+  .logo-showcase { width: 240px; height: 240px; }
+  .logo-showcase::before { width: 300px; height: 300px; }
+  .logo-showcase::after { width: 360px; height: 360px; }
+  .logo-showcase img { width: 150px; height: 150px; }
+  .lob-1 { top: 10px; right: 10px; }
+  .lob-2 { bottom: 10px; right: 10px; }
+  .lob-3 { display: none; }
+}
+
+/* Feature Cards Row */
+.features-row {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px; margin-top: -50px; position: relative; z-index: 10;
+}
+@media(max-width:900px) { .features-row { grid-template-columns: 1fr 1fr; } }
+@media(max-width:500px) { .features-row { grid-template-columns: 1fr; } }
+
+.feat-card {
+  background: var(--grad-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.feat-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(247,174,27,0.04) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.feat-card:hover { transform: translateY(-6px); border-color: var(--border2); box-shadow: var(--shadow2); }
+.feat-card:hover::before { opacity: 1; }
+.feat-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin: 0 auto 14px;
+}
+.feat-card h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; }
+.feat-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+
+/* Steps section */
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 28px;
+}
+@media(max-width:768px) { .steps-grid { grid-template-columns: 1fr; } }
+.step-card {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 30px 24px;
+  text-align: center; position: relative;
+  transition: var(--transition);
+}
+.step-card:hover { transform: translateY(-5px); border-color: var(--border2); }
+.step-num {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--grad-gold);
+  color: #000; font-weight: 900; font-size: 1.3rem;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.step-card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; color: var(--text); }
+.step-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+
+/* Models tabs section */
+.models-tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 36px; }
+.model-tab {
+  padding: 10px 26px; border-radius: 50px;
+  border: 2px solid var(--border); background: transparent;
+  color: var(--muted); font-family: var(--font); font-weight: 800;
+  font-size: 0.9rem; transition: var(--transition); cursor: pointer;
+}
+.model-tab.active {
+  background: var(--grad-gold); color: #000; border-color: transparent;
+  box-shadow: 0 4px 16px rgba(247,174,27,0.35);
+}
+.model-tab:hover:not(.active) {
+  border-color: var(--border2); color: var(--gold);
+}
+.model-content { display: none; animation: fadeUp 0.4s ease; }
+.model-content.active { display: block; }
+
+.sections-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 18px;
+}
+@media(max-width:900px) { .sections-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:500px) { .sections-grid { grid-template-columns: 1fr; } }
+
+.sec-card {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 22px 18px;
+  text-align: center; transition: var(--transition);
+}
+.sec-card:hover { transform: translateY(-4px); border-color: var(--border2); box-shadow: var(--shadow2); }
+.sec-card .sc-icon { font-size: 2rem; margin-bottom: 12px; }
+.sec-card h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; }
+.sec-card .sc-qs { font-size: 0.78rem; color: var(--muted); }
+.sec-card .sc-bar { height: 4px; border-radius: 2px; margin-top: 14px; }
+
+/* Testimonials */
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 22px;
+}
+@media(max-width:768px) { .testimonials-grid { grid-template-columns: 1fr; } }
+.testi-card {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  transition: var(--transition);
+}
+.testi-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.testi-quote { font-size: 2.5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+.testi-text { color: var(--text2); font-size: 0.92rem; line-height: 1.8; margin-bottom: 16px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--grad-gold); color: #000;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 0.95rem; flex-shrink: 0;
+}
+.testi-name { font-weight: 800; font-size: 0.88rem; }
+.testi-score { font-size: 0.75rem; color: var(--success); font-weight: 700; }
+
+/* CTA section */
+#cta {
+  background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 50%, var(--navy-deep) 100%);
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  padding: 100px 0; text-align: center; position: relative; overflow: hidden;
+}
+#cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(247,174,27,0.07) 0%, transparent 60%);
+}
+#cta .container { position: relative; z-index: 1; }
+#cta h2 { font-size: clamp(2rem,4vw,3rem); font-weight: 900; margin-bottom: 16px; }
+#cta p { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto 36px; line-height: 1.8; }
+.cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker-bar" role="marquee">
+  <div class="ticker-track">
+    <span class="ticker-item">🎯 اختبار STEP 2026 — استعد الآن</span>
+    <span class="ticker-item">📚 100 سؤال تفاعلي للنموذجين 51 و52</span>
+    <span class="ticker-item">⚡ تصحيح فوري مع شرح تفصيلي</span>
+    <span class="ticker-item">🏆 نتائج دقيقة + توصية بالدورة المثالية</span>
+    <span class="ticker-item">🎓 أكاديمية عايد — ثق في الخبرة</span>
+    <span class="ticker-item">📖 ملخصات Grammar + Reading + Vocabulary + Listening</span>
+    <span class="ticker-item">🌟 خطة مذاكرة قابلة للمشاركة</span>
+    <!-- duplicate for loop -->
+    <span class="ticker-item">🎯 اختبار STEP 2026 — استعد الآن</span>
+    <span class="ticker-item">📚 100 سؤال تفاعلي للنموذجين 51 و52</span>
+    <span class="ticker-item">⚡ تصحيح فوري مع شرح تفصيلي</span>
+    <span class="ticker-item">🏆 نتائج دقيقة + توصية بالدورة المثالية</span>
+    <span class="ticker-item">🎓 أكاديمية عايد — ثق في الخبرة</span>
+    <span class="ticker-item">📖 ملخصات Grammar + Reading + Vocabulary + Listening</span>
+    <span class="ticker-item">🌟 خطة مذاكرة قابلة للمشاركة</span>
+  </div>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="أكاديمية عايد" class="nav-logo-img"/>
+      <div class="nav-logo-text">
+        <div class="nav-logo-title">عايد | STEP 2026</div>
+        <div class="nav-logo-sub">أكاديمية عايد للغة الإنجليزية</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="summaries.html" class="nav-link"><i class="fas fa-book-open"></i> الملخصات</a>
+      <a href="quiz.html" class="nav-link"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="nav-link"><i class="fas fa-graduation-cap"></i> الدورات</a>
+    </div>
+    <a href="quiz.html" class="nav-cta btn-gold btn">
+      <i class="fas fa-play"></i> ابدأ الاختبار
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="القائمة">
+      <i class="fas fa-bars" id="navIcon"></i>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a>
+    <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
+    <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار التجريبي</a>
+    <a href="https://studentservices241445-rgb.github.io/STEP-2030/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero" aria-label="القسم الرئيسي">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Content -->
+      <div>
+        <div class="hero-badges">
+          <span class="badge badge-gold"><i class="fas fa-star"></i> STEP 2026</span>
+          <span class="badge badge-navy"><i class="fas fa-shield-alt"></i> نماذج 51 & 52</span>
+          <span class="badge badge-success"><i class="fas fa-check-circle"></i> 100% قانوني</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="line-white">استعد لـ STEP 2026</span>
+          <span class="line-gold">مع أكاديمية عايد</span>
+          <span class="line-muted">AYED ACADEMY — النموذجان 51 & 52</span>
+        </h1>
+        <p class="hero-desc">
+          أقوى منصة تحضيرية لاختبار <strong>STEP 2026</strong> — ملخصات احترافية لأربعة أقسام،
+          <strong>100 سؤال تفاعلي</strong> يحاكي أسلوب STEP الحديث، تصحيح فوري، نتائج تفصيلية،
+          وتوصية ذكية بالدورة المناسبة من متجر الأكاديمية.
+        </p>
+        <div class="hero-btns">
+          <a href="quiz.html" class="btn btn-gold btn-lg">
+            <i class="fas fa-play-circle"></i> ابدأ الاختبار الآن
+          </a>
+          <a href="summaries.html" class="btn btn-outline btn-lg">
+            <i class="fas fa-book-open"></i> اقرأ الملخصات
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="h-stat">
+            <div class="sn">100</div>
+            <div class="sl">سؤال تفاعلي</div>
+          </div>
+          <div class="h-stat">
+            <div class="sn">4</div>
+            <div class="sl">أقسام مغطاة</div>
+          </div>
+          <div class="h-stat">
+            <div class="sn">2</div>
+            <div class="sl">نموذج (51&52)</div>
+          </div>
+          <div class="h-stat">
+            <div class="sn">∞</div>
+            <div class="sl">محاولات مجانية</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual: Logo Showcase -->
+      <div class="hero-visual">
+        <div class="logo-showcase">
+          <img src="images/logo.png" alt="شعار أكاديمية عايد"/>
+          <div class="logo-orbit-badge lob-1">
+            <i class="fas fa-trophy"></i> أكاديمية عايد
+          </div>
+          <div class="logo-orbit-badge lob-2">
+            <i class="fas fa-check-circle" style="color:var(--success)"></i> تصحيح فوري
+          </div>
+          <div class="logo-orbit-badge lob-3">
+            <i class="fas fa-chart-line" style="color:#a78bfa"></i> نتائج ذكية
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ROW ══ -->
+<div class="container">
+  <div class="features-row">
+    <div class="feat-card">
+      <div class="feat-icon icon-box-gold"><i class="fas fa-brain"></i></div>
+      <h3>تصحيح فوري</h3>
+      <p>اعرف إجابتك مباشرةً مع شرح وافٍ لكل سؤال</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon icon-box-navy"><i class="fas fa-chart-pie"></i></div>
+      <h3>نتائج تفصيلية</h3>
+      <p>تقرير شامل لكل قسم بعد الانتهاء من الاختبار</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(139,92,246,0.15);color:#a78bfa;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 14px"><i class="fas fa-graduation-cap"></i></div>
+      <h3>دورة موصى بها</h3>
+      <p>توصية ذكية بأنسب دورة من متجر أكاديمية عايد</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon icon-box-teal"><i class="fas fa-share-alt"></i></div>
+      <h3>خطة قابلة للمشاركة</h3>
+      <p>شارك خطة مذاكرتك عبر واتساب وتيليجرام بضغطة</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HOW TO USE ══ -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow"><i class="fas fa-map-signs"></i> كيف تستخدم المنصة؟</div>
+      <h2 class="section-title">ثلاث خطوات <span class="highlight">للنجاح</span></h2>
+      <p class="section-desc">رحلتك نحو اجتياز STEP 2026 تبدأ هنا، وهي أبسط مما تتصور</p>
+      <div class="divider"></div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">١</div>
+        <h3>🎯 ادرس الملخصات</h3>
+        <p>راجع الملخصات الاحترافية لأقسام Grammar وReading وVocabulary وListening المصممة خصيصًا لنماذج STEP 51 و52.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">٢</div>
+        <h3>📝 حل الاختبار</h3>
+        <p>أجب على 100 سؤال تفاعلي بأسلوب STEP الحديث. احصل على تصحيح فوري وشرح لكل إجابة ولا تترك سؤالًا دون فهم.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">٣</div>
+        <h3>📈 طور نفسك</h3>
+        <p>اطّلع على نتيجتك التفصيلية، واشترك في الدورة الموصى بها واتبع خطة المذاكرة المخصصة لمستواك.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MODELS SECTIONS ══ -->
+<section class="section" id="models" style="background:var(--bg2);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow"><i class="fas fa-layer-group"></i> محتوى الاختبار</div>
+      <h2 class="section-title">النموذجان <span class="highlight">51 & 52</span></h2>
+      <p class="section-desc">اختر النموذج وتعرّف على أقسامه وعدد أسئلته وتوزيع الدرجات</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="models-tabs" role="tablist">
+      <button class="model-tab active" onclick="switchModel('m51')" role="tab" id="tab-m51">
+        <i class="fas fa-file-alt"></i> النموذج 51
+      </button>
+      <button class="model-tab" onclick="switchModel('m52')" role="tab" id="tab-m52">
+        <i class="fas fa-file-alt"></i> النموذج 52
+      </button>
+    </div>
+
+    <div id="m51" class="model-content active">
+      <div class="sections-grid">
+        <div class="sec-card">
+          <div class="sc-icon">📖</div>
+          <h3>Reading Comprehension</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--info),#60a5fa);"></div>
+        </div>
+        <div class="sec-card">
+          <div class="sc-icon">✏️</div>
+          <h3>Grammar & Structure</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--gold),var(--gold-pale));"></div>
+        </div>
+        <div class="sec-card">
+          <div class="sc-icon">📝</div>
+          <h3>Vocabulary in Context</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--success),#4ade80);"></div>
+        </div>
+        <div class="sec-card">
+          <div class="sc-icon">🎧</div>
+          <h3>Listening Comprehension</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--purple),#c084fc);"></div>
+        </div>
+      </div>
+      <div class="alert alert-gold" style="margin-top:24px;">
+        <i class="fas fa-info-circle fa-lg"></i>
+        <span>النموذج 51 يُركّز على قواعد اللغة المتقدمة والفهم القرائي الأكاديمي. مستوى الصعوبة: متوسط إلى متقدم.</span>
+      </div>
+    </div>
+
+    <div id="m52" class="model-content">
+      <div class="sections-grid">
+        <div class="sec-card">
+          <div class="sc-icon">📖</div>
+          <h3>Reading Comprehension</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--info),#60a5fa);"></div>
+        </div>
+        <div class="sec-card">
+          <div class="sc-icon">✏️</div>
+          <h3>Grammar & Structure</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--gold),var(--gold-pale));"></div>
+        </div>
+        <div class="sec-card">
+          <div class="sc-icon">📝</div>
+          <h3>Vocabulary in Context</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--success),#4ade80);"></div>
+        </div>
+        <div class="sec-card">
+          <div class="sc-icon">🎧</div>
+          <h3>Listening Comprehension</h3>
+          <div class="sc-qs">25 سؤالًا • 25 درجة</div>
+          <div class="sc-bar" style="background:linear-gradient(90deg,var(--purple),#c084fc);"></div>
+        </div>
+      </div>
+      <div class="alert alert-gold" style="margin-top:24px;">
+        <i class="fas fa-info-circle fa-lg"></i>
+        <span>النموذج 52 يُركّز على المفردات في السياق واستيعاب النصوص الأكاديمية. مستوى الصعوبة: متوسط إلى متقدم.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QURAN ══ -->
+<section class="section-sm">
+  <div class="container">
+    <div class="grid-2" style="gap:24px;">
+      <div class="quran-block">
+        <div class="qt">﴿ يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ ﴾</div>
+        <div class="qr">سورة المجادلة — الآية 11</div>
+      </div>
+      <div class="quran-block">
+        <div class="qt">" طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ "</div>
+        <div class="qr">حديث شريف — رواه ابن ماجه</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="section" id="testimonials" style="background:var(--bg2);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow"><i class="fas fa-comments"></i> آراء الطلاب</div>
+      <h2 class="section-title">ماذا قال <span class="highlight">طلابنا؟</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">المنصة غيّرت طريقة مذاكرتي تمامًا. الأسئلة التفاعلية وشرح الإجابات ساعدني أفهم أخطائي وأصحّحها قبل يوم الاختبار.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">س</div>
+          <div>
+            <div class="testi-name">سارة العتيبي</div>
+            <div class="testi-score">✅ نجحت في STEP 2025 بامتياز</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">التوصية الذكية بالدورة كانت دقيقة جدًا — اشتركت في الدورة المتوسطة وفعلًا كانت مناسبة لمستواي تمامًا.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">م</div>
+          <div>
+            <div class="testi-name">محمد القحطاني</div>
+            <div class="testi-score">⭐ درجة 85/100 في STEP</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">الملخصات مختصرة ومركّزة والأسئلة تحاكي الاختبار الحقيقي. خطة المذاكرة ساعدتني أنظّم وقتي خلال الأسبوعين الأخيرين.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ن</div>
+          <div>
+            <div class="testi-name">نورة الشمري</div>
+            <div class="testi-score">🏆 المرتبة الأولى في دفعتها</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section id="cta">
+  <div class="container">
+    <div class="section-eyebrow" style="margin:0 auto 20px;display:table;">
+      <i class="fas fa-rocket"></i> ابدأ رحلتك الآن
+    </div>
+    <h2>جاهز لتحقيق <span style="background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">أعلى درجة</span>؟</h2>
+    <p>لا تؤجّل نجاحك — ابدأ الاختبار التجريبي الآن واكتشف مستواك الحقيقي ثم اشترك في الدورة المناسبة.</p>
+    <div class="cta-btns">
+      <a href="quiz.html" class="btn btn-gold btn-xl">
+        <i class="fas fa-play-circle"></i> ابدأ الاختبار مجانًا
+      </a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="btn btn-outline btn-xl">
+        <i class="fas fa-graduation-cap"></i> استعرض الدورات
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <img src="images/logo.png" alt="أكاديمية عايد" class="footer-logo-img"/>
+          <div class="footer-logo-text">
+            <div class="footer-logo-title">أكاديمية عايد</div>
+            <div style="font-size:0.72rem;color:var(--muted)">AYED ACADEMY</div>
+          </div>
+        </div>
+        <p>منصة تعليمية متخصصة في تحضير اختبارات الكفاءة اللغوية الإنجليزية. نقدم أقوى تجميعات نماذج STEP 2026 مع تصحيح فوري وتوصيات ذكية.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">روابط سريعة</div>
+        <div class="footer-links">
+          <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+          <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
+          <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار التجريبي</a>
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">تواصل معنا</div>
+        <div class="footer-links">
+          <a href="https://wa.me/966500000000" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+          <a href="https://t.me/ayedacademy" target="_blank"><i class="fab fa-telegram"></i> تيليجرام</a>
+          <a href="https://twitter.com/ayedacademy" target="_blank"><i class="fab fa-twitter"></i> تويتر / X</a>
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank"><i class="fas fa-store"></i> متجر الأكاديمية</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 أكاديمية عايد — جميع الحقوق محفوظة | المحتوى أصيل 100%</p>
+      <div class="footer-social">
+        <a href="https://wa.me/966500000000" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/ayedacademy" target="_blank" class="social-btn"><i class="fab fa-telegram"></i></a>
+        <a href="https://twitter.com/ayedacademy" target="_blank" class="social-btn"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCROLL TOP ══ -->
+<button id="scrollTop" aria-label="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+// ── Navbar scroll ──
+const navbar = document.getElementById('navbar');
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ── Mobile nav ──
+document.getElementById('navToggle').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  const icon = document.getElementById('navIcon');
+  const open = menu.classList.toggle('open');
+  icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+
+// ── Model tabs ──
+function switchModel(id) {
+  document.querySelectorAll('.model-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.model-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ── Intersection animations ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feat-card, .step-card, .sec-card, .testi-card').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+  obs.observe(el);
+});
+</script>
+</body>
+</html>

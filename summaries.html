@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>الملخصات التعليمية — عايد | STEP 2026</title>
+<link rel="stylesheet" href="css/shared.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"/>
+<style>
+/* ── SUMMARIES EXCLUSIVE ── */
+
+/* Tab navigation */
+.sum-nav {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 48px;
+}
+.sum-tab {
+  display: flex; align-items: center; gap: 9px;
+  padding: 12px 26px; border-radius: 50px;
+  border: 2px solid var(--border); background: transparent;
+  color: var(--muted); font-family: var(--font); font-weight: 800;
+  font-size: 0.9rem; cursor: pointer; transition: var(--transition);
+}
+.sum-tab:hover { border-color: var(--border2); color: var(--text); background: var(--glass2); }
+.sum-tab.active { background: var(--grad-gold); color: #000; border-color: transparent; box-shadow: 0 6px 20px rgba(247,174,27,0.35); }
+.sum-tab .tab-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: currentColor; flex-shrink: 0;
+}
+
+/* Panel */
+.sum-panel { display: none; animation: fadeUp 0.4s ease; }
+.sum-panel.active { display: block; }
+
+/* Lesson card */
+.lesson-card {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  margin-bottom: 20px; transition: border-color 0.3s;
+}
+.lesson-card:hover { border-color: var(--border2); }
+.lesson-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px; cursor: pointer;
+  user-select: none;
+}
+.lesson-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.lesson-htext { flex: 1; }
+.lesson-title { font-weight: 900; font-size: 1rem; margin-bottom: 3px; }
+.lesson-meta { font-size: 0.78rem; color: var(--muted); }
+.lesson-toggle {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--glass2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 0.9rem;
+  transition: transform 0.3s, background 0.3s;
+  flex-shrink: 0;
+}
+.lesson-card.open .lesson-toggle { transform: rotate(180deg); background: var(--gold-glass); color: var(--gold); }
+.lesson-body {
+  display: none; padding: 0 24px 24px;
+}
+.lesson-card.open .lesson-body { display: block; }
+
+/* Content blocks */
+.content-block { margin-bottom: 28px; }
+.content-block h4 {
+  font-size: 0.92rem; font-weight: 900;
+  color: var(--gold); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.content-block p { font-size: 0.9rem; color: var(--text2); line-height: 1.85; }
+.rule-box {
+  background: rgba(247,174,27,0.06);
+  border: 1px solid rgba(247,174,27,0.2);
+  border-right: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+}
+.rule-box .rule-en {
+  font-size: 1rem; font-weight: 700; color: var(--gold-pale);
+  margin-bottom: 4px; direction: ltr; text-align: left;
+}
+.rule-box .rule-ar { font-size: 0.85rem; color: var(--muted); }
+.example-box {
+  background: rgba(59,130,246,0.06);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin: 8px 0;
+}
+.example-box .ex-en {
+  font-size: 0.95rem; color: #93c5fd; font-weight: 700;
+  direction: ltr; text-align: left; margin-bottom: 4px;
+}
+.example-box .ex-ar { font-size: 0.82rem; color: var(--muted); }
+.tip-box {
+  background: var(--success-bg);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex; gap: 10px;
+  font-size: 0.88rem; color: #86efac; margin: 10px 0;
+}
+.vocab-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px; margin-top: 12px;
+}
+.vocab-item {
+  background: var(--glass2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+}
+.vocab-item .vi-word { font-weight: 800; color: var(--gold-pale); font-size: 0.9rem; direction: ltr; }
+.vocab-item .vi-type { font-size: 0.68rem; color: var(--purple); font-weight: 700; margin-bottom: 4px; }
+.vocab-item .vi-def { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+/* Summary bar (overview cards) */
+.sum-overview {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 18px; margin-bottom: 40px;
+}
+@media(max-width:900px) { .sum-overview { grid-template-columns: 1fr 1fr; } }
+@media(max-width:500px) { .sum-overview { grid-template-columns: 1fr; } }
+.ov-card {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 18px; text-align: center;
+  cursor: pointer; transition: var(--transition);
+}
+.ov-card:hover, .ov-card.active { border-color: var(--border2); transform: translateY(-4px); box-shadow: var(--shadow2); }
+.ov-card.active { background: var(--gold-glass); }
+.ov-icon { font-size: 2.2rem; margin-bottom: 10px; }
+.ov-title { font-weight: 900; font-size: 0.9rem; margin-bottom: 4px; }
+.ov-sub { font-size: 0.72rem; color: var(--muted); }
+.ov-badge {
+  display: inline-block; margin-top: 8px;
+  padding: 3px 10px; border-radius: 50px;
+  font-size: 0.68rem; font-weight: 800;
+}
+
+/* Progress tracker */
+.progress-tracker {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  margin-bottom: 32px;
+}
+.pt-title { font-weight: 900; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.pt-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+}
+@media(max-width:600px) { .pt-grid { grid-template-columns: 1fr 1fr; } }
+.pt-item { text-align: center; }
+.pt-num { font-size: 1.5rem; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+.pt-label { font-size: 0.72rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="ticker-item">📚 ملخصات STEP 2026 — Grammar & Reading & Vocabulary & Listening</span>
+    <span class="ticker-item">🎯 كل قسم مشروح بالأمثلة والقواعد والاستراتيجيات</span>
+    <span class="ticker-item">⚡ راجع الملخصات ثم ابدأ الاختبار التجريبي</span>
+    <span class="ticker-item">🏆 أكاديمية عايد — ثق في الخبرة</span>
+    <span class="ticker-item">📚 ملخصات STEP 2026 — Grammar & Reading & Vocabulary & Listening</span>
+    <span class="ticker-item">🎯 كل قسم مشروح بالأمثلة والقواعد والاستراتيجيات</span>
+    <span class="ticker-item">⚡ راجع الملخصات ثم ابدأ الاختبار التجريبي</span>
+    <span class="ticker-item">🏆 أكاديمية عايد — ثق في الخبرة</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="أكاديمية عايد" class="nav-logo-img"/>
+      <div class="nav-logo-text">
+        <div class="nav-logo-title">عايد | STEP 2026</div>
+        <div class="nav-logo-sub">أكاديمية عايد للغة الإنجليزية</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="summaries.html" class="nav-link active"><i class="fas fa-book-open"></i> الملخصات</a>
+      <a href="quiz.html" class="nav-link"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="nav-link"><i class="fas fa-graduation-cap"></i> الدورات</a>
+    </div>
+    <a href="quiz.html" class="nav-cta btn btn-gold">
+      <i class="fas fa-play"></i> ابدأ الاختبار
+    </a>
+    <button class="nav-toggle" id="navToggle"><i class="fas fa-bars" id="navIcon"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+    <a href="summaries.html" class="active"><i class="fas fa-book-open"></i> الملخصات</a>
+    <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+    <a href="https://studentservices241445-rgb.github.io/STEP-2030/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+      <span><i class="fas fa-chevron-left"></i></span>
+      <span>الملخصات التعليمية</span>
+    </div>
+    <h1 class="page-hero-title">
+      الملخصات التعليمية<br><span class="gold">STEP 2026</span>
+    </h1>
+    <p class="page-hero-desc">
+      ملخصات احترافية لأربعة أقسام مع قواعد مفصّلة وأمثلة واستراتيجيات حل الأسئلة
+    </p>
+    <a href="quiz.html" class="btn btn-gold btn-lg">
+      <i class="fas fa-play-circle"></i> انتهيت من الملخصات؟ اختبر نفسك
+    </a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="section">
+  <div class="container">
+
+    <!-- Overview cards -->
+    <div class="sum-overview">
+      <div class="ov-card active" onclick="showPanel('grammar')">
+        <div class="ov-icon">✏️</div>
+        <div class="ov-title">Grammar</div>
+        <div class="ov-sub">القواعد النحوية</div>
+        <div class="ov-badge badge badge-gold">8 دروس</div>
+      </div>
+      <div class="ov-card" onclick="showPanel('reading')">
+        <div class="ov-icon">📖</div>
+        <div class="ov-title">Reading</div>
+        <div class="ov-sub">الفهم القرائي</div>
+        <div class="ov-badge badge badge-navy">6 استراتيجيات</div>
+      </div>
+      <div class="ov-card" onclick="showPanel('vocabulary')">
+        <div class="ov-icon">📝</div>
+        <div class="ov-title">Vocabulary</div>
+        <div class="ov-sub">المفردات في السياق</div>
+        <div class="ov-badge badge badge-success">120+ كلمة</div>
+      </div>
+      <div class="ov-card" onclick="showPanel('listening')">
+        <div class="ov-icon">🎧</div>
+        <div class="ov-title">Listening</div>
+        <div class="ov-sub">مهارات الاستماع</div>
+        <div class="ov-badge badge badge-purple">5 استراتيجيات</div>
+      </div>
+    </div>
+
+    <!-- Tab nav -->
+    <div class="sum-nav">
+      <button class="sum-tab active" onclick="showPanel('grammar')">
+        <div class="tab-dot"></div> ✏️ Grammar
+      </button>
+      <button class="sum-tab" onclick="showPanel('reading')">
+        <div class="tab-dot"></div> 📖 Reading
+      </button>
+      <button class="sum-tab" onclick="showPanel('vocabulary')">
+        <div class="tab-dot"></div> 📝 Vocabulary
+      </button>
+      <button class="sum-tab" onclick="showPanel('listening')">
+        <div class="tab-dot"></div> 🎧 Listening
+      </button>
+    </div>
+
+    <!-- ══════════ GRAMMAR PANEL ══════════ -->
+    <div id="panel-grammar" class="sum-panel active">
+      <div class="alert alert-gold" style="margin-bottom:28px;">
+        <i class="fas fa-lightbulb fa-lg"></i>
+        <span><strong>نصيحة STEP:</strong> قسم Grammar يقيس فهمك للقواعد النحوية في سياق جمل مكتملة. ركّز على الأزمنة والمطابقة والجمل الشرطية.</span>
+      </div>
+
+      <!-- Tenses -->
+      <div class="lesson-card open">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-gold"><i class="fas fa-clock"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">الأزمنة — Verb Tenses</div>
+            <div class="lesson-meta">أهم موضوع في Grammar • يظهر في كل اختبار STEP</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> الأزمنة الأساسية المُختبَرة في STEP</h4>
+            <div class="rule-box">
+              <div class="rule-en">Present Perfect: have/has + past participle</div>
+              <div class="rule-ar">يُستخدم لحدث بدأ في الماضي وما زال مستمرًا أو له أثر في الحاضر</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">She has worked here for five years.</div>
+              <div class="ex-ar">هي تعمل هنا منذ خمس سنوات (وما زالت)</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Past Perfect: had + past participle</div>
+              <div class="rule-ar">يُستخدم لحدث اكتمل قبل حدث آخر في الماضي</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">By the time he arrived, they had already left.</div>
+              <div class="ex-ar">بحلول وقت وصوله، كانوا قد غادروا بالفعل</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Future Perfect: will have + past participle</div>
+              <div class="rule-ar">يُستخدم لحدث سيكتمل قبل وقت معين في المستقبل</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">By next year, she will have graduated.</div>
+              <div class="ex-ar">بحلول العام القادم، ستكون قد تخرّجت</div>
+            </div>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>نصيحة: ابحث عن الكلمات الدالة مثل: already, yet, since, for, by the time, before, after</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subject-Verb Agreement -->
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon" style="background:rgba(59,130,246,0.15);color:#60a5fa;width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-link"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Subject-Verb Agreement — المطابقة</div>
+            <div class="lesson-meta">مطابقة الفعل مع الفاعل • من أكثر الأخطاء شيوعًا</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> القواعد الأساسية</h4>
+            <div class="rule-box">
+              <div class="rule-en">Singular subject → singular verb (adds -s/-es)</div>
+              <div class="rule-ar">الفاعل المفرد يستلزم فعلًا مفردًا (يضاف له -s/-es)</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">The student studies every day. / The students study every day.</div>
+              <div class="ex-ar">الطالب يدرس / الطلاب يدرسون</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Collective nouns (team, family, committee) → singular verb (in American English)</div>
+              <div class="rule-ar">أسماء المجموعات تأخذ فعلًا مفردًا في الإنجليزية الأمريكية</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">The team <strong>is</strong> ready. / Neither the teacher nor the students <strong>were</strong> present.</div>
+              <div class="ex-ar">الفريق جاهز / لا المعلم ولا الطلاب كانوا حاضرين</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Either...or / Neither...nor → verb agrees with the nearest subject</div>
+              <div class="rule-ar">مع either/or و neither/nor، الفعل يطابق الفاعل الأقرب إليه</div>
+            </div>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>مع الجمل الطويلة تجاهل العبارات المعترضة بين الفاعل والفعل وركّز على الفاعل الرئيسي</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conditionals -->
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-success"><i class="fas fa-code-branch"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Conditionals — الجمل الشرطية</div>
+            <div class="lesson-meta">الأنواع الأربعة • كثيرة الظهور في STEP</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> أنواع الجمل الشرطية</h4>
+            <div class="rule-box">
+              <div class="rule-en">Zero Conditional: If + present simple, present simple (general truths)</div>
+              <div class="rule-ar">الشرط الصفري: حقائق عامة وعلمية</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">If you heat water to 100°C, it boils.</div>
+              <div class="ex-ar">إذا سخّنت الماء إلى 100 درجة، فإنه يغلي</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">First Conditional: If + present simple, will + base verb (real future)</div>
+              <div class="rule-ar">الشرط الأول: موقف حقيقي محتمل في المستقبل</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">If it rains tomorrow, we will cancel the trip.</div>
+              <div class="ex-ar">إذا أمطرت غدًا، سنلغي الرحلة</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Second Conditional: If + past simple, would + base verb (unreal present)</div>
+              <div class="rule-ar">الشرط الثاني: موقف خيالي أو غير واقعي في الحاضر</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">If I had more time, I would study harder.</div>
+              <div class="ex-ar">لو كان لديّ وقت أكثر، لدرستُ بجد أكبر</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Third Conditional: If + past perfect, would have + past participle (unreal past)</div>
+              <div class="rule-ar">الشرط الثالث: موقف خيالي في الماضي (لم يحدث)</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">If she had studied, she would have passed.</div>
+              <div class="ex-ar">لو كانت قد درست، لكانت قد نجحت</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passive Voice -->
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-purple"><i class="fas fa-exchange-alt"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Passive Voice — المبني للمجهول</div>
+            <div class="lesson-meta">تحويل الجمل الفاعلية للمجهولية</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> صيغة المبني للمجهول</h4>
+            <div class="rule-box">
+              <div class="rule-en">Structure: Object + be (correct tense) + past participle + (by + agent)</div>
+              <div class="rule-ar">البنية: المفعول به + الفعل المساعد + التصريف الثالث + (بواسطة + الفاعل)</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">Active: The teacher explains the lesson. → Passive: The lesson is explained by the teacher.</div>
+              <div class="ex-ar">المعلم يشرح الدرس ← الدرس يُشرح من قِبَل المعلم</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">Active: They built the bridge in 1990. → Passive: The bridge was built in 1990.</div>
+              <div class="ex-ar">بنوا الجسر عام 1990 ← بُني الجسر عام 1990</div>
+            </div>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>في STEP، ركّز على تحديد الزمن الصحيح لـ "be" حسب زمن الجملة الأصلية</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles & Determiners -->
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-teal"><i class="fas fa-tag"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Articles & Determiners — أدوات التعريف والتنكير</div>
+            <div class="lesson-meta">a / an / the — من الأسئلة المتكررة في STEP</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> متى تستخدم كل أداة؟</h4>
+            <div class="rule-box">
+              <div class="rule-en">"a" → before consonant sounds | "an" → before vowel sounds</div>
+              <div class="rule-ar">a قبل الأصوات الساكنة | an قبل الأصوات المتحركة (وليس الحروف فقط)</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">a university (يو - صوت ساكن) | an umbrella (أ - صوت متحرك) | an hour (الـh صامتة)</div>
+              <div class="ex-ar">جامعة / مظلة / ساعة (الـh صامتة لذا نستخدم an)</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">"the" → specific/unique things, second mention, superlatives, geographical names</div>
+              <div class="rule-ar">the للأشياء المحددة، الفريدة، الثانية ذكرًا، التفضيل، الأسماء الجغرافية</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">No article → plural general nouns, uncountable nouns in general statements</div>
+              <div class="rule-ar">بدون أداة للجمع العام والأسماء غير المعدودة في الجمل العامة</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">Water is essential. / The water in this bottle is cold.</div>
+              <div class="ex-ar">الماء ضروري (عام) / الماء في هذه الزجاجة بارد (محدد)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Relative Clauses -->
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-gold"><i class="fas fa-project-diagram"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Relative Clauses — الجمل الوصفية</div>
+            <div class="lesson-meta">who / which / that / whose / whom</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> أدوات الوصل ومتى تُستخدم</h4>
+            <div class="rule-box">
+              <div class="rule-en">who → for people (subject) | whom → for people (object) | whose → for possession</div>
+              <div class="rule-ar">who للأشخاص (فاعل) | whom للأشخاص (مفعول) | whose للملكية</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">which → for things/animals | that → for people and things (defining only)</div>
+              <div class="rule-ar">which للأشياء والحيوانات | that للأشخاص والأشياء (في الجمل التعريفية فقط)</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">The professor who teaches biology is brilliant. / The book that I read was fascinating.</div>
+              <div class="ex-ar">الأستاذ الذي يدرّس الأحياء بارع / الكتاب الذي قرأته كان رائعًا</div>
+            </div>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>الفرق بين Defining (بدون فاصلة) وNon-defining (مع فاصلة): "My sister, who lives in Riyadh, is a doctor."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon" style="background:rgba(239,68,68,0.12);color:#f87171;width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-sliders-h"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Modal Verbs — الأفعال المساعدة الوجهية</div>
+            <div class="lesson-meta">can / could / should / must / may / might / will / would</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> دلالات كل فعل مساعد</h4>
+            <div class="rule-box">
+              <div class="rule-en">must → strong obligation/certainty | should → advice/recommendation | can → ability/permission</div>
+              <div class="rule-ar">must للإلزام القوي/اليقين | should للنصيحة | can للقدرة/الإذن</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">might/may → possibility (weak) | could → past ability / polite possibility</div>
+              <div class="rule-ar">might/may للاحتمال الضعيف | could للقدرة في الماضي أو الاحتمال المؤدب</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">She <strong>must</strong> be tired. (certainty) / You <strong>should</strong> rest. (advice) / It <strong>might</strong> rain. (possibility)</div>
+              <div class="ex-ar">يجب أن تكون متعبة / يجب أن ترتاح / ربما تمطر</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Modal + have + p.p. = past modality: should have studied, could have done, must have forgotten</div>
+              <div class="rule-ar">Modal + have + التصريف الثالث = الأفعال الوجهية في الماضي</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gerunds & Infinitives -->
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-navy"><i class="fas fa-infinity"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Gerunds & Infinitives — المصدر والمصدر المضاف</div>
+            <div class="lesson-meta">to + verb vs verb + -ing</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> متى تستخدم Gerund (-ing)؟</h4>
+            <div class="rule-box">
+              <div class="rule-en">After: enjoy, avoid, finish, consider, suggest, practice, mind, keep, recommend, deny</div>
+              <div class="rule-ar">بعد هذه الأفعال يأتي الـ Gerund دائمًا</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">She enjoys reading. / He avoided making mistakes.</div>
+              <div class="ex-ar">هي تستمتع بالقراءة / هو تجنّب ارتكاب الأخطاء</div>
+            </div>
+            <h4 style="margin-top:16px;"><i class="fas fa-bookmark"></i> متى تستخدم Infinitive (to + verb)؟</h4>
+            <div class="rule-box">
+              <div class="rule-en">After: want, hope, decide, plan, promise, need, expect, agree, refuse, manage, afford</div>
+              <div class="rule-ar">بعد هذه الأفعال يأتي الـ Infinitive دائمًا</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">She wants to travel. / He managed to finish on time.</div>
+              <div class="ex-ar">هي تريد السفر / هو تمكّن من الإنهاء في الوقت</div>
+            </div>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>بعض الأفعال تقبل الاثنين بمعنى مختلف: stop doing (توقف عن) | stop to do (توقف لأجل)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:36px;">
+        <a href="quiz.html?section=grammar" class="btn btn-gold btn-lg">
+          <i class="fas fa-pen-fancy"></i> اختبر نفسك في Grammar
+        </a>
+      </div>
+    </div>
+
+    <!-- ══════════ READING PANEL ══════════ -->
+    <div id="panel-reading" class="sum-panel">
+      <div class="alert alert-gold" style="margin-bottom:28px;">
+        <i class="fas fa-lightbulb fa-lg"></i>
+        <span><strong>نصيحة STEP:</strong> قسم Reading يتطلب فهم النصوص الأكاديمية بسرعة. تدرّب على تحديد الفكرة الرئيسية وتفاصيل محددة والاستنتاج.</span>
+      </div>
+
+      <div class="lesson-card open">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-navy"><i class="fas fa-search"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Skimming & Scanning — التصفّح السريع والبحث</div>
+            <div class="lesson-meta">أساس الفهم القرائي السريع</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> Skimming (التصفّح السريع)</h4>
+            <div class="rule-box">
+              <div class="rule-en">Reading quickly to get the general idea / main topic</div>
+              <div class="rule-ar">القراءة السريعة للحصول على الفكرة العامة / الموضوع الرئيسي</div>
+            </div>
+            <p>اقرأ العنوان، والجملة الأولى من كل فقرة، والجملة الأخيرة من النص. هذا يعطيك 70% من المعنى في 20% من الوقت.</p>
+            <h4 style="margin-top:16px;"><i class="fas fa-bookmark"></i> Scanning (البحث المحدد)</h4>
+            <div class="rule-box">
+              <div class="rule-en">Reading to find specific information: names, dates, numbers, keywords</div>
+              <div class="rule-ar">القراءة للبحث عن معلومة محددة: أسماء، تواريخ، أرقام، كلمات مفتاحية</div>
+            </div>
+            <p>حرّك عينيك بسرعة كالمسح الضوئي حتى تجد الكلمة المطلوبة، ثم توقف واقرأ بعنايةقائمة السياق المحيط.</p>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>في STEP: اقرأ السؤال أولًا، ثم عد للنص وابحث عن الإجابة. لا تقرأ كل كلمة!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-gold"><i class="fas fa-lightbulb"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Main Idea & Supporting Details — الفكرة الرئيسية والتفاصيل</div>
+            <div class="lesson-meta">أكثر نوع أسئلة شيوعًا في Reading</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> كيف تجد الفكرة الرئيسية؟</h4>
+            <p>الفكرة الرئيسية (Topic Sentence) عادةً في أول الفقرة أو آخرها. تجيب على سؤال "ما موضوع هذه الفقرة بشكل عام؟"</p>
+            <div class="rule-box">
+              <div class="rule-en">Main Idea = Topic + What the author says about it</div>
+              <div class="rule-ar">الفكرة الرئيسية = الموضوع + ما يقوله الكاتب عنه</div>
+            </div>
+            <h4 style="margin-top:16px;"><i class="fas fa-bookmark"></i> أنواع أسئلة Reading في STEP</h4>
+            <div class="vocab-grid">
+              <div class="vocab-item">
+                <div class="vi-word">Main Idea</div>
+                <div class="vi-type">Most Common</div>
+                <div class="vi-def">ما الفكرة الرئيسية للفقرة/النص؟</div>
+              </div>
+              <div class="vocab-item">
+                <div class="vi-word">Detail Questions</div>
+                <div class="vi-type">Specific Info</div>
+                <div class="vi-def">أسئلة عن معلومة محددة في النص</div>
+              </div>
+              <div class="vocab-item">
+                <div class="vi-word">Inference</div>
+                <div class="vi-type">Implied Meaning</div>
+                <div class="vi-def">ما الذي يمكن الاستنتاج من النص؟</div>
+              </div>
+              <div class="vocab-item">
+                <div class="vi-word">Vocabulary</div>
+                <div class="vi-type">Context Clues</div>
+                <div class="vi-def">ما معنى الكلمة X في السياق؟</div>
+              </div>
+              <div class="vocab-item">
+                <div class="vi-word">Author's Purpose</div>
+                <div class="vi-type">Purpose</div>
+                <div class="vi-def">لماذا كتب الكاتب هذا النص؟</div>
+              </div>
+              <div class="vocab-item">
+                <div class="vi-word">Tone & Attitude</div>
+                <div class="vi-type">Tone</div>
+                <div class="vi-def">ما نبرة الكاتب؟ (محايد/ناقد/داعم)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-success"><i class="fas fa-brain"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Inference & Implied Meaning — الاستنتاج</div>
+            <div class="lesson-meta">الأسئلة التي لا تجد إجابتها مكتوبة مباشرةً</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> كيف تُجيب على أسئلة الاستنتاج؟</h4>
+            <p>الاستنتاج هو معلومة غير مذكورة مباشرةً لكن يمكن تأكيدها من النص. لا تعتمد على معلوماتك السابقة، بل على ما في النص فقط.</p>
+            <div class="rule-box">
+              <div class="rule-en">Eliminate answers that are: directly stated, too broad, too specific, or not in the text</div>
+              <div class="rule-ar">استبعد الإجابات المذكورة مباشرةً، الفضفاضة جدًا، الدقيقة جدًا، أو غير الموجودة في النص</div>
+            </div>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>صيغة سؤال الاستنتاج: "It can be inferred that..." / "The passage implies that..." / "Which statement is most likely true?"</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:36px;">
+        <a href="quiz.html?section=reading" class="btn btn-gold btn-lg">
+          <i class="fas fa-pen-fancy"></i> اختبر نفسك في Reading
+        </a>
+      </div>
+    </div>
+
+    <!-- ══════════ VOCABULARY PANEL ══════════ -->
+    <div id="panel-vocabulary" class="sum-panel">
+      <div class="alert alert-gold" style="margin-bottom:28px;">
+        <i class="fas fa-lightbulb fa-lg"></i>
+        <span><strong>نصيحة STEP:</strong> قسم Vocabulary يختبر معنى الكلمة في سياقها، لا معناها العام. اقرأ الجملة كاملةً ثم اختر.</span>
+      </div>
+
+      <div class="lesson-card open">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-success"><i class="fas fa-search-plus"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Context Clues — سياق الكلمة</div>
+            <div class="lesson-meta">أهم استراتيجية في قسم Vocabulary</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> أنواع الدلائل السياقية</h4>
+            <div class="rule-box">
+              <div class="rule-en">Definition clue: The word is explained directly (is, means, refers to, that is, i.e.)</div>
+              <div class="rule-ar">دليل التعريف: الكلمة يُشرح معناها مباشرةً</div>
+            </div>
+            <div class="example-box">
+              <div class="ex-en">Photosynthesis, <strong>that is</strong>, the process by which plants make food, is vital.</div>
+              <div class="ex-ar">التركيب الضوئي، أي العملية التي تصنع فيها النباتات غذاءها، حيوي</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Contrast clue: Opposite idea using (but, however, although, unlike, on the other hand)</div>
+              <div class="rule-ar">دليل التناقض: الكلمة تعني عكس ما حولها</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Example clue: Examples given to explain the word (for example, such as, like, including)</div>
+              <div class="rule-ar">دليل المثال: أمثلة تشرح الكلمة</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-gold"><i class="fas fa-list"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Academic Vocabulary — المفردات الأكاديمية</div>
+            <div class="lesson-meta">أكثر 60 كلمة مهمة في STEP</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> مفردات أكاديمية أساسية</h4>
+            <div class="vocab-grid">
+              <div class="vocab-item"><div class="vi-word">Ambiguous</div><div class="vi-type">adj</div><div class="vi-def">غامض / يحتمل تفسيرات متعددة</div></div>
+              <div class="vocab-item"><div class="vi-word">Concise</div><div class="vi-type">adj</div><div class="vi-def">موجز / مختصر ودقيق</div></div>
+              <div class="vocab-item"><div class="vi-word">Elaborate</div><div class="vi-type">v/adj</div><div class="vi-def">يوضّح / مفصّل</div></div>
+              <div class="vocab-item"><div class="vi-word">Prevalent</div><div class="vi-type">adj</div><div class="vi-def">شائع / منتشر</div></div>
+              <div class="vocab-item"><div class="vi-word">Inevitable</div><div class="vi-type">adj</div><div class="vi-def">لا مفرّ منه / حتمي</div></div>
+              <div class="vocab-item"><div class="vi-word">Substantial</div><div class="vi-type">adj</div><div class="vi-def">كبير / ذو قيمة</div></div>
+              <div class="vocab-item"><div class="vi-word">Facilitate</div><div class="vi-type">v</div><div class="vi-def">يُسهّل / يُيسّر</div></div>
+              <div class="vocab-item"><div class="vi-word">Perceive</div><div class="vi-type">v</div><div class="vi-def">يُدرك / يَرى</div></div>
+              <div class="vocab-item"><div class="vi-word">Consistent</div><div class="vi-type">adj</div><div class="vi-def">متسق / ثابت</div></div>
+              <div class="vocab-item"><div class="vi-word">Adequate</div><div class="vi-type">adj</div><div class="vi-def">كافٍ / مناسب</div></div>
+              <div class="vocab-item"><div class="vi-word">Modify</div><div class="vi-type">v</div><div class="vi-def">يُعدّل / يُغيّر جزئيًا</div></div>
+              <div class="vocab-item"><div class="vi-word">Derive</div><div class="vi-type">v</div><div class="vi-def">يستمد / يشتق</div></div>
+              <div class="vocab-item"><div class="vi-word">Imply</div><div class="vi-type">v</div><div class="vi-def">يُلمّح / يستلزم</div></div>
+              <div class="vocab-item"><div class="vi-word">Enhance</div><div class="vi-type">v</div><div class="vi-def">يعزّز / يُحسّن</div></div>
+              <div class="vocab-item"><div class="vi-word">Rigid</div><div class="vi-type">adj</div><div class="vi-def">صارم / جامد</div></div>
+              <div class="vocab-item"><div class="vi-word">Reluctant</div><div class="vi-type">adj</div><div class="vi-def">متردد / مُحجم</div></div>
+              <div class="vocab-item"><div class="vi-word">Profound</div><div class="vi-type">adj</div><div class="vi-def">عميق / بالغ الأهمية</div></div>
+              <div class="vocab-item"><div class="vi-word">Acknowledge</div><div class="vi-type">v</div><div class="vi-def">يعترف / يُقرّ</div></div>
+              <div class="vocab-item"><div class="vi-word">Anticipate</div><div class="vi-type">v</div><div class="vi-def">يتوقع / يتنبأ</div></div>
+              <div class="vocab-item"><div class="vi-word">Controversy</div><div class="vi-type">n</div><div class="vi-def">جدل / خلاف</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-purple"><i class="fas fa-exchange-alt"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Synonyms & Antonyms — المترادفات والأضداد</div>
+            <div class="lesson-meta">أكثر من 40 زوجًا مهمًا</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> أزواج مترادفات مهمة</h4>
+            <div class="vocab-grid">
+              <div class="vocab-item"><div class="vi-word">Abundant = Plentiful</div><div class="vi-type">Synonyms</div><div class="vi-def">وفير / كثير</div></div>
+              <div class="vocab-item"><div class="vi-word">Conceal = Hide</div><div class="vi-type">Synonyms</div><div class="vi-def">يخفي / يكتم</div></div>
+              <div class="vocab-item"><div class="vi-word">Brave ≠ Cowardly</div><div class="vi-type">Antonyms</div><div class="vi-def">شجاع ≠ جبان</div></div>
+              <div class="vocab-item"><div class="vi-word">Expand ≠ Reduce</div><div class="vi-type">Antonyms</div><div class="vi-def">يوسّع ≠ يُقلّص</div></div>
+              <div class="vocab-item"><div class="vi-word">Trivial = Minor</div><div class="vi-type">Synonyms</div><div class="vi-def">تافه / بسيط</div></div>
+              <div class="vocab-item"><div class="vi-word">Vague ≠ Clear</div><div class="vi-type">Antonyms</div><div class="vi-def">غامض ≠ واضح</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:36px;">
+        <a href="quiz.html?section=vocabulary" class="btn btn-gold btn-lg">
+          <i class="fas fa-pen-fancy"></i> اختبر نفسك في Vocabulary
+        </a>
+      </div>
+    </div>
+
+    <!-- ══════════ LISTENING PANEL ══════════ -->
+    <div id="panel-listening" class="sum-panel">
+      <div class="alert alert-gold" style="margin-bottom:28px;">
+        <i class="fas fa-lightbulb fa-lg"></i>
+        <span><strong>نصيحة STEP:</strong> قسم Listening يختبر فهمك لمحادثات ونصوص مسموعة. ركّز على الفكرة الرئيسية والكلمات المفتاحية.</span>
+      </div>
+
+      <div class="lesson-card open">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-purple"><i class="fas fa-headphones"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">استراتيجيات الاستماع — Listening Strategies</div>
+            <div class="lesson-meta">كيف تحقق أعلى درجة في قسم Listening</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> قبل الاستماع</h4>
+            <div class="rule-box">
+              <div class="rule-en">Preview questions → predict what you'll hear → focus attention</div>
+              <div class="rule-ar">اقرأ الأسئلة أولًا ← توقّع ما ستسمعه ← وجّه انتباهك</div>
+            </div>
+            <h4 style="margin-top:16px;"><i class="fas fa-bookmark"></i> أثناء الاستماع</h4>
+            <div class="rule-box">
+              <div class="rule-en">Note keywords, numbers, names, and transitions (however, therefore, but, finally)</div>
+              <div class="rule-ar">دوّن الكلمات المفتاحية، الأرقام، الأسماء، وأدوات الربط</div>
+            </div>
+            <div class="tip-box">
+              <i class="fas fa-star"></i>
+              <span>في STEP، يُستخدم Listening بأسلوب محادثات قصيرة أو محاضرات أكاديمية. انتبه لـ: Who, What, Why, Where</span>
+            </div>
+            <h4 style="margin-top:16px;"><i class="fas fa-bookmark"></i> أنواع أسئلة Listening</h4>
+            <div class="vocab-grid">
+              <div class="vocab-item"><div class="vi-word">Main Topic</div><div class="vi-type">Most Common</div><div class="vi-def">ما الموضوع الرئيسي للمحادثة؟</div></div>
+              <div class="vocab-item"><div class="vi-word">Detail</div><div class="vi-type">Specific</div><div class="vi-def">ما الذي قاله المتحدث عن...؟</div></div>
+              <div class="vocab-item"><div class="vi-word">Inference</div><div class="vi-type">Implied</div><div class="vi-def">ماذا يُقصد بعبارة...؟</div></div>
+              <div class="vocab-item"><div class="vi-word">Purpose</div><div class="vi-type">Function</div><div class="vi-def">لماذا يقول المتحدث هذا؟</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-header" onclick="toggleLesson(this)">
+          <div class="lesson-icon icon-box-teal"><i class="fas fa-volume-up"></i></div>
+          <div class="lesson-htext">
+            <div class="lesson-title">Stress & Intonation — النبر والتنغيم</div>
+            <div class="lesson-meta">مفهوم مهم لفهم المعنى</div>
+          </div>
+          <div class="lesson-toggle"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="lesson-body">
+          <div class="content-block">
+            <h4><i class="fas fa-bookmark"></i> مفهوم Word Stress</h4>
+            <p>كل كلمة إنجليزية تتكون من مقاطع، أحدها ينطق بضغط أكبر (stress). الكلمات المتشابهة في الكتابة تختلف في النبر حسب الوظيفة النحوية.</p>
+            <div class="rule-box">
+              <div class="rule-en">record (noun, REcord) vs record (verb, reCORD) | present (noun) vs present (verb)</div>
+              <div class="rule-ar">كلمات تختلف نطقها بين الاسم والفعل</div>
+            </div>
+            <h4 style="margin-top:16px;"><i class="fas fa-bookmark"></i> Intonation (التنغيم)</h4>
+            <div class="rule-box">
+              <div class="rule-en">Rising intonation → yes/no questions, incomplete sentences, polite requests</div>
+              <div class="rule-ar">التنغيم الصاعد: الأسئلة المغلقة، الجمل غير المكتملة</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-en">Falling intonation → statements, wh-questions, commands</div>
+              <div class="rule-ar">التنغيم الهابط: الجمل التقريرية، أسئلة Wh، الأوامر</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:36px;">
+        <a href="quiz.html?section=listening" class="btn btn-gold btn-lg">
+          <i class="fas fa-pen-fancy"></i> اختبر نفسك في Listening
+        </a>
+      </div>
+    </div>
+
+    <!-- Call to action -->
+    <div style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));border:1px solid var(--border2);border-radius:var(--radius);padding:48px 36px;text-align:center;margin-top:60px;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(247,174,27,0.08),transparent);pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <div class="section-eyebrow" style="display:table;margin:0 auto 16px;">
+          <i class="fas fa-rocket"></i> الخطوة التالية
+        </div>
+        <h2 style="font-size:1.9rem;font-weight:900;margin-bottom:12px;">راجعت الملخصات؟ حان وقت التطبيق!</h2>
+        <p style="color:var(--muted);max-width:480px;margin:0 auto 28px;line-height:1.8;">الاختبار التجريبي يحتوي على 100 سؤال بأسلوب STEP الحديث مع تصحيح فوري وتوصية بالدورة المناسبة.</p>
+        <a href="quiz.html" class="btn btn-gold btn-xl">
+          <i class="fas fa-play-circle"></i> ابدأ الاختبار الآن
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <img src="images/logo.png" alt="أكاديمية عايد" class="footer-logo-img"/>
+          <div class="footer-logo-text">
+            <div class="footer-logo-title">أكاديمية عايد</div>
+            <div style="font-size:0.72rem;color:var(--muted)">AYED ACADEMY</div>
+          </div>
+        </div>
+        <p>منصة تعليمية متخصصة في تحضير اختبارات الكفاءة اللغوية الإنجليزية.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">روابط سريعة</div>
+        <div class="footer-links">
+          <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+          <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
+          <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">تواصل</div>
+        <div class="footer-links">
+          <a href="https://wa.me/966500000000" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+          <a href="https://t.me/ayedacademy" target="_blank"><i class="fab fa-telegram"></i> تيليجرام</a>
+          <a href="https://twitter.com/ayedacademy" target="_blank"><i class="fab fa-twitter"></i> تويتر</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 أكاديمية عايد — جميع الحقوق محفوظة</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" aria-label="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+// Navbar
+const navbar = document.getElementById('navbar');
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+document.getElementById('navToggle').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  const icon = document.getElementById('navIcon');
+  const open = menu.classList.toggle('open');
+  icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+
+// Panel switching
+function showPanel(name) {
+  document.querySelectorAll('.sum-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sum-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.ov-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.sum-tab');
+  const panelNames = ['grammar','reading','vocabulary','listening'];
+  const idx = panelNames.indexOf(name);
+  if (tabs[idx]) tabs[idx].classList.add('active');
+  const ovCards = document.querySelectorAll('.ov-card');
+  if (ovCards[idx]) ovCards[idx].classList.add('active');
+  window.scrollTo({ top: document.querySelector('.sum-nav').offsetTop - 120, behavior: 'smooth' });
+}
+
+// Lesson toggle
+function toggleLesson(header) {
+  const card = header.closest('.lesson-card');
+  card.classList.toggle('open');
+}
+
+// URL param to open panel
+const params = new URLSearchParams(window.location.search);
+const sec = params.get('section');
+if (sec && ['grammar','reading','vocabulary','listening'].includes(sec)) {
+  showPanel(sec);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>الاختبار التجريبي — عايد | STEP 2026</title>
+<link rel="stylesheet" href="css/shared.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"/>
+<style>
+/* ── QUIZ LAYOUT ── */
+.quiz-wrap { display: grid; grid-template-columns: 260px 1fr; gap: 28px; align-items: start; }
+@media(max-width:900px){ .quiz-wrap{grid-template-columns:1fr;} .quiz-sidebar{display:none;} }
+
+/* Sidebar */
+.quiz-sidebar {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+  position: sticky; top: 110px;
+}
+.qs-title { font-size:0.78rem; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:14px; }
+.sec-btn {
+  width:100%; display:flex; align-items:center; gap:10px;
+  padding:12px 14px; border-radius:var(--radius-sm);
+  border:1px solid var(--border); background:transparent;
+  color:var(--muted); font-family:var(--font); font-size:0.88rem; font-weight:700;
+  cursor:pointer; transition:var(--transition); margin-bottom:7px;
+}
+.sec-btn:hover { border-color:var(--border2); color:var(--text); background:var(--glass2); }
+.sec-btn.active { background:var(--grad-gold); color:#000; border-color:transparent; }
+.sec-btn.done { border-color:rgba(34,197,94,0.4); color:#4ade80; }
+.sec-btn.done.active { background:linear-gradient(135deg,#22c55e,#16a34a); color:#fff; }
+.sec-btn .sb-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.95rem; }
+.sec-btn.active .sb-icon { background:rgba(0,0,0,0.12); }
+.sec-score { font-size:0.72rem; margin-right:auto; font-weight:800; }
+
+.sb-divider { height:1px; background:var(--border); margin:14px 0; }
+.sb-timer {
+  text-align:center; padding:12px;
+  background:var(--glass); border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+}
+.sb-timer .t-label { font-size:0.7rem; color:var(--muted); margin-bottom:4px; }
+.sb-timer .t-val { font-size:1.5rem; font-weight:900; color:var(--gold); font-variant-numeric:tabular-nums; }
+.sb-progress { margin-top:14px; }
+.sb-progress .sp-row { display:flex; justify-content:space-between; font-size:0.74rem; color:var(--muted); margin-bottom:5px; }
+
+/* Header card */
+.q-header {
+  background:var(--grad-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px 24px; margin-bottom:22px;
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+}
+.qh-left { display:flex; align-items:center; gap:12px; }
+.qh-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.qh-title { font-size:1.15rem; font-weight:900; }
+.qh-sub { font-size:0.78rem; color:var(--muted); }
+.qh-right { display:flex; gap:16px; flex-wrap:wrap; }
+.qh-stat { text-align:center; }
+.qh-stat .qs-num { font-size:1.2rem; font-weight:900; color:var(--gold); line-height:1; }
+.qh-stat .qs-lbl { font-size:0.65rem; color:var(--muted); }
+
+/* Progress */
+.q-prog-row { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--muted); margin-bottom:6px; }
+
+/* Question card */
+.q-card {
+  background:var(--grad-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:28px;
+  margin-bottom:20px; animation:fadeUp 0.3s ease;
+  transition:border-color 0.3s;
+}
+.q-card.answered { border-color:var(--border2); }
+.q-top { display:flex; align-items:center; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.q-num-badge {
+  background:rgba(247,174,27,0.12); color:var(--gold);
+  border:1px solid rgba(247,174,27,0.28);
+  border-radius:50px; padding:3px 14px;
+  font-size:0.72rem; font-weight:900;
+}
+.q-type-badge { font-size:0.68rem; color:var(--muted); font-weight:700; }
+.passage-box {
+  background:rgba(59,130,246,0.05); border:1px solid rgba(59,130,246,0.2);
+  border-right:4px solid var(--info); border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:14px 18px; margin-bottom:18px; direction:ltr;
+}
+.passage-box p { font-size:0.9rem; color:var(--text2); line-height:1.85; }
+.q-text { font-size:1.02rem; font-weight:700; line-height:1.7; margin-bottom:20px; color:var(--text); }
+.q-text .en { direction:ltr; display:block; }
+
+/* Options */
+.options-grid { display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+.opt-btn {
+  width:100%; display:flex; align-items:center; gap:14px;
+  padding:14px 18px; border-radius:var(--radius-sm);
+  border:2px solid var(--border); background:var(--glass);
+  color:var(--text2); font-family:var(--font); font-size:0.92rem; font-weight:600;
+  cursor:pointer; transition:all 0.25s; text-align:right;
+}
+.opt-btn:hover:not(:disabled) { border-color:var(--border2); background:var(--gold-glass); color:var(--text); }
+.opt-btn .opt-letter {
+  width:32px; height:32px; border-radius:50%;
+  background:var(--glass2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.78rem; font-weight:900; flex-shrink:0;
+  transition:all 0.25s;
+}
+.opt-btn.selected { border-color:var(--gold); background:var(--gold-glass); }
+.opt-btn.selected .opt-letter { background:var(--gold); border-color:var(--gold); color:#000; }
+.opt-btn.correct { border-color:var(--success)!important; background:var(--success-bg)!important; color:#4ade80!important; }
+.opt-btn.correct .opt-letter { background:var(--success)!important; border-color:var(--success)!important; color:#fff!important; }
+.opt-btn.wrong { border-color:var(--danger)!important; background:var(--danger-bg)!important; color:#f87171!important; }
+.opt-btn.wrong .opt-letter { background:var(--danger)!important; border-color:var(--danger)!important; color:#fff!important; }
+.opt-btn:disabled { cursor:default; opacity:0.85; }
+
+/* Explanation */
+.explanation-box {
+  display:none; margin-top:14px;
+  padding:14px 18px; border-radius:var(--radius-sm);
+  font-size:0.88rem; line-height:1.75;
+  animation:fadeUp 0.3s ease;
+}
+.explanation-box.show { display:block; }
+.explanation-box.correct-exp { background:var(--success-bg); border:1px solid rgba(34,197,94,0.25); color:#86efac; }
+.explanation-box.wrong-exp { background:var(--danger-bg); border:1px solid rgba(239,68,68,0.25); color:#fca5a5; }
+
+/* Section result card */
+.sec-result {
+  display:none; animation:scaleIn 0.5s ease;
+  background:linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border:1px solid var(--border2); border-radius:var(--radius);
+  padding:40px 36px; text-align:center; margin-bottom:28px;
+}
+.sec-result.show { display:block; }
+.sr-circle {
+  width:120px; height:120px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; margin:0 auto 20px;
+  border:4px solid; position:relative;
+}
+.sr-circle::after {
+  content:''; position:absolute; inset:-8px; border-radius:50%;
+  animation:pulse-ring 2s ease-out infinite;
+}
+.sr-pct { font-size:2rem; font-weight:900; line-height:1; }
+.sr-label { font-size:0.72rem; color:var(--muted); }
+.sr-grade { font-size:1.5rem; font-weight:900; margin-bottom:8px; }
+.sr-msg { color:var(--muted); font-size:0.92rem; line-height:1.8; max-width:480px; margin:0 auto 24px; }
+.sr-stats { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:28px; }
+.sr-stat { text-align:center; padding:14px 20px; background:var(--glass2); border-radius:var(--radius-sm); border:1px solid var(--border); min-width:80px; }
+.sr-stat .ssn { font-size:1.3rem; font-weight:900; line-height:1; }
+.sr-stat .ssl { font-size:0.68rem; color:var(--muted); margin-top:4px; }
+
+/* Course recommendation after section */
+.course-rec {
+  display:none;
+  background:linear-gradient(135deg, rgba(247,174,27,0.06), rgba(15,53,92,0.3));
+  border:1px solid var(--border2); border-radius:var(--radius);
+  padding:28px 24px; margin-bottom:24px; animation:fadeUp 0.4s ease;
+}
+.course-rec.show { display:block; }
+.cr-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.cr-badge { background:var(--grad-gold); color:#000; padding:4px 14px; border-radius:50px; font-size:0.75rem; font-weight:900; }
+.cr-card-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+@media(max-width:600px) { .cr-card-grid{grid-template-columns:1fr;} }
+.cr-course {
+  background:var(--card2); border:1px solid var(--border2);
+  border-radius:var(--radius-sm); padding:18px; cursor:pointer;
+  transition:var(--transition);
+}
+.cr-course:hover { transform:translateY(-3px); box-shadow:var(--shadow2); }
+.cr-course.highlighted { border-color:var(--gold); box-shadow:var(--glow); }
+.cr-course .cc-title { font-weight:900; font-size:0.9rem; margin-bottom:4px; }
+.cr-course .cc-price { color:var(--gold); font-weight:900; font-size:1.05rem; }
+.cr-course .cc-orig { color:var(--muted); text-decoration:line-through; font-size:0.78rem; }
+.cr-course .cc-tag { font-size:0.7rem; color:var(--success); font-weight:700; margin-top:6px; }
+.cr-cta { display:flex; align-items:center; gap:10px; margin-top:20px; flex-wrap:wrap; }
+
+/* Final result */
+.final-result {
+  display:none; animation:scaleIn 0.5s ease;
+}
+.final-result.show { display:block; }
+.fr-hero {
+  background:linear-gradient(145deg, var(--navy-deep), var(--navy));
+  border:1px solid var(--border2); border-radius:var(--radius);
+  padding:56px 36px; text-align:center; margin-bottom:28px;
+  position:relative; overflow:hidden;
+}
+.fr-hero::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 30%, rgba(247,174,27,0.1),transparent);
+  pointer-events:none;
+}
+.fr-big-circle {
+  width:160px; height:160px; border-radius:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  margin:0 auto 24px; border:5px solid; position:relative; z-index:1;
+}
+.fr-big-pct { font-size:2.5rem; font-weight:900; line-height:1; }
+.fr-big-lbl { font-size:0.72rem; color:var(--muted); }
+.fr-title { font-size:2rem; font-weight:900; margin-bottom:12px; position:relative; z-index:1; }
+.fr-msg { color:var(--muted); font-size:1rem; max-width:520px; margin:0 auto 28px; line-height:1.85; position:relative; z-index:1; }
+
+.fr-breakdown {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px;
+}
+@media(max-width:700px) { .fr-breakdown{grid-template-columns:1fr 1fr;} }
+.fr-sec {
+  background:var(--grad-card); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:18px; text-align:center;
+}
+.fr-sec .fs-icon { font-size:1.8rem; margin-bottom:8px; }
+.fr-sec .fs-name { font-size:0.78rem; color:var(--muted); font-weight:700; margin-bottom:6px; }
+.fr-sec .fs-score { font-size:1.4rem; font-weight:900; }
+.fr-sec .fs-bar { height:5px; border-radius:3px; margin-top:10px; }
+
+/* Recommended course */
+.rec-course-hero {
+  background:linear-gradient(135deg, var(--navy), rgba(247,174,27,0.1));
+  border:2px solid var(--gold); border-radius:var(--radius);
+  padding:32px; margin-bottom:24px; position:relative; overflow:hidden;
+}
+.rec-course-hero::before {
+  content:'🏆'; position:absolute; right:24px; top:16px;
+  font-size:4rem; opacity:0.12;
+}
+.rch-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--grad-gold); color:#000;
+  padding:5px 16px; border-radius:50px; font-size:0.75rem; font-weight:900;
+  margin-bottom:14px;
+}
+.rch-title { font-size:1.5rem; font-weight:900; margin-bottom:8px; }
+.rch-desc { color:var(--muted); font-size:0.9rem; line-height:1.8; margin-bottom:20px; }
+.rch-features { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:20px; }
+.rch-feature { display:flex; align-items:center; gap:8px; font-size:0.84rem; color:var(--text2); }
+.rch-feature i { color:var(--success); font-size:0.85rem; }
+.rch-price-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.rch-price { font-size:2rem; font-weight:900; color:var(--gold); }
+.rch-orig { font-size:1rem; color:var(--muted); text-decoration:line-through; }
+.rch-disc { background:var(--danger-bg); color:var(--danger); padding:4px 12px; border-radius:50px; font-size:0.78rem; font-weight:900; }
+
+/* Study plan */
+.study-plan {
+  background:var(--grad-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:28px; margin-bottom:24px;
+}
+.sp-week {
+  background:var(--glass2); border-radius:var(--radius-sm);
+  padding:16px 18px; margin-bottom:12px;
+  border:1px solid var(--border);
+}
+.sp-week-title { font-weight:900; font-size:0.9rem; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.sp-days { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+@media(max-width:500px) { .sp-days{grid-template-columns:repeat(4,1fr);} }
+.sp-day { text-align:center; padding:8px 4px; background:var(--glass); border-radius:var(--radius-xs); border:1px solid var(--border); }
+.sp-day .sd-d { font-size:0.65rem; color:var(--muted); }
+.sp-day .sd-t { font-size:0.68rem; font-weight:700; color:var(--text2); margin-top:2px; }
+
+/* Share buttons */
+.share-btns { display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+.share-btn {
+  display:flex; align-items:center; gap:8px;
+  padding:11px 20px; border-radius:50px;
+  font-family:var(--font); font-weight:800; font-size:0.85rem;
+  border:none; cursor:pointer; transition:var(--transition);
+}
+.share-wa { background:#25D366; color:#fff; }
+.share-tg { background:#229ED9; color:#fff; }
+.share-tw { background:#1DA1F2; color:#fff; }
+.share-cp { background:var(--glass2); border:1px solid var(--border); color:var(--text); }
+.share-btn:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="ticker-item">📝 الاختبار التجريبي — 100 سؤال بأسلوب STEP الحديث</span>
+    <span class="ticker-item">⚡ تصحيح فوري مع شرح لكل سؤال</span>
+    <span class="ticker-item">🏆 نتائج تفصيلية + دورة موصى بها</span>
+    <span class="ticker-item">🎓 أكاديمية عايد — ثق في الخبرة</span>
+    <span class="ticker-item">📝 الاختبار التجريبي — 100 سؤال بأسلوب STEP الحديث</span>
+    <span class="ticker-item">⚡ تصحيح فوري مع شرح لكل سؤال</span>
+    <span class="ticker-item">🏆 نتائج تفصيلية + دورة موصى بها</span>
+    <span class="ticker-item">🎓 أكاديمية عايد — ثق في الخبرة</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="أكاديمية عايد" class="nav-logo-img"/>
+      <div class="nav-logo-text">
+        <div class="nav-logo-title">عايد | STEP 2026</div>
+        <div class="nav-logo-sub">أكاديمية عايد للغة الإنجليزية</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="summaries.html" class="nav-link"><i class="fas fa-book-open"></i> الملخصات</a>
+      <a href="quiz.html" class="nav-link active"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="nav-link"><i class="fas fa-graduation-cap"></i> الدورات</a>
+    </div>
+    <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="nav-cta btn btn-gold">
+      <i class="fas fa-graduation-cap"></i> الدورات
+    </a>
+    <button class="nav-toggle" id="navToggle"><i class="fas fa-bars" id="navIcon"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+    <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
+    <a href="quiz.html" class="active"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+    <a href="https://studentservices241445-rgb.github.io/STEP-2030/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="padding:120px 0 50px;">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+      <span><i class="fas fa-chevron-left"></i></span>
+      <span>الاختبار التجريبي</span>
+    </div>
+    <h1 class="page-hero-title">
+      الاختبار التجريبي<br><span class="gold">STEP 2026</span>
+    </h1>
+    <p class="page-hero-desc">100 سؤال بأسلوب STEP الحديث — تصحيح فوري، نتائج تفصيلية، وتوصية دورة ذكية</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="section">
+  <div class="container">
+    <div id="quizArea" class="quiz-wrap">
+
+      <!-- SIDEBAR -->
+      <aside class="quiz-sidebar">
+        <div class="qs-title">أقسام الاختبار</div>
+        <button class="sec-btn active" id="btn-grammar" onclick="goSection('grammar')">
+          <span class="sb-icon">✏️</span>
+          <span style="flex:1;text-align:right;">Grammar</span>
+          <span class="sec-score" id="score-grammar">—</span>
+        </button>
+        <button class="sec-btn" id="btn-reading" onclick="goSection('reading')">
+          <span class="sb-icon">📖</span>
+          <span style="flex:1;text-align:right;">Reading</span>
+          <span class="sec-score" id="score-reading">—</span>
+        </button>
+        <button class="sec-btn" id="btn-vocabulary" onclick="goSection('vocabulary')">
+          <span class="sb-icon">📝</span>
+          <span style="flex:1;text-align:right;">Vocabulary</span>
+          <span class="sec-score" id="score-vocabulary">—</span>
+        </button>
+        <button class="sec-btn" id="btn-listening" onclick="goSection('listening')">
+          <span class="sb-icon">🎧</span>
+          <span style="flex:1;text-align:right;">Listening</span>
+          <span class="sec-score" id="score-listening">—</span>
+        </button>
+
+        <div class="sb-divider"></div>
+        <div class="sb-timer">
+          <div class="t-label"><i class="fas fa-clock"></i> الوقت المنقضي</div>
+          <div class="t-val" id="timerDisplay">00:00</div>
+        </div>
+        <div class="sb-progress" style="margin-top:14px;">
+          <div class="sp-row">
+            <span>الإجمالي</span>
+            <span id="totalProgress">0/100</span>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="totalBar" style="width:0%"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- QUIZ MAIN -->
+      <div id="quizMain">
+        <!-- Grammar Section -->
+        <div id="sec-grammar" class="sec-area">
+          <div class="q-header">
+            <div class="qh-left">
+              <div class="qh-icon icon-box-gold">✏️</div>
+              <div>
+                <div class="qh-title">Grammar & Structure</div>
+                <div class="qh-sub">القواعد النحوية — 25 سؤالًا</div>
+              </div>
+            </div>
+            <div class="qh-right">
+              <div class="qh-stat">
+                <div class="qs-num" id="g-answered">0</div>
+                <div class="qs-lbl">أُجيب</div>
+              </div>
+              <div class="qh-stat">
+                <div class="qs-num" id="g-correct">0</div>
+                <div class="qs-lbl">صحيح</div>
+              </div>
+              <div class="qh-stat">
+                <div class="qs-num">25</div>
+                <div class="qs-lbl">إجمالي</div>
+              </div>
+            </div>
+          </div>
+          <div class="q-prog-row">
+            <span>التقدم في Grammar</span>
+            <span id="g-prog-text">0 / 25</span>
+          </div>
+          <div class="progress-bar-wrap" style="margin-bottom:22px;">
+            <div class="progress-bar-fill" id="g-prog-bar" style="width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-pale));"></div>
+          </div>
+          <div id="grammar-questions"></div>
+          <div id="grammar-result" class="sec-result"></div>
+          <div id="grammar-course" class="course-rec"></div>
+        </div>
+
+        <!-- Reading Section -->
+        <div id="sec-reading" class="sec-area" style="display:none;">
+          <div class="q-header">
+            <div class="qh-left">
+              <div class="qh-icon icon-box-navy">📖</div>
+              <div>
+                <div class="qh-title">Reading Comprehension</div>
+                <div class="qh-sub">الفهم القرائي — 25 سؤالًا</div>
+              </div>
+            </div>
+            <div class="qh-right">
+              <div class="qh-stat"><div class="qs-num" id="r-answered">0</div><div class="qs-lbl">أُجيب</div></div>
+              <div class="qh-stat"><div class="qs-num" id="r-correct">0</div><div class="qs-lbl">صحيح</div></div>
+              <div class="qh-stat"><div class="qs-num">25</div><div class="qs-lbl">إجمالي</div></div>
+            </div>
+          </div>
+          <div class="q-prog-row"><span>التقدم في Reading</span><span id="r-prog-text">0 / 25</span></div>
+          <div class="progress-bar-wrap" style="margin-bottom:22px;">
+            <div class="progress-bar-fill" id="r-prog-bar" style="width:0%;background:linear-gradient(90deg,var(--info),#60a5fa);"></div>
+          </div>
+          <div id="reading-questions"></div>
+          <div id="reading-result" class="sec-result"></div>
+          <div id="reading-course" class="course-rec"></div>
+        </div>
+
+        <!-- Vocabulary Section -->
+        <div id="sec-vocabulary" class="sec-area" style="display:none;">
+          <div class="q-header">
+            <div class="qh-left">
+              <div class="qh-icon icon-box-success">📝</div>
+              <div>
+                <div class="qh-title">Vocabulary in Context</div>
+                <div class="qh-sub">المفردات في السياق — 25 سؤالًا</div>
+              </div>
+            </div>
+            <div class="qh-right">
+              <div class="qh-stat"><div class="qs-num" id="v-answered">0</div><div class="qs-lbl">أُجيب</div></div>
+              <div class="qh-stat"><div class="qs-num" id="v-correct">0</div><div class="qs-lbl">صحيح</div></div>
+              <div class="qh-stat"><div class="qs-num">25</div><div class="qs-lbl">إجمالي</div></div>
+            </div>
+          </div>
+          <div class="q-prog-row"><span>التقدم في Vocabulary</span><span id="v-prog-text">0 / 25</span></div>
+          <div class="progress-bar-wrap" style="margin-bottom:22px;">
+            <div class="progress-bar-fill" id="v-prog-bar" style="width:0%;background:linear-gradient(90deg,var(--success),#4ade80);"></div>
+          </div>
+          <div id="vocabulary-questions"></div>
+          <div id="vocabulary-result" class="sec-result"></div>
+          <div id="vocabulary-course" class="course-rec"></div>
+        </div>
+
+        <!-- Listening Section -->
+        <div id="sec-listening" class="sec-area" style="display:none;">
+          <div class="q-header">
+            <div class="qh-left">
+              <div class="qh-icon icon-box-purple">🎧</div>
+              <div>
+                <div class="qh-title">Listening Comprehension</div>
+                <div class="qh-sub">مهارات الاستماع — 25 سؤالًا</div>
+              </div>
+            </div>
+            <div class="qh-right">
+              <div class="qh-stat"><div class="qs-num" id="l-answered">0</div><div class="qs-lbl">أُجيب</div></div>
+              <div class="qh-stat"><div class="qs-num" id="l-correct">0</div><div class="qs-lbl">صحيح</div></div>
+              <div class="qh-stat"><div class="qs-num">25</div><div class="qs-lbl">إجمالي</div></div>
+            </div>
+          </div>
+          <div class="q-prog-row"><span>التقدم في Listening</span><span id="l-prog-text">0 / 25</span></div>
+          <div class="progress-bar-wrap" style="margin-bottom:22px;">
+            <div class="progress-bar-fill" id="l-prog-bar" style="width:0%;background:linear-gradient(90deg,var(--purple),#c084fc);"></div>
+          </div>
+          <div id="listening-questions"></div>
+          <div id="listening-result" class="sec-result"></div>
+          <div id="listening-course" class="course-rec"></div>
+        </div>
+
+        <!-- Final Result -->
+        <div id="final-result" class="final-result">
+          <div class="fr-hero">
+            <div class="fr-big-circle" id="fr-circle">
+              <div class="fr-big-pct" id="fr-pct">—</div>
+              <div class="fr-big-lbl">النتيجة الكلية</div>
+            </div>
+            <h2 class="fr-title" id="fr-grade">—</h2>
+            <p class="fr-msg" id="fr-msg">—</p>
+            <a href="quiz.html" class="btn btn-outline">
+              <i class="fas fa-redo"></i> إعادة الاختبار
+            </a>
+          </div>
+
+          <h3 style="font-size:1.1rem;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-chart-bar" style="color:var(--gold)"></i> النتيجة التفصيلية لكل قسم
+          </h3>
+          <div class="fr-breakdown" id="fr-breakdown"></div>
+
+          <div class="rec-course-hero" id="rec-course-hero"></div>
+
+          <div class="study-plan" id="study-plan-section">
+            <h3 style="font-size:1.1rem;font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+              <i class="fas fa-calendar-alt" style="color:var(--gold)"></i> خطة مذاكرتك المقترحة (4 أسابيع)
+            </h3>
+            <div id="study-plan-content"></div>
+          </div>
+
+          <div style="background:var(--grad-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
+            <h3 style="font-size:1rem;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+              <i class="fas fa-share-alt" style="color:var(--gold)"></i> شارك نتيجتك
+            </h3>
+            <div class="share-btns" id="share-btns"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2026 أكاديمية عايد — جميع الحقوق محفوظة</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-telegram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" aria-label="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+/* ══════════════════════════════════════════════
+   QUESTION BANK — 100 Questions (25 per section)
+══════════════════════════════════════════════ */
+
+const QUESTIONS = {
+
+grammar: [
+  { q: "Choose the correct verb form:\nBy the time she arrived, they _____ the meeting.", opts:["had already finished","have already finished","already finished","will already finish"], ans:0, exp:"Past Perfect (had + p.p.) is used for an action completed before another past action." },
+  { q: "Select the correct option:\nNeither the students nor the teacher _____ ready.", opts:["were","was","are","be"], ans:1, exp:"With 'neither...nor', the verb agrees with the nearest subject. 'teacher' is singular → 'was'." },
+  { q: "Choose the correct form:\nShe suggested _____ to the park.", opts:["to go","going","go","went"], ans:1, exp:"'Suggest' is followed by gerund (-ing), never infinitive." },
+  { q: "Fill in the blank:\nIf I _____ more time yesterday, I would have studied.", opts:["had had","had","have had","would have"], ans:0, exp:"Third conditional: 'If + past perfect' (had had) in the if-clause." },
+  { q: "Select the correct option:\nThe committee _____ reached a decision.", opts:["has","have","are","were"], ans:0, exp:"In American English, collective nouns like 'committee' take a singular verb." },
+  { q: "Choose the correct relative pronoun:\nThe professor _____ teaches biology is brilliant.", opts:["which","whom","who","whose"], ans:2, exp:"'who' is used for people when it's the subject of the relative clause." },
+  { q: "Which sentence uses the passive voice correctly?", opts:["The book was written by her.","The book written by her.","The book is write by her.","The book was write by her."], ans:0, exp:"Passive: subject + 'to be' + past participle + 'by' + agent." },
+  { q: "Choose the correct article:\n_____ university I attended was excellent.", opts:["A","An","The","—"], ans:2, exp:"'The' is used because it refers to a specific, already-identified university." },
+  { q: "Select the correct modal:\nYou _____ consult a doctor if you feel unwell.", opts:["must","should","can","might"], ans:1, exp:"'should' expresses advice/recommendation." },
+  { q: "Choose the correct sentence structure:", opts:["He asked me that what I was doing.","He asked me what I was doing.","He asked me what was I doing.","He asked what am I doing."], ans:1, exp:"In reported questions, use statement word order (subject + verb)." },
+  { q: "Fill in the blank:\nShe has been studying English _____ five years.", opts:["since","for","ago","before"], ans:1, exp:"'for' is used with a period of time; 'since' is used with a specific point in time." },
+  { q: "Choose the correct form:\n_____ water to 100°C and it boils.", opts:["Heat","To heat","Heating","Heated"], ans:0, exp:"Imperative form is used in 'verb + object + and + result' constructions." },
+  { q: "Select the correct pronoun:\nEach of the students _____ to bring their ID.", opts:["need","needs","are needing","have needed"], ans:1, exp:"'Each of' is treated as singular, so the verb must be singular." },
+  { q: "Which is a correct conditional sentence?", opts:["If she studies, she will pass.","If she would study, she passes.","If she studied, she will pass.","If she will study, she passed."], ans:0, exp:"First conditional: If + present simple → will + base verb." },
+  { q: "Choose the correct option:\nBy next June, she _____ her degree.", opts:["will complete","will have completed","would complete","completes"], ans:1, exp:"Future Perfect (will have + p.p.) for an action completed before a future time." },
+  { q: "Fill in the blank:\nDespite _____ tired, she continued working.", opts:["being","to be","been","be"], ans:0, exp:"After 'despite', use a gerund (being)." },
+  { q: "Choose the correct sentence:", opts:["The informations are useful.","The information is useful.","The informations is useful.","The information are useful."], ans:1, exp:"'Information' is an uncountable noun; it takes a singular verb and no plural." },
+  { q: "Select the correct comparative:", opts:["She is more intelligent than her sister.","She is intelligenter than her sister.","She is most intelligent than her sister.","She is more intelligent then her sister."], ans:0, exp:"Use 'more + adjective + than' for adjectives with 3+ syllables." },
+  { q: "Choose the correct option:\nI wish I _____ taller.", opts:["am","was","were","be"], ans:2, exp:"After 'I wish' for unreal present situations, use 'were' for all subjects." },
+  { q: "Fill in the blank:\nHe talked for hours without _____ a break.", opts:["take","to take","taking","taken"], ans:2, exp:"After 'without', use the gerund (-ing form)." },
+  { q: "Choose the correct preposition:\nShe is interested _____ learning new languages.", opts:["in","at","for","on"], ans:0, exp:"'interested in' is the correct collocation." },
+  { q: "Select the best option:\nNo sooner _____ he arrived than it started raining.", opts:["had","did","was","has"], ans:0, exp:"'No sooner...than' requires past perfect inversion: No sooner had he arrived..." },
+  { q: "Choose the correct form:\nThe report _____ by the manager tomorrow.", opts:["will review","will be reviewed","is reviewing","reviewed"], ans:1, exp:"Future passive: will + be + past participle." },
+  { q: "Fill in the blank:\nIt is essential that every student _____ on time.", opts:["arrives","arrive","will arrive","arrived"], ans:1, exp:"In 'It is essential that...' clauses, the subjunctive (base verb) is used." },
+  { q: "Choose the correct option:\n_____ she worked hard, she didn't pass.", opts:["Despite","Although","In spite","Because"], ans:1, exp:"'Although' introduces a contrast clause with a subject and verb. 'Despite/In spite of' require a noun/gerund." },
+],
+
+reading: [
+  { passage:"Renewable energy sources such as solar and wind power are becoming increasingly important as the world seeks to reduce its dependence on fossil fuels. Unlike coal and oil, renewable sources produce little to no greenhouse gas emissions. However, challenges such as intermittency and high initial costs remain.", q:"What is the main idea of this passage?", opts:["Fossil fuels are better than renewables.","Renewable energy has both advantages and challenges.","Solar power is the only clean energy.","Wind power is too expensive."], ans:1, exp:"The passage discusses both benefits (no emissions) and challenges (intermittency, cost) of renewables." },
+  { passage:"Studies show that reading for just 20 minutes a day can expose a child to over 1.8 million words per year. Children who read regularly show significantly higher vocabulary levels, stronger comprehension skills, and better academic performance overall.", q:"According to the passage, which skill is NOT mentioned as improved by reading?", opts:["Vocabulary","Comprehension","Academic performance","Writing style"], ans:3, exp:"The passage mentions vocabulary, comprehension, and academic performance — but not writing style." },
+  { passage:"The placebo effect occurs when a patient experiences real improvement in symptoms after receiving a treatment with no active ingredients. Researchers believe this happens because belief and expectation can trigger genuine physiological changes in the body.", q:"What causes the placebo effect according to the passage?", opts:["Strong medication","The body's natural recovery","Belief and expectation","Random chance"], ans:2, exp:"The passage explicitly states 'belief and expectation can trigger genuine physiological changes'." },
+  { passage:"Urbanization has transformed landscapes globally. Cities now house more than half the world's population. While urban areas offer economic opportunities and access to services, they also generate pollution, traffic congestion, and social inequality.", q:"Which of the following best describes the author's tone?", opts:["Purely positive","Purely negative","Balanced and objective","Sarcastic"], ans:2, exp:"The passage presents both advantages (economic opportunities) and disadvantages (pollution, inequality), showing a balanced tone." },
+  { passage:"The Amazon rainforest, often called the 'lungs of the Earth,' absorbs vast amounts of carbon dioxide and produces oxygen. Deforestation threatens this ecosystem, releasing stored carbon and accelerating climate change.", q:"What does the phrase 'lungs of the Earth' suggest about the Amazon?", opts:["It is the largest forest.","It produces carbon dioxide.","It plays a vital role in air quality and carbon absorption.","It is located underground."], ans:2, exp:"The metaphor 'lungs' implies breathing function — absorbing CO₂ and producing oxygen." },
+  { passage:"Sleep deprivation has significant consequences for cognitive function. Research indicates that adults who sleep fewer than 6 hours per night perform worse on memory, attention, and problem-solving tasks than those who sleep 7-9 hours.", q:"What can be inferred from the passage?", opts:["Everyone needs exactly 8 hours of sleep.","Sufficient sleep is linked to better cognitive performance.","Sleep deprivation only affects memory.","Scientists disagree about sleep requirements."], ans:1, exp:"The passage implies that adequate sleep (7-9 hours) is associated with better cognitive performance." },
+  { passage:"The term 'digital divide' refers to the gap between individuals who have access to modern information technology and those who do not. This disparity is particularly pronounced between developed and developing nations, affecting education and economic opportunity.", q:"What is the 'digital divide' primarily about?", opts:["The difference in internet speed.","Unequal access to technology.","Differences in technical skills only.","The gap between old and new technology."], ans:1, exp:"The passage defines the digital divide as the gap between those with and without access to technology." },
+  { passage:"Biodiversity refers to the variety of life on Earth. Scientists estimate that only 15% of all species have been identified. Biodiversity ensures ecosystem stability, provides resources for medicine, and supports food security worldwide.", q:"According to the passage, what percentage of species remain unidentified?", opts:["15%","50%","85%","65%"], ans:2, exp:"If 15% have been identified, then 85% remain unidentified." },
+  { q: "Read the sentence and choose the best meaning:\n'The scientist's findings were met with considerable skepticism by her peers.'", opts:["Colleagues strongly accepted her findings.","Colleagues doubted her findings significantly.","Her findings were quickly proven wrong.","Her peers congratulated her."], ans:1, exp:"'Skepticism' = doubt. 'Considerable' = significant. So colleagues significantly doubted her findings." },
+  { passage:"Microplastics — tiny plastic fragments less than 5mm — have been found in oceans, soil, drinking water, and even human blood. Their long-term health effects are still being studied, but scientists warn of potential disruptions to hormonal and immune systems.", q:"Which statement is best supported by the passage?", opts:["Microplastics are harmless.","Microplastics are only found in oceans.","Microplastics pose potential health risks.","Scientists have fully studied microplastic effects."], ans:2, exp:"The passage mentions 'potential disruptions to hormonal and immune systems', supporting health risk concerns." },
+  { passage:"The concept of emotional intelligence (EQ) refers to the ability to recognize, understand, and manage one's emotions, as well as the emotions of others. Research suggests that EQ is often a better predictor of success than traditional IQ in both personal and professional contexts.", q:"What does the passage suggest about EQ compared to IQ?", opts:["IQ is more important than EQ.","EQ and IQ are equally important.","EQ may predict success more effectively than IQ.","IQ is irrelevant in modern society."], ans:2, exp:"The passage states EQ 'is often a better predictor of success than traditional IQ'." },
+  { q: "Choose the option that best restates:\n'The proposal was unanimously rejected by the board.'", opts:["Some board members rejected the proposal.","The board accepted the proposal.","Every board member voted against the proposal.","The board postponed a decision."], ans:2, exp:"'Unanimously' = all members; 'rejected' = voted against." },
+  { passage:"Automation and artificial intelligence are reshaping the labor market. While some jobs are being displaced, new roles in technology management, data analysis, and AI ethics are emerging. Economists argue that historically, technological shifts have ultimately created more jobs than they eliminated.", q:"What is the author's overall view of automation's impact on employment?", opts:["Automation will cause permanent mass unemployment.","Automation will have no effect on jobs.","Automation may create new jobs even as it eliminates others.","Automation is only affecting manufacturing."], ans:2, exp:"The passage presents a balanced view, noting both job displacement and job creation through historical examples." },
+  { q: "What does the underlined word most likely mean?\n'The treaty was a watershed moment in diplomatic history.'", opts:["Unimportant event","Turning point","Environmental agreement","Failed negotiation"], ans:1, exp:"'Watershed moment' = a turning point that marks a significant change." },
+  { passage:"Cultural heritage encompasses the traditions, customs, artifacts, and knowledge passed down through generations. Preserving cultural heritage is vital for maintaining identity and continuity within communities, particularly in the face of rapid globalization.", q:"Which best describes the author's purpose?", opts:["To argue against globalization","To explain and emphasize the importance of cultural heritage","To describe traditions of a specific culture","To compare modern and ancient cultures"], ans:1, exp:"The passage explains what cultural heritage is and argues for its preservation." },
+  { q: "Choose the sentence that uses 'albeit' correctly:", opts:["She passed the exam, albeit with a low score.","Albeit she passed, but she was not happy.","She albeit passed the exam.","She passed albeit than expected."], ans:0, exp:"'Albeit' means 'although' and introduces a concessive clause: 'albeit with a low score' = although with a low score." },
+  { passage:"Social media platforms have revolutionized communication but also introduced challenges. Cyberbullying, misinformation, and addiction are growing concerns. Studies show teens who spend more than 3 hours daily on social media have higher rates of anxiety and depression.", q:"What problem is linked to excessive social media use in the passage?", opts:["Physical inactivity","Anxiety and depression","Poor academic grades","Reduced creativity"], ans:1, exp:"The passage directly links 3+ hours of social media use to higher rates of 'anxiety and depression'." },
+  { q: "What is the most appropriate title for the following?\n'Rising sea levels, more frequent storms, and melting ice caps are increasingly threatening coastal communities around the world.'", opts:["Ocean Tourism Challenges","Climate Change's Impact on Coastlines","Benefits of Sea Level Rise","Storm Prediction Methods"], ans:1, exp:"All details (sea levels, storms, melting ice) relate to climate change affecting coastal areas." },
+  { passage:"Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This process is fundamental to life on Earth, as it forms the base of most food chains and produces the oxygen that animals and humans breathe.", q:"Based on the passage, what would happen if photosynthesis stopped?", opts:["Plants would grow faster.","The food chain would collapse and oxygen would decrease.","Carbon dioxide levels would drop.","Animals would adapt and survive."], ans:1, exp:"Since photosynthesis forms the food chain base and produces oxygen, its absence would cause ecosystem collapse and oxygen depletion." },
+  { q: "Choose the word closest in meaning to 'ephemeral' in academic context:", opts:["Lasting","Temporary","Important","Widespread"], ans:1, exp:"Ephemeral = lasting for only a short time; temporary." },
+  { passage:"The peer-review process in scientific research involves experts evaluating a study's methodology, results, and conclusions before publication. Though time-consuming, this process ensures the quality and credibility of published research.", q:"What is the primary purpose of peer review?", opts:["To speed up publication","To ensure research quality and credibility","To increase the number of publications","To reduce research costs"], ans:1, exp:"The passage states peer review 'ensures the quality and credibility of published research'." },
+  { q: "What does 'paradigm shift' mean in context?\n'The discovery led to a paradigm shift in how scientists understood the universe.'", opts:["A minor change in understanding","A fundamental change in thinking or approach","A temporary confusion","A failed theory"], ans:1, exp:"Paradigm shift = a fundamental change in the underlying assumptions of a scientific field." },
+  { passage:"Language extinction is occurring at an alarming rate. Linguists estimate that a language dies every two weeks. When a language disappears, so does a unique way of experiencing the world, including knowledge of plants, ecological practices, and cultural traditions encoded within it.", q:"What is implied if a language goes extinct?", opts:["The people who speak it also disappear.","Unique cultural and environmental knowledge is lost.","The language can be revived easily.","It has no impact on science."], ans:1, exp:"The passage states that with a language, 'unique ways of experiencing the world, knowledge, and traditions' are also lost." },
+  { q: "Choose the option that best completes the sentence:\nThe research was _____ despite limited funding — the team produced groundbreaking results.", opts:["futile","significant","irrelevant","predictable"], ans:1, exp:"The contrast ('despite limited funding') and the positive outcome ('groundbreaking results') require a positive adjective. 'Significant' fits best." },
+  { q: "Based on the context, choose the best meaning of 'meticulous':\n'She was meticulous in her research, leaving no detail unchecked.'", opts:["Careless","Extremely careful and precise","Extremely fast","Generally thorough"], ans:1, exp:"Meticulous = showing great attention to detail; very careful and precise." },
+  { passage:"The concept of 'opportunity cost' in economics refers to the value of the next-best alternative foregone when making a decision. For example, using land for a parking lot means forgoing the opportunity to build housing or a park.", q:"What does the parking lot example illustrate?", opts:["The high cost of parking in cities","That parking lots are unprofitable","The opportunity cost of choosing one land use over another","The importance of urban planning"], ans:2, exp:"The example shows that choosing parking means giving up housing/park — demonstrating opportunity cost." },
+],
+
+vocabulary: [
+  { q: "Choose the word closest in meaning to the underlined word:\nThe government implemented stringent regulations to control pollution.", opts:["Lenient","Strict","Vague","Temporary"], ans:1, exp:"Stringent = strict and demanding; rigorous." },
+  { q: "Select the best synonym for 'ubiquitous':\n'Smartphones have become ubiquitous in modern society.'", opts:["Rare","Outdated","Present everywhere","Expensive"], ans:2, exp:"Ubiquitous = present, appearing, or found everywhere." },
+  { q: "What does 'curtail' mean in context?\n'The company decided to curtail spending due to the economic downturn.'", opts:["Increase","Redirect","Reduce or limit","Review"], ans:2, exp:"Curtail = reduce or limit (an activity or expenditure)." },
+  { q: "Choose the antonym of 'benevolent':\n'The benevolent donor gave millions to charity.'", opts:["Generous","Malevolent","Indifferent","Wealthy"], ans:1, exp:"Benevolent = well-meaning. Its antonym is malevolent = having evil intentions." },
+  { q: "Select the meaning of 'ambiguous':\n'The instructions were ambiguous, leaving students confused.'", opts:["Clear and direct","Open to multiple interpretations","Very detailed","Written poorly"], ans:1, exp:"Ambiguous = open to more than one interpretation; not clear." },
+  { q: "What is the best meaning of 'volatile' in this context?\n'Oil prices have been volatile in recent months.'", opts:["Steadily rising","Unpredictably changing","Gradually falling","Internationally controlled"], ans:1, exp:"Volatile = liable to change rapidly and unpredictably." },
+  { q: "Choose the word that best replaces 'mitigate':\n'The new policy aims to mitigate the effects of climate change.'", opts:["Worsen","Ignore","Reduce","Study"], ans:2, exp:"Mitigate = make less severe; reduce the impact of something." },
+  { q: "Select the best meaning of 'pragmatic':\n'She took a pragmatic approach to solving the problem.'", opts:["Idealistic","Based on theory","Practical and realistic","Emotional"], ans:2, exp:"Pragmatic = dealing with things sensibly and realistically; practical." },
+  { q: "What does 'proliferate' mean?\n'Social media platforms began to proliferate in the 2000s.'", opts:["Decline rapidly","Spread and increase rapidly","Change frequently","Lose popularity"], ans:1, exp:"Proliferate = increase rapidly in number; multiply." },
+  { q: "Choose the correct meaning of 'alleviate':\n'Exercise can help alleviate stress.'", opts:["Increase","Make worse","Relieve or reduce","Ignore"], ans:2, exp:"Alleviate = make (suffering, deficiency, or a problem) less severe." },
+  { q: "Select the antonym of 'frugal':\n'He was known for his frugal lifestyle.'", opts:["Wasteful","Careful","Simple","Smart"], ans:0, exp:"Frugal = sparing with money. Its antonym is wasteful = using more than necessary." },
+  { q: "What does 'inevitable' mean?\n'Change is inevitable in a rapidly evolving industry.'", opts:["Unexpected","Avoidable","Certain to happen","Gradual"], ans:2, exp:"Inevitable = certain to happen; unavoidable." },
+  { q: "Choose the best synonym for 'eloquent':\n'She gave an eloquent speech that moved the audience.'", opts:["Confusing","Well-expressed and persuasive","Loud and aggressive","Brief"], ans:1, exp:"Eloquent = fluent or persuasive in speaking or writing." },
+  { q: "What does 'scrutinize' mean in context?\n'The committee decided to scrutinize all submitted applications.'", opts:["Quickly approve","Examine carefully","Reject automatically","Delay processing"], ans:1, exp:"Scrutinize = examine or inspect closely and thoroughly." },
+  { q: "Select the correct meaning of 'paramount':\n'Safety is of paramount importance in this facility.'", opts:["Secondary","Debatable","Most important","Temporary"], ans:2, exp:"Paramount = more important than anything else; supreme." },
+  { q: "Choose the antonym of 'reticent':\n'The witness was surprisingly reticent about the event.'", opts:["Outspoken","Silent","Thoughtful","Confused"], ans:0, exp:"Reticent = not revealing one's thoughts readily; reserved. Antonym: outspoken = frank and direct." },
+  { q: "What does 'exacerbate' mean?\n'Pollution can exacerbate respiratory problems.'", opts:["Cure","Make worse","Prevent","Diagnose"], ans:1, exp:"Exacerbate = make (a problem, bad situation, or negative feeling) worse." },
+  { q: "Select the best meaning of 'corroborate':\n'The new evidence corroborated the scientist's theory.'", opts:["Challenged","Supported or confirmed","Replaced","Ignored"], ans:1, exp:"Corroborate = confirm or give support to a statement or theory." },
+  { q: "Choose the meaning of 'tenacious':\n'Her tenacious pursuit of excellence led to great success.'", opts:["Reluctant","Half-hearted","Persistent and determined","Random"], ans:2, exp:"Tenacious = tending to keep a firm hold of something; persistent." },
+  { q: "What does 'disparity' mean?\n'There is a significant disparity in income between the two regions.'", opts:["Similarity","Great difference","Minor difference","Equality"], ans:1, exp:"Disparity = a great difference; inequality." },
+  { q: "Choose the correct meaning of 'lucid':\n'The professor gave a lucid explanation of the complex theory.'", opts:["Confusing","Extremely long","Clear and easy to understand","Highly technical"], ans:2, exp:"Lucid = expressed clearly; easy to understand." },
+  { q: "Select the best synonym for 'incessant':\n'The incessant noise from the construction disturbed residents.'", opts:["Occasional","Never-ending","Loud","Unexpected"], ans:1, exp:"Incessant = continuing without pause or interruption; never-ending." },
+  { q: "What does 'profound' mean in context?\n'The book had a profound impact on her worldview.'", opts:["Surface-level","Minor","Deep and intense","Temporary"], ans:2, exp:"Profound = having great depth; very great or intense." },
+  { q: "Choose the antonym of 'transparent':\n'The process should be transparent to all stakeholders.'", opts:["Clear","Open","Opaque","Simple"], ans:2, exp:"Transparent = open and clear. Antonym: opaque = not able to be seen through; not transparent." },
+  { q: "Select the best meaning of 'fortify':\n'The army decided to fortify the border defenses.'", opts:["Weaken","Abandon","Strengthen","Review"], ans:2, exp:"Fortify = make (something) stronger or more resistant." },
+],
+
+listening: [
+  { passage:"[Dialogue simulation] Professor: 'The deadline for the research paper has been moved to next Friday instead of this Wednesday. Please ensure your references are in APA format.' Student: 'Should we include at least ten sources?'\nProfessor: 'Yes, a minimum of ten peer-reviewed sources is required.'", q:"What change did the professor announce?", opts:["The paper format changed","The deadline was moved to next Friday","The minimum sources increased to fifteen","The class was cancelled"], ans:1, exp:"The professor said 'the deadline has been moved to next Friday instead of this Wednesday'." },
+  { passage:"[Academic lecture] 'Cognitive dissonance occurs when a person holds two contradictory beliefs simultaneously. This mental discomfort often motivates individuals to change one of their beliefs or find justification for both.'", q:"What does cognitive dissonance cause?", opts:["Mental comfort","Motivation to change beliefs","Stronger conviction","Memory loss"], ans:1, exp:"The lecture states that cognitive dissonance 'motivates individuals to change one of their beliefs'." },
+  { passage:"[Announcement] 'Attention students: The library will be closed this Saturday for maintenance. All study rooms can be booked through the online portal starting Monday. Late returns will incur a fine of two riyals per day.'", q:"Why will the library be closed on Saturday?", opts:["A special event","Staff holiday","Maintenance","System upgrade"], ans:2, exp:"The announcement explicitly states the library closes 'for maintenance'." },
+  { passage:"[Conversation] Student A: 'I can't decide whether to take the morning or afternoon STEP preparation course.' Student B: 'I heard the morning session has fewer students, so you get more attention from the instructor.' Student A: 'That's exactly what I need. I'll register for the morning one.'", q:"Why did Student A choose the morning session?", opts:["It is cheaper","It has better materials","It has fewer students for more instructor attention","It is closer to their home"], ans:2, exp:"Student A chose it because 'fewer students means more attention from the instructor'." },
+  { passage:"[Lecture] 'The Industrial Revolution, which began in Britain in the late 18th century, transformed manufacturing from hand production to machine-based processes. This shift fundamentally altered economic structures, social classes, and global trade patterns.'", q:"Where did the Industrial Revolution begin?", opts:["France","The United States","Germany","Britain"], ans:3, exp:"The lecture states it 'began in Britain in the late 18th century'." },
+  { passage:"[Interview] Interviewer: 'What qualities make a great leader?' Expert: 'Great leaders share three qualities: they communicate clearly, they inspire trust through consistency, and they remain adaptable when circumstances change unexpectedly.'", q:"Which quality is NOT mentioned by the expert?", opts:["Clear communication","Trust through consistency","Intelligence","Adaptability"], ans:2, exp:"The expert mentioned communication, consistency, and adaptability — not intelligence." },
+  { passage:"[Weather report] 'Temperatures this week will range from 18°C to 28°C. Expect light rain on Tuesday and Wednesday. Thursday will see clear skies, making it ideal for outdoor activities. The weekend will be partly cloudy with no precipitation.'", q:"What is the best day for outdoor activities according to the report?", opts:["Tuesday","Wednesday","Thursday","Saturday"], ans:2, exp:"The report says 'Thursday will see clear skies, making it ideal for outdoor activities'." },
+  { passage:"[Campus announcement] 'The graduation ceremony will be held in the main auditorium on March 15th at 10 AM. Tickets are limited to three per graduate. All guests must present a valid ID. Photography is allowed, but video recording requires prior permission from the dean's office.'", q:"How many tickets does each graduate receive?", opts:["Two","Three","Four","Five"], ans:1, exp:"The announcement says 'tickets are limited to three per graduate'." },
+  { passage:"[Academic talk] 'Emotional intelligence, or EQ, includes four core components: self-awareness, self-management, social awareness, and relationship management. Unlike IQ, EQ can be developed and improved with practice and conscious effort.'", q:"What can be inferred about EQ compared to IQ?", opts:["EQ cannot be improved","EQ is fixed from birth","EQ is more developable than IQ","IQ and EQ are the same"], ans:2, exp:"The talk states EQ 'can be developed and improved with practice' — implying it's more developable than IQ." },
+  { passage:"[Lecture on nutrition] 'Research consistently shows that the Mediterranean diet, rich in olive oil, vegetables, whole grains, and lean protein, reduces the risk of heart disease by up to 30%. It also shows positive effects on cognitive function and longevity.'", q:"What does the Mediterranean diet reduce according to the lecture?", opts:["Blood pressure only","Risk of heart disease","Weight gain only","Risk of diabetes only"], ans:1, exp:"The lecture states it 'reduces the risk of heart disease by up to 30%'." },
+  { passage:"[Student-advisor conversation] Advisor: 'To qualify for the scholarship, you need a GPA of 3.5 or above, at least 40 volunteer hours, and one recommendation letter from a faculty member.' Student: 'I have the GPA and the volunteer hours, but I haven't asked for a recommendation yet.'", q:"What requirement does the student still need to fulfill?", opts:["GPA requirement","Volunteer hours","Recommendation letter","Application fee"], ans:2, exp:"The student confirms having the GPA and volunteer hours, but 'hasn't asked for a recommendation yet'." },
+  { passage:"[Podcast segment] 'Sustainable architecture integrates eco-friendly materials, renewable energy sources, and design principles that minimize environmental impact. Buildings designed this way not only reduce carbon emissions but also lower long-term operational costs.'", q:"According to the podcast, what is one economic benefit of sustainable architecture?", opts:["Higher resale value","Reduced construction time","Lower long-term operational costs","Increased government subsidies"], ans:2, exp:"The podcast states such buildings 'lower long-term operational costs'." },
+  { passage:"[Phone message] 'Hi, this is Dr. Khalid's office calling. Your appointment scheduled for Monday at 3 PM has been moved to Wednesday at 11 AM due to a schedule conflict. Please call us back to confirm or to reschedule if Wednesday doesn't work for you.'", q:"Why was the appointment changed?", opts:["Patient request","Doctor's vacation","Schedule conflict","Office maintenance"], ans:2, exp:"The message says it was moved 'due to a schedule conflict'." },
+  { passage:"[History lecture] 'The Silk Road was not just a trade route for silk, but a vast network of paths connecting East Asia, South Asia, Persia, East Africa, and Europe. It facilitated the exchange of goods, ideas, religions, and cultures for over a thousand years.'", q:"What was mainly exchanged along the Silk Road besides goods?", opts:["Military strategies","Ideas, religions, and cultures","Agricultural techniques only","Political systems"], ans:1, exp:"The lecture says it facilitated 'exchange of goods, ideas, religions, and cultures'." },
+  { passage:"[Campus radio] 'The student council elections are this Thursday. Three candidates are running for president. Voting booths will be open from 9 AM to 5 PM in the student center. Results will be announced Friday evening on the official university website.'", q:"When will the election results be announced?", opts:["Thursday evening","Friday morning","Friday evening","Saturday morning"], ans:2, exp:"The radio says 'results will be announced Friday evening'." },
+  { passage:"[Science documentary narration] 'Ocean acidification occurs when carbon dioxide dissolves in seawater, forming carbonic acid. This decreases the pH of the ocean, threatening marine organisms with calcium carbonate shells, such as corals and mollusks.'", q:"What marine organisms are most threatened by ocean acidification?", opts:["Fish with scales","Organisms with calcium carbonate shells","Deep-sea creatures","All marine life equally"], ans:1, exp:"The narration specifically mentions 'marine organisms with calcium carbonate shells, such as corals and mollusks'." },
+  { passage:"[Career counselor talk] 'Networking is one of the most powerful tools for career advancement. Studies show that 70 to 80 percent of jobs are filled through personal connections rather than online job postings. Building genuine relationships is therefore essential for long-term career success.'", q:"According to the talk, what percentage of jobs are filled through networking?", opts:["30-40%","50-60%","70-80%","90-100%"], ans:2, exp:"The talk states '70 to 80 percent of jobs are filled through personal connections'." },
+  { passage:"[Workshop introduction] 'Today's workshop covers three main areas: time management techniques, stress reduction strategies, and how to maintain work-life balance. We'll begin with the most requested topic, which is time management, and spend about 40 minutes on it.'", q:"Which topic will be covered first?", opts:["Stress reduction","Work-life balance","Goal setting","Time management"], ans:3, exp:"The speaker says 'we'll begin with the most requested topic, which is time management'." },
+  { passage:"[Environmental talk] 'While recycling is important, experts emphasize that reducing consumption is far more impactful. The so-called 3Rs — Reduce, Reuse, Recycle — are listed in order of priority. Reducing what we consume in the first place has the greatest environmental benefit.'", q:"According to the talk, which R has the greatest environmental impact?", opts:["Recycle","Reuse","Reduce","All equally"], ans:2, exp:"The speaker says 'reducing what we consume in the first place has the greatest environmental benefit'." },
+  { passage:"[University announcement] 'The international student orientation will take place on September 3rd. Students are required to bring original documents including their passport, enrollment letter, and health insurance certificate. Housing assignments will be distributed at the event.'", q:"What will be distributed at the orientation?", opts:["Student ID cards","Class schedules","Housing assignments","Textbooks"], ans:2, exp:"The announcement states 'housing assignments will be distributed at the event'." },
+  { passage:"[Biology lecture] 'The human brain has approximately 86 billion neurons. Each neuron can form thousands of synaptic connections with other neurons. This complexity allows for the extraordinary range of human thought, emotion, and behavior.'", q:"What enables the complexity of human thought according to the lecture?", opts:["The size of the brain","The number of neurons and their many connections","Chemical reactions only","Evolutionary age of the brain"], ans:1, exp:"The lecture says 'this complexity allows for...' referring to the billions of neurons and their thousands of connections." },
+  { passage:"[Radio news] 'Scientists have discovered a new species of deep-sea fish that can survive in waters with almost no oxygen. The fish, found at depths exceeding 1,000 meters, has unique gill structures that allow it to extract oxygen from near-anoxic environments.'", q:"What makes this fish unique according to the report?", opts:["Its size","Its color","Its ability to survive with almost no oxygen","Its migration patterns"], ans:2, exp:"The report highlights 'unique gill structures that allow it to extract oxygen from near-anoxic environments'." },
+  { passage:"[Language learning podcast] 'Research suggests that the optimal time to learn a second language is during early childhood, when the brain's plasticity is at its highest. However, adults can still achieve high proficiency, especially with consistent practice and immersion.'", q:"What does the podcast imply about adult language learning?", opts:["It is impossible after childhood","It is just as easy as childhood learning","It is challenging but achievable with effort","Adults learn faster than children"], ans:2, exp:"The podcast says adults 'can still achieve high proficiency, especially with consistent practice and immersion' — implying it's possible but requires effort." },
+  { passage:"[Museum audio guide] 'This painting, completed in 1889, depicts the view from the artist's window at the Saint-Paul-de-Mausole asylum in southern France. The swirling brushstrokes and vivid blues and yellows became the signature style of the artist's most celebrated period.'", q:"Where was this painting created?", opts:["Paris","Northern France","Saint-Paul-de-Mausole asylum","Amsterdam"], ans:2, exp:"The guide states the view was 'from the artist's window at the Saint-Paul-de-Mausole asylum in southern France'." },
+  { passage:"[Academic seminar] 'Confirmation bias is the tendency to search for, interpret, and recall information in a way that confirms one's pre-existing beliefs. This cognitive bias can significantly impair scientific thinking and rational decision-making if not actively countered.'", q:"What is one effect of confirmation bias mentioned in the seminar?", opts:["Improved creativity","Enhanced memory","Impaired scientific thinking","Stronger decision-making"], ans:2, exp:"The seminar states it 'can significantly impair scientific thinking and rational decision-making'." },
+]
+
+}; // end QUESTIONS
+
+/* ══════════════════════════════════
+   STATE
+══════════════════════════════════ */
+const state = {
+  current: 'grammar',
+  answers: { grammar:{}, reading:{}, vocabulary:{}, listening:{} },
+  scores:  { grammar:0, reading:0, vocabulary:0, listening:0 },
+  done:    { grammar:false, reading:false, vocabulary:false, listening:false },
+  startTime: Date.now()
+};
+
+/* ══════════════════════════════════
+   RENDER QUESTIONS
+══════════════════════════════════ */
+const sections = ['grammar','reading','vocabulary','listening'];
+
+sections.forEach(sec => {
+  const container = document.getElementById(sec + '-questions');
+  QUESTIONS[sec].forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `q-${sec}-${idx}`;
+
+    let passageHTML = '';
+    if (q.passage) {
+      passageHTML = `<div class="passage-box"><p>${q.passage.replace(/\n/g,'<br>')}</p></div>`;
+    }
+
+    const optsHTML = q.opts.map((opt, oi) => `
+      <button class="opt-btn" id="opt-${sec}-${idx}-${oi}"
+        onclick="selectAnswer('${sec}',${idx},${oi})" data-idx="${oi}">
+        <span class="opt-letter">${['A','B','C','D'][oi]}</span>
+        <span>${opt}</span>
+      </button>`).join('');
+
+    card.innerHTML = `
+      <div class="q-top">
+        <span class="q-num-badge">س ${idx+1}</span>
+        <span class="q-type-badge">${sec.charAt(0).toUpperCase()+sec.slice(1)}</span>
+      </div>
+      ${passageHTML}
+      <div class="q-text">${q.q.replace(/\n/g,'<br>')}</div>
+      <div class="options-grid">${optsHTML}</div>
+      <div class="explanation-box" id="exp-${sec}-${idx}"></div>
+    `;
+    container.appendChild(card);
+  });
+});
+
+/* ══════════════════════════════════
+   SELECT ANSWER
+══════════════════════════════════ */
+function selectAnswer(sec, idx, chosen) {
+  if (state.answers[sec][idx] !== undefined) return; // already answered
+  state.answers[sec][idx] = chosen;
+
+  const q = QUESTIONS[sec][idx];
+  const isCorrect = chosen === q.ans;
+  if (isCorrect) state.scores[sec]++;
+
+  // Style buttons
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById(`opt-${sec}-${idx}-${i}`);
+    if (!btn) continue;
+    btn.disabled = true;
+    if (i === q.ans) btn.classList.add('correct');
+    else if (i === chosen && !isCorrect) btn.classList.add('wrong');
+  }
+
+  // Show explanation
+  const expBox = document.getElementById(`exp-${sec}-${idx}`);
+  expBox.classList.add('show', isCorrect ? 'correct-exp' : 'wrong-exp');
+  expBox.innerHTML = `<strong>${isCorrect ? '✅ إجابة صحيحة!' : '❌ إجابة خاطئة'}</strong><br>${q.exp}`;
+
+  // Mark card answered
+  document.getElementById(`q-${sec}-${idx}`).classList.add('answered');
+
+  updateProgress(sec);
+  checkSectionComplete(sec);
+}
+
+/* ══════════════════════════════════
+   UPDATE PROGRESS
+══════════════════════════════════ */
+function updateProgress(sec) {
+  const answered = Object.keys(state.answers[sec]).length;
+  const correct = state.scores[sec];
+  const total = 25;
+  const pct = Math.round(answered / total * 100);
+
+  const prefix = sec[0]; // g, r, v, l
+  const map = { grammar:'g', reading:'r', vocabulary:'v', listening:'l' };
+  const p = map[sec];
+
+  document.getElementById(`${p}-answered`).textContent = answered;
+  document.getElementById(`${p}-correct`).textContent = correct;
+  document.getElementById(`${p}-prog-text`).textContent = `${answered} / ${total}`;
+  document.getElementById(`${p}-prog-bar`).style.width = pct + '%';
+
+  // Sidebar score
+  if (answered > 0) {
+    document.getElementById(`score-${sec}`).textContent = `${correct}/${answered}`;
+  }
+
+  // Total
+  const totalAnswered = sections.reduce((s,sec)=>s+Object.keys(state.answers[sec]).length,0);
+  document.getElementById('totalProgress').textContent = `${totalAnswered}/100`;
+  document.getElementById('totalBar').style.width = (totalAnswered) + '%';
+}
+
+/* ══════════════════════════════════
+   CHECK SECTION COMPLETE
+══════════════════════════════════ */
+function checkSectionComplete(sec) {
+  if (Object.keys(state.answers[sec]).length < 25) return;
+  if (state.done[sec]) return;
+  state.done[sec] = true;
+
+  // Mark sidebar button done
+  document.getElementById(`btn-${sec}`).classList.add('done');
+
+  // Scroll to bottom of questions
+  setTimeout(() => showSectionResult(sec), 400);
+}
+
+function showSectionResult(sec) {
+  const score = state.scores[sec];
+  const pct = Math.round(score / 25 * 100);
+  const resEl = document.getElementById(`${sec}-result`);
+
+  let grade, msg, circleColor, afterColor;
+  if (pct >= 80) {
+    grade = '🏆 ممتاز';
+    msg = `أداء رائع في قسم ${secName(sec)}! نتيجتك تدل على تمكّن قوي. استمر في هذا المستوى.`;
+    circleColor = 'var(--success)'; afterColor = 'rgba(34,197,94,0.2)';
+  } else if (pct >= 60) {
+    grade = '👍 جيد';
+    msg = `أداء جيد في قسم ${secName(sec)}! هناك مجال للتحسين — راجع الملخصات وحاول مرة أخرى.`;
+    circleColor = 'var(--gold)'; afterColor = 'rgba(247,174,27,0.2)';
+  } else {
+    grade = '📚 يحتاج تقوية';
+    msg = `نتيجتك في قسم ${secName(sec)} تحتاج إلى مزيد من التدريب. ننصحك بمراجعة الملخصات والتسجيل في الدورة المخصصة.`;
+    circleColor = 'var(--danger)'; afterColor = 'rgba(239,68,68,0.2)';
+  }
+
+  resEl.innerHTML = `
+    <div class="sr-circle" style="border-color:${circleColor};box-shadow:0 0 30px ${afterColor};">
+      <div class="sr-pct" style="color:${circleColor};">${pct}%</div>
+      <div class="sr-label">${score}/25</div>
+    </div>
+    <div class="sr-grade">${grade}</div>
+    <p class="sr-msg">${msg}</p>
+    <div class="sr-stats">
+      <div class="sr-stat"><div class="ssn" style="color:var(--success);">${score}</div><div class="ssl">إجابة صحيحة</div></div>
+      <div class="sr-stat"><div class="ssn" style="color:var(--danger);">${25-score}</div><div class="ssl">إجابة خاطئة</div></div>
+      <div class="sr-stat"><div class="ssn" style="color:var(--gold);">${pct}%</div><div class="ssl">النسبة المئوية</div></div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;">
+      ${sections.indexOf(sec) < 3 ? `<button class="btn btn-gold" onclick="goSection('${sections[sections.indexOf(sec)+1]}')"><i class="fas fa-arrow-left"></i> القسم التالي</button>` : `<button class="btn btn-gold" onclick="showFinalResult()"><i class="fas fa-trophy"></i> عرض النتيجة الكلية</button>`}
+      <a href="summaries.html#${sec}" class="btn btn-outline"><i class="fas fa-book"></i> راجع ${secName(sec)}</a>
+    </div>
+  `;
+  resEl.classList.add('show');
+
+  // Show course recommendation
+  showCourseRec(sec, pct);
+
+  resEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ══════════════════════════════════
+   COURSE RECOMMENDATION (after section)
+══════════════════════════════════ */
+function showCourseRec(sec, pct) {
+  const el = document.getElementById(`${sec}-course`);
+  const courses = getCoursesByScore(pct);
+
+  el.innerHTML = `
+    <div class="cr-header">
+      <span class="cr-badge"><i class="fas fa-graduation-cap"></i> دورة موصى بها</span>
+      <span style="font-weight:800;font-size:0.92rem;">بناءً على نتيجتك في ${secName(sec)}</span>
+    </div>
+    <p style="color:var(--muted);font-size:0.88rem;margin-bottom:8px;">
+      ${pct >= 80 ? 'مستواك متقدم! انتقل للدورة المتقدمة لصقل مهاراتك.' : pct >= 60 ? 'أنت في المستوى المتوسط — الدورة المتوسطة ستمنحك دفعة قوية.' : 'نتيجتك تشير لحاجة تأسيسية قوية — ابدأ بالدورة التأسيسية الآن.'}
+    </p>
+    <div class="cr-card-grid">
+      <div class="cr-course ${pct < 60 ? 'highlighted' : ''}">
+        <div class="cc-title">🌟 دورة STEP التأسيسية</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;">أساسيات اللغة + استراتيجيات STEP</div>
+        <div class="cc-price">199 ر.س</div>
+        <div class="cc-orig">399 ر.س</div>
+        <div class="cc-tag">✅ خصم 50% لفترة محدودة</div>
+        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" style="display:block;margin-top:12px;" class="btn btn-gold btn-sm">سجّل الآن</a>
+      </div>
+      <div class="cr-course ${pct >= 60 && pct < 80 ? 'highlighted' : ''}">
+        <div class="cc-title">🚀 دورة STEP المتوسطة</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;">تعمّق في القواعد + تدريبات مكثفة</div>
+        <div class="cc-price">299 ر.س</div>
+        <div class="cc-orig">499 ر.س</div>
+        <div class="cc-tag">✅ يشمل تصحيح تجريبي مجاني</div>
+        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" style="display:block;margin-top:12px;" class="btn btn-gold btn-sm">سجّل الآن</a>
+      </div>
+    </div>
+    <div class="cr-cta">
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="btn btn-gold"><i class="fas fa-graduation-cap"></i> استعرض جميع الدورات</a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="btn btn-outline"><i class="fas fa-store"></i> متجر الأكاديمية</a>
+    </div>
+  `;
+  el.classList.add('show');
+}
+
+function getCoursesByScore(pct) {
+  if (pct >= 80) return 'advanced';
+  if (pct >= 60) return 'intermediate';
+  return 'foundation';
+}
+
+/* ══════════════════════════════════
+   FINAL RESULT
+══════════════════════════════════ */
+function showFinalResult() {
+  const totalScore = sections.reduce((s, sec) => s + state.scores[sec], 0);
+  const totalPct = Math.round(totalScore / 100 * 100);
+
+  let grade, msg, circleColor;
+  if (totalPct >= 85) {
+    grade = '🏆 ممتاز جدًا — أنت جاهز!';
+    msg = `نتيجتك ${totalPct}% تعكس استعدادًا قويًا جدًا. أنت مرشح للنجاح في STEP 2026 بامتياز. وصيتنا: الدورة المتقدمة لضمان أعلى درجة.`;
+    circleColor = '#22c55e';
+  } else if (totalPct >= 70) {
+    grade = '👍 جيد جدًا — قريب من الهدف';
+    msg = `نتيجتك ${totalPct}% تعني أنك قريب من مستوى الإتقان. بتدريب إضافي وراجعة هادفة ستصل. الدورة المتوسطة هي خيارك الأمثل.`;
+    circleColor = '#F7AE1B';
+  } else if (totalPct >= 55) {
+    grade = '📖 متوسط — تحتاج تطوير';
+    msg = `نتيجتك ${totalPct}% تشير لوجود ثغرات تحتاج سدّها. الدورة المتوسطة ستساعدك على بناء قاعدة متينة وتحسين نتيجتك بشكل ملموس.`;
+    circleColor = '#f59e0b';
+  } else {
+    grade = '📚 تحتاج تأسيس قوي';
+    msg = `نتيجتك ${totalPct}% تعني أنك بحاجة لتأسيس شامل في اللغة الإنجليزية. الدورة التأسيسية مصممة خصيصًا لهذا الغرض.`;
+    circleColor = '#ef4444';
+  }
+
+  // Big circle
+  const fc = document.getElementById('fr-circle');
+  fc.style.borderColor = circleColor;
+  fc.style.boxShadow = `0 0 50px ${circleColor}33`;
+  fc.querySelector('.fr-big-pct').style.color = circleColor;
+  document.getElementById('fr-pct').textContent = totalPct + '%';
+  document.getElementById('fr-grade').textContent = grade;
+  document.getElementById('fr-msg').textContent = msg;
+
+  // Breakdown
+  const bdColors = { grammar:'var(--gold)', reading:'var(--info)', vocabulary:'var(--success)', listening:'var(--purple)' };
+  const bdIcons = { grammar:'✏️', reading:'📖', vocabulary:'📝', listening:'🎧' };
+  const bdEl = document.getElementById('fr-breakdown');
+  bdEl.innerHTML = sections.map(sec => {
+    const sc = state.scores[sec];
+    const pct = Math.round(sc/25*100);
+    return `
+      <div class="fr-sec">
+        <div class="fs-icon">${bdIcons[sec]}</div>
+        <div class="fs-name">${secName(sec)}</div>
+        <div class="fs-score" style="color:${bdColors[sec]};">${sc}/25</div>
+        <div style="font-size:0.7rem;color:var(--muted);margin:2px 0;">${pct}%</div>
+        <div class="fs-bar" style="background:linear-gradient(90deg,${bdColors[sec]},transparent);"></div>
+      </div>
+    `;
+  }).join('');
+
+  // Course recommendation
+  const recLevel = getCoursesByScore(totalPct);
+  const recData = {
+    foundation: { name:'دورة STEP التأسيسية', emoji:'🌟', desc:'مصممة للمبتدئين الذين يريدون بناء أساس لغوي متين واستيعاب مبادئ STEP بشكل عميق. 8 أسابيع تفاعلية مع محاضرات مسجلة ومباشرة.', price:'199', orig:'399', tag:'خصم 50%', features:['قواعد اللغة الإنجليزية من الصفر','فهم أسلوب STEP الحديث','تدريبات أسبوعية مكثفة','دعم مباشر من المدرب'] },
+    intermediate: { name:'دورة STEP المتوسطة', emoji:'🚀', desc:'للطلاب الذين لديهم قاعدة لغوية ويريدون الارتقاء لمستوى الإجابة على أسئلة STEP باحترافية. تتضمن نموذج اختبار كامل مع تصحيح.', price:'299', orig:'499', tag:'يشمل تصحيح تجريبي', features:['استراتيجيات متقدمة للإجابة','Reading & Listening معمّق','نماذج اختبار حقيقية','تصحيح فوري من المدرب'] },
+    advanced: { name:'دورة STEP المتقدمة', emoji:'💎', desc:'للطلاب المتقدمين الذين يستهدفون أعلى الدرجات في STEP. برنامج مكثف مع استراتيجيات احترافية ونماذج محاكاة لاختبار STEP الفعلي.', price:'399', orig:'599', tag:'الأكثر مبيعًا', features:['محاكاة كاملة لاختبار STEP','استراتيجيات الوقت والدرجات','مراجعة نهائية مكثفة','ضمان الرضا أو الاسترداد'] },
+  };
+  const rd = recData[recLevel];
+
+  document.getElementById('rec-course-hero').innerHTML = `
+    <div class="rch-tag"><i class="fas fa-star"></i> الدورة الموصى بها لك</div>
+    <div class="rch-title">${rd.emoji} ${rd.name}</div>
+    <p class="rch-desc">${rd.desc}</p>
+    <div class="rch-features">
+      ${rd.features.map(f=>`<div class="rch-feature"><i class="fas fa-check-circle"></i> ${f}</div>`).join('')}
+    </div>
+    <div class="rch-price-row">
+      <div class="rch-price">${rd.price} ر.س</div>
+      <div class="rch-orig">${rd.orig} ر.س</div>
+      <div class="rch-disc"><i class="fas fa-tag"></i> ${rd.tag}</div>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="btn btn-gold btn-lg"><i class="fas fa-graduation-cap"></i> سجّل الآن</a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="btn btn-outline btn-lg"><i class="fas fa-info-circle"></i> تفاصيل الدورة</a>
+    </div>
+  `;
+
+  // Study plan
+  buildStudyPlan(recLevel, totalPct);
+
+  // Share
+  const shareText = `حللت اختبار STEP 2026 التجريبي من أكاديمية عايد ✅\nنتيجتي: ${totalPct}% (${totalScore}/100)\nالقواعد: ${state.scores.grammar}/25 | القراءة: ${state.scores.reading}/25 | المفردات: ${state.scores.vocabulary}/25 | الاستماع: ${state.scores.listening}/25`;
+  const shareURL = window.location.href;
+  document.getElementById('share-btns').innerHTML = `
+    <button class="share-btn share-wa" onclick="shareResult('wa','${encodeURIComponent(shareText)}')"><i class="fab fa-whatsapp"></i> واتساب</button>
+    <button class="share-btn share-tg" onclick="shareResult('tg','${encodeURIComponent(shareText)}')"><i class="fab fa-telegram"></i> تيليجرام</button>
+    <button class="share-btn share-tw" onclick="shareResult('tw','${encodeURIComponent(shareText)}')"><i class="fab fa-twitter"></i> تويتر</button>
+    <button class="share-btn share-cp" onclick="copyLink()"><i class="fas fa-link"></i> نسخ الرابط</button>
+  `;
+
+  document.getElementById('final-result').classList.add('show');
+
+  // Hide section areas, show final
+  sections.forEach(s => { document.getElementById(`sec-${s}`).style.display = 'none'; });
+  document.getElementById('final-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildStudyPlan(level, pct) {
+  const plans = {
+    foundation: [
+      { week:'الأسبوع الأول', days:[{d:'سبت',t:'Grammar'},{d:'أحد',t:'Grammar'},{d:'إثنين',t:'Vocab'},{d:'ثلاثاء',t:'راحة'},{d:'أربعاء',t:'Reading'},{d:'خميس',t:'Listening'},{d:'جمعة',t:'مراجعة'}] },
+      { week:'الأسبوع الثاني', days:[{d:'سبت',t:'Grammar'},{d:'أحد',t:'Vocab'},{d:'إثنين',t:'Reading'},{d:'ثلاثاء',t:'Listening'},{d:'أربعاء',t:'Grammar'},{d:'خميس',t:'تجريبي'},{d:'جمعة',t:'راحة'}] },
+      { week:'الأسبوع الثالث', days:[{d:'سبت',t:'مراجعة'},{d:'أحد',t:'Grammar'},{d:'إثنين',t:'Vocab'},{d:'ثلاثاء',t:'Reading'},{d:'أربعاء',t:'Listening'},{d:'خميس',t:'تجريبي'},{d:'جمعة',t:'مراجعة'}] },
+      { week:'الأسبوع الرابع', days:[{d:'سبت',t:'مراجعة'},{d:'أحد',t:'تجريبي'},{d:'إثنين',t:'تصحيح'},{d:'ثلاثاء',t:'مراجعة'},{d:'أربعاء',t:'تجريبي'},{d:'خميس',t:'استعداد'},{d:'جمعة',t:'راحة'}] },
+    ],
+    intermediate: [
+      { week:'الأسبوع الأول', days:[{d:'سبت',t:'Grammar+Vocab'},{d:'أحد',t:'Reading'},{d:'إثنين',t:'Listening'},{d:'ثلاثاء',t:'تجريبي'},{d:'أربعاء',t:'مراجعة'},{d:'خميس',t:'Grammar'},{d:'جمعة',t:'راحة'}] },
+      { week:'الأسبوع الثاني', days:[{d:'سبت',t:'Reading'},{d:'أحد',t:'Grammar'},{d:'إثنين',t:'Listening'},{d:'ثلاثاء',t:'Vocab'},{d:'أربعاء',t:'تجريبي'},{d:'خميس',t:'مراجعة'},{d:'جمعة',t:'راحة'}] },
+      { week:'الأسبوع الثالث', days:[{d:'سبت',t:'تجريبي'},{d:'أحد',t:'تصحيح'},{d:'إثنين',t:'Grammar'},{d:'ثلاثاء',t:'Reading'},{d:'أربعاء',t:'Vocab'},{d:'خميس',t:'Listening'},{d:'جمعة',t:'راحة'}] },
+      { week:'الأسبوع الرابع', days:[{d:'سبت',t:'مراجعة'},{d:'أحد',t:'نموذج كامل'},{d:'إثنين',t:'مراجعة'},{d:'ثلاثاء',t:'استعداد'},{d:'أربعاء',t:'استعداد'},{d:'خميس',t:'راحة'},{d:'جمعة',t:'يوم الاختبار'}] },
+    ],
+    advanced: [
+      { week:'الأسبوع الأول', days:[{d:'سبت',t:'نموذج كامل'},{d:'أحد',t:'تصحيح'},{d:'إثنين',t:'نقاط ضعف'},{d:'ثلاثاء',t:'Grammar'},{d:'أربعاء',t:'Reading'},{d:'خميس',t:'نموذج'},{d:'جمعة',t:'مراجعة'}] },
+      { week:'الأسبوع الثاني', days:[{d:'سبت',t:'Vocab'},{d:'أحد',t:'Listening'},{d:'إثنين',t:'نموذج كامل'},{d:'ثلاثاء',t:'تصحيح'},{d:'أربعاء',t:'استراتيجيات'},{d:'خميس',t:'نموذج'},{d:'جمعة',t:'راحة'}] },
+      { week:'الأسبوع الثالث', days:[{d:'سبت',t:'مراجعة شاملة'},{d:'أحد',t:'نموذج 51'},{d:'إثنين',t:'نموذج 52'},{d:'ثلاثاء',t:'مقارنة'},{d:'أربعاء',t:'ضعف'},{d:'خميس',t:'نموذج'},{d:'جمعة',t:'راحة'}] },
+      { week:'الأسبوع الرابع', days:[{d:'سبت',t:'مراجعة'},{d:'أحد',t:'نموذج كامل'},{d:'إثنين',t:'مراجعة'},{d:'ثلاثاء',t:'استعداد نفسي'},{d:'أربعاء',t:'راحة'},{d:'خميس',t:'مراجعة خفيفة'},{d:'جمعة',t:'الاختبار'}] },
+    ]
+  };
+
+  const plan = plans[level] || plans.intermediate;
+  const spEl = document.getElementById('study-plan-content');
+  spEl.innerHTML = plan.map(w => `
+    <div class="sp-week">
+      <div class="sp-week-title"><i class="fas fa-calendar-week" style="color:var(--gold)"></i> ${w.week}</div>
+      <div class="sp-days">
+        ${w.days.map(d=>`
+          <div class="sp-day">
+            <div class="sd-d">${d.d}</div>
+            <div class="sd-t">${d.t}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ══════════════════════════════════
+   SHARE
+══════════════════════════════════ */
+function shareResult(platform, text) {
+  const url = encodeURIComponent(window.location.href);
+  const links = {
+    wa: `https://wa.me/?text=${text}`,
+    tg: `https://t.me/share/url?url=${url}&text=${text}`,
+    tw: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+  };
+  window.open(links[platform], '_blank');
+}
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(()=>{
+    alert('تم نسخ الرابط!');
+  });
+}
+
+/* ══════════════════════════════════
+   NAVIGATION
+══════════════════════════════════ */
+function goSection(sec) {
+  sections.forEach(s => {
+    document.getElementById(`sec-${s}`).style.display = 'none';
+    document.getElementById(`btn-${s}`).classList.remove('active');
+  });
+  document.getElementById(`sec-${sec}`).style.display = 'block';
+  document.getElementById(`btn-${sec}`).classList.add('active');
+  state.current = sec;
+  window.scrollTo({ top: document.getElementById(`sec-${sec}`).offsetTop - 120, behavior: 'smooth' });
+}
+
+/* ══════════════════════════════════
+   TIMER
+══════════════════════════════════ */
+setInterval(() => {
+  const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+  const m = Math.floor(elapsed/60).toString().padStart(2,'0');
+  const s = (elapsed%60).toString().padStart(2,'0');
+  document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+}, 1000);
+
+/* ══════════════════════════════════
+   HELPERS
+══════════════════════════════════ */
+function secName(sec) {
+  return { grammar:'Grammar', reading:'Reading', vocabulary:'Vocabulary', listening:'Listening' }[sec];
+}
+
+// Navbar
+const navbar = document.getElementById('navbar');
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+document.getElementById('navToggle').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  const icon = document.getElementById('navIcon');
+  const open = menu.classList.toggle('open');
+  icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+
+// Handle URL param
+const initParam = new URLSearchParams(window.location.search).get('section');
+if (initParam && sections.includes(initParam)) {
+  goSection(initParam);
+}
+</script>
+</body>
+</html>

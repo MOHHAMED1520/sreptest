@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>الدورات — عايد | STEP 2026</title>
+<link rel="stylesheet" href="css/shared.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"/>
+<style>
+/* ── COURSES EXCLUSIVE ── */
+
+/* Course cards */
+.courses-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 28px; margin-bottom: 60px;
+}
+@media(max-width:900px) { .courses-grid { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; } }
+
+.course-card {
+  background: var(--grad-card); border: 2px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: all 0.35s; position: relative;
+  display: flex; flex-direction: column;
+}
+.course-card:hover { transform: translateY(-8px); border-color: var(--border2); box-shadow: var(--shadow2); }
+.course-card.featured { border-color: var(--gold); box-shadow: var(--glow); }
+.course-card.featured:hover { box-shadow: var(--glow2); }
+
+.cc-ribbon {
+  position: absolute; top: 20px; left: -1px;
+  background: var(--grad-gold); color: #000;
+  padding: 5px 16px 5px 12px; font-size: 0.72rem; font-weight: 900;
+  border-radius: 0 50px 50px 0;
+  box-shadow: 0 4px 12px rgba(247,174,27,0.4);
+}
+
+.cc-header {
+  padding: 28px 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.cc-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0.07;
+}
+.course-card:nth-child(1) .cc-header::before { background: radial-gradient(circle at 80% 20%, var(--info), transparent); }
+.course-card:nth-child(2) .cc-header::before { background: radial-gradient(circle at 80% 20%, var(--gold), transparent); }
+.course-card:nth-child(3) .cc-header::before { background: radial-gradient(circle at 80% 20%, var(--purple), transparent); }
+.course-card:nth-child(4) .cc-header::before { background: radial-gradient(circle at 80% 20%, var(--teal), transparent); }
+
+.cc-emoji { font-size: 2.8rem; margin-bottom: 14px; }
+.cc-badge { display: inline-flex; align-items: center; gap: 5px; margin-bottom: 12px; }
+.cc-name { font-size: 1.25rem; font-weight: 900; margin-bottom: 8px; line-height: 1.3; }
+.cc-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+.cc-price-box {
+  padding: 16px 24px;
+  background: rgba(255,255,255,0.025);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.cc-price { font-size: 2.2rem; font-weight: 900; color: var(--gold); line-height: 1; }
+.cc-price-row { display: flex; align-items: baseline; gap: 10px; }
+.cc-orig { font-size: 0.95rem; color: var(--muted); text-decoration: line-through; }
+.cc-disc {
+  background: var(--danger-bg); color: var(--danger);
+  padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 900;
+}
+
+.cc-body { padding: 20px 24px; flex: 1; }
+.cc-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.cc-feat { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text2); }
+.cc-feat i { color: var(--success); font-size: 0.85rem; margin-top: 3px; flex-shrink: 0; }
+.cc-meta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+.cc-meta-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--muted); }
+.cc-meta-item i { color: var(--gold); }
+
+.cc-footer { padding: 20px 24px; border-top: 1px solid var(--border); }
+.cc-cta { width: 100%; display: block; text-align: center; margin-bottom: 10px; }
+.cc-whatsapp {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px; border-radius: 50px; background: var(--glass2); border: 1px solid var(--border);
+  color: #4ade80; font-family: var(--font); font-size: 0.84rem; font-weight: 800;
+  transition: var(--transition); cursor: pointer;
+}
+.cc-whatsapp:hover { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.4); transform: translateY(-2px); }
+
+/* Level indicator */
+.level-tabs {
+  display: flex; gap: 10px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;
+}
+.level-tab {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: 50px;
+  border: 2px solid var(--border); background: transparent;
+  color: var(--muted); font-family: var(--font); font-weight: 800;
+  font-size: 0.88rem; cursor: pointer; transition: var(--transition);
+}
+.level-tab.active { background: var(--grad-gold); color: #000; border-color: transparent; }
+.level-tab:hover:not(.active) { border-color: var(--border2); color: var(--gold); }
+
+/* Compare table */
+.compare-wrap { overflow-x: auto; margin-bottom: 60px; }
+.compare-table {
+  width: 100%; border-collapse: collapse; min-width: 600px;
+}
+.compare-table th {
+  padding: 16px 18px; text-align: center; font-weight: 900;
+  font-size: 0.88rem; background: var(--card2);
+  border: 1px solid var(--border);
+}
+.compare-table th:first-child { text-align: right; width: 40%; }
+.compare-table td {
+  padding: 14px 18px; text-align: center; font-size: 0.88rem;
+  border: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.compare-table td:first-child { text-align: right; color: var(--text2); font-weight: 600; }
+.compare-table tr:hover td { background: var(--glass2); }
+.compare-table .check { color: var(--success); font-size: 1rem; }
+.compare-table .cross { color: var(--muted); font-size: 0.8rem; }
+.compare-table .highlight-col { background: rgba(247,174,27,0.05); }
+.compare-table thead th.highlight-col {
+  background: linear-gradient(135deg, rgba(247,174,27,0.1), rgba(247,174,27,0.05));
+  color: var(--gold);
+}
+
+/* FAQ */
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); margin-bottom: 12px;
+  overflow: hidden; transition: border-color 0.3s;
+}
+.faq-item:hover { border-color: var(--border2); }
+.faq-q {
+  padding: 18px 20px; font-weight: 800; font-size: 0.95rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.faq-q i { color: var(--gold); font-size: 0.9rem; transition: transform 0.3s; flex-shrink: 0; }
+.faq-item.open .faq-q i { transform: rotate(45deg); }
+.faq-a {
+  display: none; padding: 0 20px 18px;
+  font-size: 0.88rem; color: var(--muted); line-height: 1.85;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* Testimonials mini */
+.testi-mini-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+@media(max-width:768px) { .testi-mini-grid { grid-template-columns: 1fr; } }
+.testi-mini {
+  background: var(--grad-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 20px;
+  transition: var(--transition);
+}
+.testi-mini:hover { border-color: var(--border2); transform: translateY(-3px); }
+.tm-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 10px; }
+.tm-text { font-size: 0.88rem; color: var(--text2); line-height: 1.8; margin-bottom: 14px; font-style: italic; }
+.tm-author { display: flex; align-items: center; gap: 10px; }
+.tm-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--grad-gold); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.88rem; flex-shrink: 0; }
+.tm-name { font-weight: 800; font-size: 0.84rem; }
+.tm-score { font-size: 0.72rem; color: var(--success); }
+
+/* Guarantee strip */
+.guarantee-strip {
+  background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(15,53,92,0.3));
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: var(--radius); padding: 32px; text-align: center;
+  margin-bottom: 60px;
+}
+.gs-badges { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+.gs-badge {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--glass2); border: 1px solid var(--border);
+  border-radius: 50px; padding: 10px 20px;
+  font-size: 0.85rem; font-weight: 700;
+}
+.gs-badge i { color: var(--success); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="ticker-item">🎓 دورات أكاديمية عايد — STEP 2026 | خصومات حتى 50%</span>
+    <span class="ticker-item">🏆 آلاف الطلاب نجحوا بفضل دوراتنا</span>
+    <span class="ticker-item">⚡ سجّل الآن وابدأ فورًا</span>
+    <span class="ticker-item">💎 ضمان جودة التعلم أو استعادة المبلغ</span>
+    <span class="ticker-item">🎓 دورات أكاديمية عايد — STEP 2026 | خصومات حتى 50%</span>
+    <span class="ticker-item">🏆 آلاف الطلاب نجحوا بفضل دوراتنا</span>
+    <span class="ticker-item">⚡ سجّل الآن وابدأ فورًا</span>
+    <span class="ticker-item">💎 ضمان جودة التعلم أو استعادة المبلغ</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="أكاديمية عايد" class="nav-logo-img"/>
+      <div class="nav-logo-text">
+        <div class="nav-logo-title">عايد | STEP 2026</div>
+        <div class="nav-logo-sub">أكاديمية عايد للغة الإنجليزية</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="summaries.html" class="nav-link"><i class="fas fa-book-open"></i> الملخصات</a>
+      <a href="quiz.html" class="nav-link"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="nav-link active"><i class="fas fa-graduation-cap"></i> الدورات</a>
+    </div>
+    <a href="quiz.html" class="nav-cta btn btn-gold">
+      <i class="fas fa-play"></i> ابدأ الاختبار
+    </a>
+    <button class="nav-toggle" id="navToggle"><i class="fas fa-bars" id="navIcon"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+    <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
+    <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+    <a href="https://studentservices241445-rgb.github.io/STEP-2030/" class="active"><i class="fas fa-graduation-cap"></i> الدورات</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+      <span><i class="fas fa-chevron-left"></i></span>
+      <span>الدورات</span>
+    </div>
+    <h1 class="page-hero-title">
+      دورات <span class="gold">أكاديمية عايد</span><br>لـ STEP 2026
+    </h1>
+    <p class="page-hero-desc">
+      اختر الدورة المناسبة لمستواك وابدأ رحلتك نحو اجتياز STEP 2026 بأعلى درجة ممكنة
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="quiz.html" class="btn btn-outline btn-lg">
+        <i class="fas fa-compass"></i> اختبر مستواك أولًا
+      </a>
+      <a href="#courses" class="btn btn-gold btn-lg">
+        <i class="fas fa-graduation-cap"></i> استعرض الدورات
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div style="background:var(--bg2);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="grid-4" style="padding:28px 0;gap:0;">
+      <div style="text-align:center;padding:10px;border-left:1px solid var(--border);">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--gold);">+5,000</div>
+        <div style="font-size:0.75rem;color:var(--muted);">طالب مسجّل</div>
+      </div>
+      <div style="text-align:center;padding:10px;border-left:1px solid var(--border);">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--success);">92%</div>
+        <div style="font-size:0.75rem;color:var(--muted);">نسبة النجاح</div>
+      </div>
+      <div style="text-align:center;padding:10px;border-left:1px solid var(--border);">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--info);">4</div>
+        <div style="font-size:0.75rem;color:var(--muted);">دورات متخصصة</div>
+      </div>
+      <div style="text-align:center;padding:10px;">
+        <div style="font-size:1.8rem;font-weight:900;color:#a78bfa;">4.9 ⭐</div>
+        <div style="font-size:0.75rem;color:var(--muted);">تقييم الطلاب</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+  <!-- COURSES -->
+  <section class="section" id="courses">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow"><i class="fas fa-graduation-cap"></i> دوراتنا</div>
+        <h2 class="section-title">اختر <span class="highlight">دورتك المناسبة</span></h2>
+        <p class="section-desc">
+          أربع دورات مصممة بعناية لتناسب جميع المستويات — من المبتدئ إلى المتقدم
+        </p>
+        <div class="divider"></div>
+      </div>
+
+      <!-- Level filter -->
+      <div class="level-tabs">
+        <button class="level-tab active" onclick="filterCourses('all')"><i class="fas fa-th"></i> جميع الدورات</button>
+        <button class="level-tab" onclick="filterCourses('foundation')"><i class="fas fa-seedling"></i> مبتدئ</button>
+        <button class="level-tab" onclick="filterCourses('intermediate')"><i class="fas fa-chart-line"></i> متوسط</button>
+        <button class="level-tab" onclick="filterCourses('advanced')"><i class="fas fa-rocket"></i> متقدم</button>
+      </div>
+
+      <div class="courses-grid" id="coursesGrid">
+
+        <!-- Course 1: Foundation -->
+        <div class="course-card" data-level="foundation">
+          <div class="cc-header">
+            <div class="cc-emoji">🌟</div>
+            <div class="cc-badge"><span class="badge badge-navy"><i class="fas fa-seedling"></i> مبتدئ</span></div>
+            <div class="cc-name">دورة STEP التأسيسية</div>
+            <div class="cc-sub">الانطلاقة المثالية لمن يبدأ رحلته مع STEP. أسّس قاعدتك اللغوية وتعرّف على أسلوب الاختبار بعمق.</div>
+          </div>
+          <div class="cc-price-box">
+            <div class="cc-price-row">
+              <div class="cc-price">199 ر.س</div>
+              <div class="cc-orig">399 ر.س</div>
+              <div class="cc-disc">وفّر 50%</div>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-meta">
+              <div class="cc-meta-item"><i class="fas fa-clock"></i> 8 أسابيع</div>
+              <div class="cc-meta-item"><i class="fas fa-video"></i> 40 محاضرة</div>
+              <div class="cc-meta-item"><i class="fas fa-users"></i> +2000 طالب</div>
+            </div>
+            <div class="cc-features">
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> قواعد اللغة الإنجليزية من الأساس</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> فهم أسلوب STEP الحديث</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> استراتيجيات الإجابة السريعة</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> تدريبات Grammar + Vocabulary</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> نموذج اختبار تجريبي مجاني</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> دعم مباشر من المدرب</div>
+            </div>
+          </div>
+          <div class="cc-footer">
+            <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold cc-cta btn-lg">
+              <i class="fas fa-graduation-cap"></i> سجّل الآن
+            </a>
+            <button class="cc-whatsapp" onclick="window.open('https://wa.me/966500000000?text=أريد الاستفسار عن دورة STEP التأسيسية','_blank')">
+              <i class="fab fa-whatsapp"></i> استفسر عبر واتساب
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 2: Intermediate (FEATURED) -->
+        <div class="course-card featured" data-level="intermediate">
+          <div class="cc-ribbon"><i class="fas fa-fire"></i> الأكثر مبيعًا</div>
+          <div class="cc-header">
+            <div class="cc-emoji">🚀</div>
+            <div class="cc-badge"><span class="badge badge-gold"><i class="fas fa-chart-line"></i> متوسط</span></div>
+            <div class="cc-name">دورة STEP المتوسطة</div>
+            <div class="cc-sub">للطلاب الذين لديهم قاعدة لغوية ويريدون الارتقاء بمستواهم في STEP بشكل احترافي.</div>
+          </div>
+          <div class="cc-price-box">
+            <div class="cc-price-row">
+              <div class="cc-price">299 ر.س</div>
+              <div class="cc-orig">499 ر.س</div>
+              <div class="cc-disc">وفّر 40%</div>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-meta">
+              <div class="cc-meta-item"><i class="fas fa-clock"></i> 10 أسابيع</div>
+              <div class="cc-meta-item"><i class="fas fa-video"></i> 60 محاضرة</div>
+              <div class="cc-meta-item"><i class="fas fa-users"></i> +1800 طالب</div>
+            </div>
+            <div class="cc-features">
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> تعمّق في Grammar المتقدم</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> استراتيجيات Reading & Listening</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> Vocabulary أكاديمي شامل</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> نموذجان كاملان (51 & 52) مع تصحيح</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> جلسات مراجعة مباشرة أسبوعية</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> مجموعة دعم على واتساب</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> شهادة إتمام الدورة</div>
+            </div>
+          </div>
+          <div class="cc-footer">
+            <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold cc-cta btn-lg">
+              <i class="fas fa-graduation-cap"></i> سجّل الآن — الأكثر مبيعًا
+            </a>
+            <button class="cc-whatsapp" onclick="window.open('https://wa.me/966500000000?text=أريد الاستفسار عن دورة STEP المتوسطة','_blank')">
+              <i class="fab fa-whatsapp"></i> استفسر عبر واتساب
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 3: Advanced -->
+        <div class="course-card" data-level="advanced">
+          <div class="cc-header">
+            <div class="cc-emoji">💎</div>
+            <div class="cc-badge"><span class="badge badge-purple"><i class="fas fa-rocket"></i> متقدم</span></div>
+            <div class="cc-name">دورة STEP المتقدمة</div>
+            <div class="cc-sub">للطلاب الطموحين الذين يستهدفون أعلى الدرجات. برنامج مكثف بأسلوب احترافي.</div>
+          </div>
+          <div class="cc-price-box">
+            <div class="cc-price-row">
+              <div class="cc-price">399 ر.س</div>
+              <div class="cc-orig">599 ر.س</div>
+              <div class="cc-disc">وفّر 33%</div>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-meta">
+              <div class="cc-meta-item"><i class="fas fa-clock"></i> 6 أسابيع مكثفة</div>
+              <div class="cc-meta-item"><i class="fas fa-video"></i> 50 محاضرة</div>
+              <div class="cc-meta-item"><i class="fas fa-users"></i> +900 طالب</div>
+            </div>
+            <div class="cc-features">
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> محاكاة كاملة لاختبار STEP الفعلي</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> استراتيجيات إدارة الوقت</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> 4 نماذج كاملة مع تصحيح فوري</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> تغطية شاملة للنموذجين 51 & 52</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> مراجعة نهائية مكثفة</div>
+              <div class="cc-feat"><i class="fas fa-check-circle"></i> ضمان الرضا أو استرداد المبلغ</div>
+            </div>
+          </div>
+          <div class="cc-footer">
+            <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold cc-cta btn-lg">
+              <i class="fas fa-graduation-cap"></i> سجّل الآن
+            </a>
+            <button class="cc-whatsapp" onclick="window.open('https://wa.me/966500000000?text=أريد الاستفسار عن دورة STEP المتقدمة','_blank')">
+              <i class="fab fa-whatsapp"></i> استفسر عبر واتساب
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 4: Full Bundle -->
+        <div class="course-card" data-level="all" style="grid-column:1/-1;background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-color:var(--gold);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;">
+            <div class="cc-header" style="border-left:1px solid var(--border);">
+              <div class="cc-emoji">👑</div>
+              <div class="cc-badge"><span class="badge badge-gold"><i class="fas fa-crown"></i> باقة شاملة</span></div>
+              <div class="cc-name">الباقة الشاملة — STEP 2026 Bundle</div>
+              <div class="cc-sub">كل ما تحتاجه للنجاح في مكان واحد — الدورتان التأسيسية والمتوسطة + مواد إضافية حصرية + جلسات خاصة.</div>
+              <div class="cc-price-box" style="padding:14px 0 0;background:transparent;border:none;margin-top:auto;">
+                <div class="cc-price-row">
+                  <div class="cc-price" style="font-size:2.5rem;">449 ر.س</div>
+                  <div class="cc-orig">900 ر.س</div>
+                  <div class="cc-disc" style="font-size:0.85rem;padding:5px 14px;">وفّر 50%+</div>
+                </div>
+              </div>
+            </div>
+            <div class="cc-body" style="padding:28px 24px;">
+              <div class="cc-features">
+                <div class="cc-feat"><i class="fas fa-check-circle"></i> شاملة: الدورتان التأسيسية + المتوسطة</div>
+                <div class="cc-feat"><i class="fas fa-check-circle"></i> 3 جلسات خاصة مع المدرب</div>
+                <div class="cc-feat"><i class="fas fa-check-circle"></i> مواد إضافية: كتب إلكترونية + ملخصات PDF</div>
+                <div class="cc-feat"><i class="fas fa-check-circle"></i> 6 نماذج اختبار كاملة مع تصحيح</div>
+                <div class="cc-feat"><i class="fas fa-check-circle"></i> وصول مدى الحياة لجميع المحاضرات</div>
+                <div class="cc-feat"><i class="fas fa-check-circle"></i> مجموعة VIP على واتساب</div>
+                <div class="cc-feat"><i class="fas fa-check-circle"></i> شهادة + ضمان النجاح</div>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
+                <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold btn-lg">
+                  <i class="fas fa-crown"></i> احصل على الباقة الشاملة
+                </a>
+                <button class="cc-whatsapp" style="width:auto;padding:12px 20px;" onclick="window.open('https://wa.me/966500000000?text=أريد الاستفسار عن الباقة الشاملة STEP 2026','_blank')">
+                  <i class="fab fa-whatsapp"></i> واتساب
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="section-sm" style="background:var(--bg2);">
+    <div class="container">
+      <div class="guarantee-strip">
+        <div class="section-eyebrow" style="display:table;margin:0 auto 12px;">
+          <i class="fas fa-shield-alt"></i> ضماناتنا
+        </div>
+        <h2 style="font-size:1.7rem;font-weight:900;margin-bottom:8px;">نضمن لك تجربة تعليمية استثنائية</h2>
+        <p style="color:var(--muted);font-size:0.92rem;">كل دورة في أكاديمية عايد مصحوبة بهذه الضمانات</p>
+        <div class="gs-badges">
+          <div class="gs-badge"><i class="fas fa-undo"></i> استرداد 100% خلال 7 أيام</div>
+          <div class="gs-badge"><i class="fas fa-infinity"></i> وصول مدى الحياة</div>
+          <div class="gs-badge"><i class="fas fa-headset"></i> دعم فني 7/24</div>
+          <div class="gs-badge"><i class="fas fa-certificate"></i> شهادة معتمدة</div>
+          <div class="gs-badge"><i class="fas fa-mobile-alt"></i> متاحة على جميع الأجهزة</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE TABLE -->
+  <section class="section" id="compare">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow"><i class="fas fa-balance-scale"></i> مقارنة الدورات</div>
+        <h2 class="section-title">قارن <span class="highlight">واختر الأنسب</span></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="compare-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>الميزة</th>
+              <th>التأسيسية</th>
+              <th class="highlight-col">المتوسطة ⭐</th>
+              <th>المتقدمة</th>
+              <th>الباقة 👑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>السعر</td>
+              <td>199 ر.س</td>
+              <td class="highlight-col" style="color:var(--gold);font-weight:900;">299 ر.س</td>
+              <td>399 ر.س</td>
+              <td style="color:var(--gold);font-weight:900;">449 ر.س</td>
+            </tr>
+            <tr>
+              <td>عدد المحاضرات</td>
+              <td>40</td>
+              <td class="highlight-col">60</td>
+              <td>50</td>
+              <td>100+</td>
+            </tr>
+            <tr>
+              <td>المدة</td>
+              <td>8 أسابيع</td>
+              <td class="highlight-col">10 أسابيع</td>
+              <td>6 أسابيع</td>
+              <td>18 أسبوع</td>
+            </tr>
+            <tr>
+              <td>نماذج اختبار كاملة</td>
+              <td>1</td>
+              <td class="highlight-col">2</td>
+              <td>4</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>جلسات مباشرة أسبوعية</td>
+              <td class="cross">—</td>
+              <td class="highlight-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>تصحيح شخصي من المدرب</td>
+              <td class="cross">—</td>
+              <td class="highlight-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>مجموعة واتساب مخصصة</td>
+              <td class="cross">—</td>
+              <td class="highlight-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td>VIP</td>
+            </tr>
+            <tr>
+              <td>جلسات خاصة مع المدرب</td>
+              <td class="cross">—</td>
+              <td class="highlight-col cross">—</td>
+              <td class="cross">—</td>
+              <td><span class="check">3 جلسات</span></td>
+            </tr>
+            <tr>
+              <td>شهادة إتمام</td>
+              <td><span class="check">✓</span></td>
+              <td class="highlight-col"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>ضمان الاسترداد</td>
+              <td>7 أيام</td>
+              <td class="highlight-col">7 أيام</td>
+              <td>14 يومًا</td>
+              <td>14 يومًا</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="background:var(--bg2);" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow"><i class="fas fa-star"></i> آراء الطلاب</div>
+        <h2 class="section-title">ماذا قال <span class="highlight">طلابنا؟</span></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="testi-mini-grid">
+        <div class="testi-mini">
+          <div class="tm-stars">★★★★★</div>
+          <p class="tm-text">"الدورة المتوسطة كانت نقطة تحوّل. استراتيجيات Reading غيّرت طريقة تعاملي مع النصوص كليًا."</p>
+          <div class="tm-author">
+            <div class="tm-avatar">ر</div>
+            <div>
+              <div class="tm-name">ريم المطيري</div>
+              <div class="tm-score">✅ نجحت في STEP 2025 | درجة 87</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-mini">
+          <div class="tm-stars">★★★★★</div>
+          <p class="tm-text">"كنت خايف من قسم Grammar، لكن بعد الدورة التأسيسية صارت أسهل قسم عندي. المدرب شرح بأسلوب رائع."</p>
+          <div class="tm-author">
+            <div class="tm-avatar">ع</div>
+            <div>
+              <div class="tm-name">عبدالله الزهراني</div>
+              <div class="tm-score">✅ نجح | درجة 79</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-mini">
+          <div class="tm-stars">★★★★★</div>
+          <p class="tm-text">"الباقة الشاملة تستاهل كل ريال — الجلسات الخاصة مع المدرب كانت الفرق الحقيقي."</p>
+          <div class="tm-author">
+            <div class="tm-avatar">ن</div>
+            <div>
+              <div class="tm-name">نورة العمري</div>
+              <div class="tm-score">🏆 درجة 93 — الأولى في دفعتها</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow"><i class="fas fa-question-circle"></i> الأسئلة الشائعة</div>
+        <h2 class="section-title">كل ما تريد <span class="highlight">معرفته</span></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            كيف أعرف أي دورة مناسبة لمستواي؟
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">ننصح بحل الاختبار التجريبي المجاني أولًا — بعد الانتهاء ستحصل على توصية تلقائية بالدورة الأنسب لمستواك بناءً على نتيجتك في كل قسم.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            هل يمكنني الوصول للدورة بعد انتهائها؟
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">نعم، جميع الدورات تأتي مع وصول مدى الحياة لجميع المحاضرات والمواد. يمكنك مراجعة المحتوى في أي وقت.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            هل الدورة مناسبة لاختبار STEP 2026 تحديدًا؟
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">نعم، جميع دوراتنا محدّثة خصيصًا لتتوافق مع أسلوب ومتطلبات اختبار STEP 2026 بما يشمل النموذجين 51 و52.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ما وسائل الدفع المتاحة؟
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">ندعم جميع وسائل الدفع الإلكترونية: بطاقات فيزا / ماستركارد، مدى، آبل باي، وتحويل بنكي. التسجيل والدفع آمن 100%.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            هل يمكن استرداد المبلغ؟
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">نعم، نقدم ضمان استرداد كامل خلال 7 أيام من تاريخ الاشتراك بدون شروط معقدة. رضاك هو أولويتنا.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            هل هناك شهادة بعد إتمام الدورة؟
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">نعم، كل الدورات تمنحك شهادة إتمام رسمية من أكاديمية عايد يمكن مشاركتها على LinkedIn وسيرتك الذاتية.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-top:1px solid var(--border2);padding:100px 0;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(247,174,27,0.07),transparent);pointer-events:none;"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-eyebrow" style="display:table;margin:0 auto 20px;"><i class="fas fa-rocket"></i> الوقت الأنسب هو الآن</div>
+      <h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:16px;">
+        لا تؤجّل<span style="background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"> نجاحك!</span>
+      </h2>
+      <p style="color:var(--muted);font-size:1.05rem;max-width:520px;margin:0 auto 36px;line-height:1.85;">
+        سجّل الآن واستمتع بخصومات حصرية لفترة محدودة. آلاف الطلاب سبقوك — انضم إليهم اليوم.
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold btn-xl">
+          <i class="fas fa-graduation-cap"></i> سجّل في الدورة الآن
+        </a>
+        <a href="quiz.html" class="btn btn-outline btn-xl">
+          <i class="fas fa-play-circle"></i> ابدأ الاختبار المجاني
+        </a>
+      </div>
+      <div style="margin-top:28px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+        <a href="https://wa.me/966500000000" target="_blank" style="display:flex;align-items:center;gap:8px;color:#4ade80;font-weight:800;font-size:0.88rem;"><i class="fab fa-whatsapp fa-lg"></i> تواصل عبر واتساب</a>
+        <a href="https://t.me/ayedacademy" target="_blank" style="display:flex;align-items:center;gap:8px;color:#60a5fa;font-weight:800;font-size:0.88rem;"><i class="fab fa-telegram fa-lg"></i> تواصل عبر تيليجرام</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <img src="images/logo.png" alt="أكاديمية عايد" class="footer-logo-img"/>
+          <div class="footer-logo-text">
+            <div class="footer-logo-title">أكاديمية عايد</div>
+            <div style="font-size:0.72rem;color:var(--muted)">AYED ACADEMY</div>
+          </div>
+        </div>
+        <p>منصة تعليمية متخصصة في تحضير اختبارات الكفاءة اللغوية الإنجليزية.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">روابط سريعة</div>
+        <div class="footer-links">
+          <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+          <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
+          <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار</a>
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">تواصل</div>
+        <div class="footer-links">
+          <a href="https://wa.me/966500000000" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+          <a href="https://t.me/ayedacademy" target="_blank"><i class="fab fa-telegram"></i> تيليجرام</a>
+          <a href="https://twitter.com/ayedacademy" target="_blank"><i class="fab fa-twitter"></i> تويتر</a>
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank"><i class="fas fa-store"></i> المتجر</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 أكاديمية عايد — جميع الحقوق محفوظة</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" aria-label="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+// Navbar
+const navbar = document.getElementById('navbar');
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+document.getElementById('navToggle').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  const icon = document.getElementById('navIcon');
+  const open = menu.classList.toggle('open');
+  icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+
+// Level filter
+function filterCourses(level) {
+  document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+  event.target.closest('.level-tab').classList.add('active');
+  document.querySelectorAll('.course-card').forEach(card => {
+    if (level === 'all' || card.dataset.level === level || card.dataset.level === 'all') {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// FAQ toggle
+function toggleFaq(el) {
+  el.closest('.faq-item').classList.toggle('open');
+}
+
+// Animations
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.course-card, .testi-mini, .faq-item').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = `opacity 0.5s ease ${i * 0.06}s, transform 0.5s ease ${i * 0.06}s`;
+  obs.observe(el);
+});
+
+// Highlight recommended course from URL param
+const recommended = new URLSearchParams(window.location.search).get('rec');
+if (recommended) {
+  const levelMap = { foundation:'التأسيسية', intermediate:'المتوسطة', advanced:'المتقدمة' };
+  const name = levelMap[recommended];
+  if (name) {
+    document.querySelectorAll('.course-card').forEach(card => {
+      if (card.querySelector('.cc-name')?.textContent.includes(name)) {
+        card.classList.add('featured');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
+}
+</script>
+</body>
+</html>
