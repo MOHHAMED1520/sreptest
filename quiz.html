@@ -417,6 +417,54 @@
 
 .modal-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+/* ── STORE CTA BUTTON (after each section) ── */
+.store-cta-block {
+  background: linear-gradient(135deg, rgba(247,174,27,0.10), rgba(15,53,92,0.5));
+  border: 1.5px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 20px 18px;
+  margin-bottom: 18px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.store-cta-block::before {
+  content: '🛒';
+  position: absolute; left: 14px; top: 10px;
+  font-size: 3rem; opacity: 0.10; pointer-events: none;
+}
+.store-cta-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--grad-gold); color: #000;
+  padding: 4px 13px; border-radius: 50px;
+  font-size: 0.72rem; font-weight: 900; margin-bottom: 10px;
+}
+.store-cta-title {
+  font-size: 1.1rem; font-weight: 900;
+  color: var(--gold-pale); margin-bottom: 6px;
+}
+.store-cta-desc {
+  font-size: 0.83rem; color: var(--muted);
+  margin-bottom: 14px; line-height: 1.7;
+}
+.store-cta-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.btn-store {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 50px;
+  font-family: var(--font); font-weight: 900; font-size: 0.88rem;
+  border: none; cursor: pointer; transition: var(--transition);
+  text-decoration: none;
+}
+.btn-store:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(247,174,27,0.35); }
+.btn-store-main {
+  background: linear-gradient(135deg, #F7AE1B, #d4920f);
+  color: #000;
+  box-shadow: 0 4px 16px rgba(247,174,27,0.3);
+}
+.btn-store-tg {
+  background: #229ED9; color: #fff;
+}
+
 /* ── FINAL RESULT ── */
 .final-screen {
   animation: fadeUp 0.5s ease;
@@ -855,7 +903,7 @@
       <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
       <a href="summaries.html" class="nav-link"><i class="fas fa-book-open"></i> الملخصات</a>
       <a href="quiz.html" class="nav-link active"><i class="fas fa-pen-fancy"></i> الاختبار</a>
-      <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="nav-link"><i class="fas fa-graduation-cap"></i> الدورات</a>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="nav-link"><i class="fas fa-store"></i> المتجر</a>
     </div>
     <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="nav-cta btn btn-gold">
       <i class="fab fa-telegram"></i> تواصل معنا
@@ -950,6 +998,23 @@
       <button onclick="startExam()" class="btn btn-gold btn-xl" style="font-size:1.1rem;padding:18px 60px;">
         <i class="fas fa-play-circle"></i> ابدأ الاختبار الآن
       </button>
+
+      <!-- Store Banner on Start Screen -->
+      <div style="margin-top:28px;padding:20px 18px;background:linear-gradient(135deg,rgba(247,174,27,0.09),rgba(15,53,92,0.45));border:1.5px solid rgba(247,174,27,0.5);border-radius:14px;text-align:center;max-width:520px;width:100%;">
+        <div style="font-size:0.78rem;font-weight:900;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:6px;">
+          <i class="fas fa-star"></i> هل أنهيت اختبارك من قبل؟
+        </div>
+        <div style="font-size:1.05rem;font-weight:900;margin-bottom:6px;">🚀 انتقل للمستوى التالي مع دوراتنا!</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;line-height:1.7;">دورات STEP 2026 المتخصصة — نتائج مضمونة أو استرداد كامل للمبلغ.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F7AE1B,#d4920f);color:#000;font-weight:900;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 14px rgba(247,174,27,0.3);">
+            <i class="fas fa-store"></i> تصفح المتجر
+          </a>
+          <a href="https://t.me/Ayed_Academy_2026" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:rgba(34,158,217,0.15);border:1px solid rgba(34,158,217,0.4);color:#60CBFF;font-weight:800;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;">
+            <i class="fab fa-telegram"></i> استفسر عبر تيليجرام
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- EXAM AREA (hidden until start) -->
@@ -1200,7 +1265,7 @@
         <div class="footer-col-title">تواصل معنا</div>
         <div class="footer-links">
           <a href="https://t.me/Ayed_Academy_2026" target="_blank"><i class="fab fa-telegram"></i> تيليجرام الأكاديمية</a>
-          <a href="https://wa.me/?text=%D8%A3كاديمية%20عايد%20-%20STEP%202026" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank"><i class="fas fa-store"></i> تصفح المتجر</a>
         </div>
       </div>
     </div>
@@ -1208,7 +1273,7 @@
       <p>© 2026 أكاديمية عايد — جميع الحقوق محفوظة</p>
       <div class="footer-social">
         <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="social-btn" title="تيليجرام"><i class="fab fa-telegram"></i></a>
-        <a href="https://wa.me/?text=%D8%A3كاديمية%20عايد%20-%20STEP%202026" target="_blank" class="social-btn" title="واتساب"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="social-btn" title="المتجر" style="color:var(--gold);"><i class="fas fa-store"></i></a>
       </div>
     </div>
   </div>
@@ -1651,6 +1716,21 @@ function showSectionModal(sec) {
       </div>
     </div>
 
+    <!-- Store CTA -->
+    <div class="store-cta-block">
+      <div class="store-cta-badge"><i class="fas fa-store"></i> متجر أكاديمية عايد</div>
+      <div class="store-cta-title">🚀 ارتقِ بمستواك مع دوراتنا الاحترافية!</div>
+      <p class="store-cta-desc">اكتشف دوراتنا المتخصصة لاختبار STEP 2026 — تغطي جميع الأقسام بأسلوب تفاعلي ونتائج مضمونة.</p>
+      <div class="store-cta-btns">
+        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn-store btn-store-main">
+          <i class="fas fa-shopping-cart"></i> تصفح المتجر الآن
+        </a>
+        <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn-store btn-store-tg">
+          <i class="fab fa-telegram"></i> استفسر عبر تيليجرام
+        </a>
+      </div>
+    </div>
+
     <!-- Share -->
     <div style="font-size:0.85rem;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
       <i class="fas fa-share-alt" style="color:var(--gold)"></i>
@@ -1756,6 +1836,20 @@ function buildFinalResult() {
         <a href="quiz.html" class="btn btn-outline"><i class="fas fa-redo"></i> إعادة الاختبار</a>
         <a href="summaries.html" class="btn btn-navy"><i class="fas fa-book-open"></i> مراجعة الملخصات</a>
       </div>
+
+      <!-- Big Store CTA after final score -->
+      <div style="margin-top:28px;padding:24px 20px;background:linear-gradient(135deg,rgba(247,174,27,0.13),rgba(15,53,92,0.55));border:2px solid var(--gold);border-radius:var(--radius);text-align:center;">
+        <div style="font-size:1.4rem;font-weight:900;margin-bottom:8px;">🛒 استثمر نتيجتك — سجّل في الدورة المناسبة الآن!</div>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:18px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8;">دوراتنا مصممة لرفع درجتك في STEP 2026 — تصفّح المتجر أو تواصل معنا عبر تيليجرام للاستفسار والتسجيل.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold btn-lg" style="box-shadow:0 6px 24px rgba(247,174,27,0.4);">
+            <i class="fas fa-store"></i> اذهب للمتجر الآن
+          </a>
+          <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn" style="background:#229ED9;color:#fff;padding:12px 24px;border-radius:50px;font-weight:900;font-size:0.95rem;display:inline-flex;align-items:center;gap:8px;text-decoration:none;">
+            <i class="fab fa-telegram"></i> تواصل عبر تيليجرام
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Section Breakdown Cards -->
@@ -1782,8 +1876,8 @@ function buildFinalResult() {
         <div class="rcl-disc"><i class="fas fa-tag"></i> ${rd.tag}</div>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn btn-gold btn-lg"><i class="fab fa-telegram"></i> تواصل للتسجيل</a>
-        <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn btn-outline"><i class="fas fa-info-circle"></i> استفسر عن الدورة</a>
+        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold btn-lg"><i class="fas fa-shopping-cart"></i> تصفح دورات المتجر الآن</a>
+        <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn btn-outline"><i class="fab fa-telegram"></i> استفسر عبر تيليجرام</a>
       </div>
     </div>
 
@@ -1969,7 +2063,7 @@ function closeMobilePanel() {
 const aiResponses = {
   start: `🚀 لبدأ الاختبار:\n1️⃣ اختر القسم الذي تريد البدء منه من الأزرار أدناه\n2️⃣ اضغط "ابدأ الاختبار الآن"\n3️⃣ اختر إجابة لكل سؤال وستظهر النتيجة فورًا\n4️⃣ ستحصل على شرح مفصّل مع كل إجابة\n\n📊 يمكنك التنقل بين الأقسام الأربعة بحرية من الشريط الجانبي في أي وقت.`,
   sections: `📋 اختبار STEP 2026 يتكون من 4 أقسام:\n\n✏️ Grammar — القواعد النحوية (25 سؤالًا)\n📖 Reading — الفهم القرائي (25 سؤالًا)\n📝 Vocabulary — المفردات في السياق (25 سؤالًا)\n🎧 Listening — مهارات الاستماع (25 سؤالًا)\n\n📊 الإجمالي: 100 سؤال بمستوى STEP الحقيقي`,
-  course: `🎯 الدورة المناسبة تعتمد على نتيجة الاختبار:\n\n📘 أقل من 60% → الدورة التأسيسية (199 ر.س)\n  ✓ مناسبة للمبتدئين\n  ✓ تأسيس قوي في القواعد والمفردات\n\n📗 60-80% → الدورة المتوسطة (299 ر.س)\n  ✓ للطلاب ذوي المستوى المتوسط\n  ✓ تعمّق في مهارات STEP\n\n📙 أكثر من 80% → الدورة المتقدمة (399 ر.س)\n  ✓ لمن يستهدف الدرجات العليا\n  ✓ استراتيجيات متقدمة\n\n📞 للتسجيل والاستفسار: t.me/Ayed_Academy_2026`,
+  course: `🎯 الدورة المناسبة تعتمد على نتيجة الاختبار:\n\n📘 أقل من 60% → الدورة التأسيسية (199 ر.س)\n  ✓ مناسبة للمبتدئين\n  ✓ تأسيس قوي في القواعد والمفردات\n\n📗 60-80% → الدورة المتوسطة (299 ر.س)\n  ✓ للطلاب ذوي المستوى المتوسط\n  ✓ تعمّق في مهارات STEP\n\n📙 أكثر من 80% → الدورة المتقدمة (399 ر.س)\n  ✓ لمن يستهدف الدرجات العليا\n  ✓ استراتيجيات متقدمة\n\n🛒 المتجر: studentservices241445-rgb.github.io/STEP-2030/\n📞 للتسجيل والاستفسار: t.me/Ayed_Academy_2026`,
   contact: `📱 التواصل مع أكاديمية عايد:\n\n📩 تيليجرام (الأفضل):\nt.me/Ayed_Academy_2026\n\n✅ يمكنك الاستفسار عن:\n• تسجيل الدورات والأسعار\n• الجداول الدراسية\n• تفاصيل المناهج\n• الضمانات والعروض\n• أي سؤال تعليمي\n\nنتشرف بخدمتك! 🌟`,
   summaries: `📚 الملخصات التعليمية متاحة في صفحة الملخصات:\n\n📖 Grammar — أهم القواعد النحوية وأكثرها ظهورًا في STEP\n📚 Reading — استراتيجيات الفهم القرائي والأسئلة الاستنتاجية\n📝 Vocabulary — المفردات الأكاديمية المتكررة مع أمثلة\n🎧 Listening — أنواع أسئلة الاستماع ومفاتيح الإجابة\n\n🔗 اضغط على "الملخصات" في القائمة العلوية للوصول إليها مباشرةً.`,
   score: `📊 نسبة النجاح في STEP تختلف حسب الجهة الطالبة:\n\n🏛️ القبول الجامعي العام: 60%+\n🎓 البرامج الأكاديمية المتقدمة: 70%+\n🌟 البرامج التنافسية: 85%+\n💼 بعض وظائف الحكومة: 65%+\n\n💡 نصيحتنا: استهدف 75%+ لضمان تجاوز معظم المتطلبات وترك هامش أمان.`,
