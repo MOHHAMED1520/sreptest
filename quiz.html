@@ -465,6 +465,146 @@
   background: #229ED9; color: #fff;
 }
 
+/* ── SMART COURSE CARD (inside section modal) ── */
+.smart-course-card {
+  background: linear-gradient(145deg, rgba(15,53,92,0.7), rgba(10,36,64,0.9));
+  border: 2px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 22px 20px 18px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+  text-align: right;
+}
+.smart-course-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 80% 20%, rgba(247,174,27,0.12), transparent);
+  pointer-events: none;
+}
+.scc-ribbon {
+  position: absolute; top: 0; left: 0;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #fff; font-size: 0.65rem; font-weight: 900;
+  padding: 5px 14px 5px 10px;
+  border-radius: 0 0 14px 0;
+  display: flex; align-items: center; gap: 5px;
+  animation: ribbonPulse 2s ease-in-out infinite;
+}
+@keyframes ribbonPulse {
+  0%,100% { box-shadow: 0 2px 10px rgba(239,68,68,0.4); }
+  50%      { box-shadow: 0 2px 18px rgba(239,68,68,0.7); }
+}
+.scc-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--grad-gold); color: #000;
+  padding: 4px 12px; border-radius: 50px;
+  font-size: 0.7rem; font-weight: 900; margin-bottom: 10px;
+}
+.scc-name {
+  font-size: 1.15rem; font-weight: 900;
+  color: var(--gold-pale); margin-bottom: 4px; line-height: 1.4;
+}
+.scc-pitch {
+  font-size: 0.82rem; color: var(--text2);
+  margin-bottom: 14px; line-height: 1.7;
+}
+.scc-price-row {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap; margin-bottom: 16px;
+}
+.scc-price {
+  font-size: 1.8rem; font-weight: 900; color: var(--gold);
+  line-height: 1;
+}
+.scc-orig {
+  font-size: 0.9rem; color: var(--muted);
+  text-decoration: line-through;
+}
+.scc-save {
+  background: rgba(239,68,68,0.15); color: #f87171;
+  border: 1px solid rgba(239,68,68,0.3);
+  padding: 3px 10px; border-radius: 50px;
+  font-size: 0.7rem; font-weight: 900;
+}
+.scc-features {
+  display: flex; flex-direction: column; gap: 5px;
+  margin-bottom: 16px;
+}
+.scc-feat {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.8rem; color: var(--text2);
+}
+.scc-feat i { color: var(--success); font-size: 0.78rem; flex-shrink: 0; }
+.scc-cta-btn {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%;
+  padding: 14px 20px; border-radius: 50px;
+  font-family: var(--font); font-weight: 900; font-size: 0.95rem;
+  background: linear-gradient(135deg, #F7AE1B, #e09900);
+  color: #000; border: none; cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 6px 22px rgba(247,174,27,0.45);
+  transition: all 0.3s ease;
+  animation: ctaPulse 2.5s ease-in-out infinite;
+}
+.scc-cta-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 32px rgba(247,174,27,0.6);
+}
+@keyframes ctaPulse {
+  0%,100% { box-shadow: 0 6px 22px rgba(247,174,27,0.45); }
+  50%      { box-shadow: 0 6px 32px rgba(247,174,27,0.7); }
+}
+.scc-sub-note {
+  text-align: center; font-size: 0.72rem;
+  color: var(--muted); margin-top: 8px;
+}
+.scc-sub-note i { color: var(--success); }
+
+/* ── REMAINING SECTIONS NAV (inside section modal) ── */
+.remaining-secs-block {
+  background: var(--glass);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 16px 14px;
+  margin-bottom: 18px;
+}
+.rsb-title {
+  font-size: 0.82rem; font-weight: 900;
+  color: var(--text2); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 7px;
+}
+.rsb-title i { color: var(--gold); }
+.rsb-grid {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.rsb-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 50px;
+  font-family: var(--font); font-weight: 800; font-size: 0.8rem;
+  border: 1.5px solid var(--border2);
+  background: var(--glass2); color: var(--text);
+  cursor: pointer; transition: all 0.25s ease;
+  text-decoration: none;
+}
+.rsb-btn:hover {
+  border-color: var(--gold); color: var(--gold);
+  background: rgba(247,174,27,0.08);
+  transform: translateY(-2px);
+}
+.rsb-btn.done-sec {
+  border-color: var(--success);
+  background: rgba(34,197,94,0.08);
+  color: var(--success);
+  opacity: 0.7;
+}
+.rsb-progress-hint {
+  margin-top: 10px; font-size: 0.74rem;
+  color: var(--muted); text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+
 /* ── FINAL RESULT ── */
 .final-screen {
   animation: fadeUp 0.5s ease;
@@ -1683,6 +1823,57 @@ function showSectionModal(sec) {
 
   const shareText = encodeURIComponent(`أتممت قسم ${secName(sec)} في اختبار STEP 2026 التجريبي من أكاديمية عايد ✅\nنتيجتي: ${score}/25 (${pct}%)\n\nجرّب الاختبار أنت أيضًا → ${window.location.href}`);
 
+  // ── Smart course selection based on score ──
+  const courseData = {
+    advanced: {
+      emoji: '🌟',
+      name: 'دورة STEP المميزة (2026)',
+      pitch: 'هدفك درجة عالية +90؟ هذه هي بدايتك الصح! الدورة المميزة بنسختها الحديثة تضمن لك التفوّق.',
+      price: '249',
+      orig: '749',
+      save: 'وفّرت 500 ر.س!',
+      features: ['محاكاة كاملة لاختبار STEP الحقيقي','استراتيجيات متقدمة للدرجات العليا','شرح معمّق لكل قسم وتقنيات الإجابة السريعة','دعم مباشر ومتابعة شخصية'],
+      ctaText: '🔥 احصل على الدورة المميزة — 249 ر.س فقط'
+    },
+    intermediate: {
+      emoji: '🚀',
+      name: 'دورة STEP المكثّفة (2026)',
+      pitch: 'وقتك ضيّق وتحتاج نتيجة سريعة؟ الدورة المكثّفة صُمِّمت خصيصًا لتحقيق أقصى تقدّم في أقل وقت.',
+      price: '199',
+      orig: '549',
+      save: 'وفّرت 350 ر.س!',
+      features: ['خطة مكثّفة تُغطّي الأقسام الأربعة','تركيز على الأسئلة الأكثر تكرارًا في STEP','نماذج محاكاة حقيقية مع تصحيح فوري','مثالية للتحضير السريع قبل الاختبار'],
+      ctaText: '⚡ سجّل في الدورة المكثّفة — 199 ر.س فقط'
+    },
+    foundation: {
+      emoji: '📘',
+      name: 'دورة STEP الشاملة (2026)',
+      pitch: 'تحتاج أساسًا متينًا؟ الدورة الشاملة تأخذك خطوة بخطوة من الصفر حتى الإتقان الكامل.',
+      price: '149',
+      orig: '399',
+      save: 'وفّرت 250 ر.س!',
+      features: ['تأسيس قوي في القواعد والمفردات','شرح مبسّط يناسب جميع المستويات','تمارين تفاعلية مع تغذية راجعة فورية','الأنسب لبناء ثقتك قبل الاختبار'],
+      ctaText: '📘 ابدأ بالدورة الشاملة — 149 ر.س فقط'
+    }
+  };
+
+  const level = pct >= 80 ? 'advanced' : pct >= 60 ? 'intermediate' : 'foundation';
+  const cd = courseData[level];
+
+  // ── Remaining sections navigator ──
+  const secIcons = { grammar:'✏️', reading:'📖', vocabulary:'📝', listening:'🎧' };
+  const remainingBtns = sections.map(s => {
+    const isDone = state.done[s];
+    const isCurrent = s === sec;
+    if (isCurrent) return ''; // skip current
+    return `<button class="rsb-btn${isDone?' done-sec':''}" onclick="closeModal();goSection('${s}')">
+      ${secIcons[s]} ${secName(s)}${isDone?' ✓':''}
+    </button>`;
+  }).join('');
+
+  const doneCount = sections.filter(s => state.done[s]).length;
+  const totalSecs = sections.length;
+
   document.getElementById('secCompleteBox').innerHTML = `
     <div class="sec-circle-wrap">
       <div class="sec-score-circle" style="border-color:${color};box-shadow:0 0 40px ${ringColor};">
@@ -1707,27 +1898,50 @@ function showSectionModal(sec) {
       </div>
     </div>
 
+    <!-- Remaining Sections Navigator -->
+    ${remainingBtns ? `
+    <div class="remaining-secs-block">
+      <div class="rsb-title">
+        <i class="fas fa-map-signs"></i>
+        أكمل الأقسام المتبقية لتحصل على خطتك الكاملة والدورة المناسبة
+      </div>
+      <div class="rsb-grid">${remainingBtns}</div>
+      <div class="rsb-progress-hint">
+        <i class="fas fa-circle-check" style="color:var(--success)"></i>
+        أكملت ${doneCount} من ${totalSecs} أقسام — ${hasNext ? `${totalSecs - doneCount} قسم متبقٍ` : 'اكتمل الاختبار!'}
+      </div>
+    </div>` : ''}
+
+    <!-- Smart Course Recommendation -->
+    <div class="smart-course-card">
+      <div class="scc-ribbon"><i class="fas fa-fire"></i> موصى بها لك الآن</div>
+      <div class="scc-badge">${cd.emoji} بناءً على نتيجتك في ${secName(sec)}</div>
+      <div class="scc-name">${cd.name}</div>
+      <p class="scc-pitch">${cd.pitch}</p>
+      <div class="scc-price-row">
+        <div class="scc-price">${cd.price} <span style="font-size:0.85rem;font-weight:700;">ر.س</span></div>
+        <div class="scc-orig">${cd.orig} ر.س</div>
+        <div class="scc-save"><i class="fas fa-tag"></i> ${cd.save}</div>
+      </div>
+      <div class="scc-features">
+        ${cd.features.map(f=>`<div class="scc-feat"><i class="fas fa-check-circle"></i> ${f}</div>`).join('')}
+      </div>
+      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="scc-cta-btn">
+        <i class="fas fa-bolt"></i> ${cd.ctaText}
+      </a>
+      <div class="scc-sub-note">
+        <i class="fas fa-shield-halved"></i> ضمان الرضا التام — استرداد كامل إن لم تُعجبك الدورة
+        &nbsp;|&nbsp;
+        <a href="https://t.me/Ayed_Academy_2026" target="_blank" style="color:var(--gold);text-decoration:none;"><i class="fab fa-telegram"></i> استفسر</a>
+      </div>
+    </div>
+
     <!-- Quran/Hadith -->
     <div class="modal-quran">
       <div class="mq-text">${qData.text}</div>
       <div class="mq-ref">${qData.ref}</div>
       <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
         <div class="mq-text" style="font-size:0.88rem;">${qData.hadith}</div>
-      </div>
-    </div>
-
-    <!-- Store CTA -->
-    <div class="store-cta-block">
-      <div class="store-cta-badge"><i class="fas fa-store"></i> متجر أكاديمية عايد</div>
-      <div class="store-cta-title">🚀 ارتقِ بمستواك مع دوراتنا الاحترافية!</div>
-      <p class="store-cta-desc">اكتشف دوراتنا المتخصصة لاختبار STEP 2026 — تغطي جميع الأقسام بأسلوب تفاعلي ونتائج مضمونة.</p>
-      <div class="store-cta-btns">
-        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn-store btn-store-main">
-          <i class="fas fa-shopping-cart"></i> تصفح المتجر الآن
-        </a>
-        <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn-store btn-store-tg">
-          <i class="fab fa-telegram"></i> استفسر عبر تيليجرام
-        </a>
       </div>
     </div>
 
