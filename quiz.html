@@ -605,6 +605,134 @@
   display: flex; align-items: center; justify-content: center; gap: 5px;
 }
 
+/* ══════════════════════════════════════
+   SINGLE-QUESTION UI — PROGRESS + NAV
+══════════════════════════════════════ */
+
+/* Progress row above the question */
+.sq-progress-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px 8px;
+  flex-wrap: wrap;
+}
+.sq-counter {
+  font-size: 0.82rem; font-weight: 800; color: var(--text2);
+  white-space: nowrap;
+}
+.sq-counter strong { color: var(--gold); font-size: 1rem; }
+
+/* Dot progress indicator */
+.sq-dots {
+  display: flex; gap: 5px; flex-wrap: wrap; flex: 1;
+}
+.qdot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--glass2); border: 1.5px solid var(--border);
+  transition: all 0.3s ease;
+}
+.qdot-ok  { background: rgba(34,197,94,0.5);  border-color: var(--success); }
+.qdot-err { background: rgba(239,68,68,0.4);  border-color: var(--danger); }
+.qdot-cur { background: rgba(247,174,27,0.5); border-color: var(--gold); transform: scale(1.25); }
+
+/* Thin progress bar */
+.sq-prog-bar-wrap {
+  height: 4px; background: var(--glass2); border-radius: 2px;
+  margin: 0 20px 14px; overflow: hidden;
+}
+.sq-prog-bar-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-pale));
+  transition: width 0.5s ease;
+}
+
+/* Navigation row (next / finish) */
+.sq-nav-row {
+  display: flex; justify-content: flex-end; padding: 0 20px 20px;
+  animation: fadeUp 0.35s ease;
+}
+
+/* NEXT button — large, prominent, gold */
+.sq-next-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 30px; border-radius: 50px;
+  background: linear-gradient(135deg, #F7AE1B, #d4920f);
+  color: #000; font-family: var(--font); font-weight: 900;
+  font-size: 1rem; border: none; cursor: pointer;
+  box-shadow: 0 6px 22px rgba(247,174,27,0.45);
+  transition: all 0.3s ease;
+  animation: nextPulse 2s ease-in-out infinite;
+}
+.sq-next-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 32px rgba(247,174,27,0.6);
+}
+@keyframes nextPulse {
+  0%,100% { box-shadow: 0 6px 22px rgba(247,174,27,0.45); }
+  50%      { box-shadow: 0 8px 30px rgba(247,174,27,0.7); }
+}
+
+/* FINISH SECTION button — special */
+.sq-finish-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  animation: finishPulse 2s ease-in-out infinite;
+}
+.sq-finish-btn:hover {
+  box-shadow: 0 10px 32px rgba(34,197,94,0.55);
+}
+@keyframes finishPulse {
+  0%,100% { box-shadow: 0 6px 22px rgba(34,197,94,0.4); }
+  50%      { box-shadow: 0 8px 30px rgba(34,197,94,0.65); }
+}
+
+/* Next section button in modal */
+.btn-next-sec {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border-radius: 50px;
+  font-size: 1rem; font-weight: 900;
+  animation: nextSecPulse 2s ease-in-out infinite;
+}
+@keyframes nextSecPulse {
+  0%,100% { box-shadow: 0 6px 22px rgba(247,174,27,0.4); }
+  50%      { box-shadow: 0 8px 30px rgba(247,174,27,0.7); }
+}
+
+/* ══════════════════════════════════════
+   SECTION ALERT BLOCK (Complete sections reminder)
+══════════════════════════════════════ */
+.sec-alert-block {
+  background: linear-gradient(135deg, rgba(247,174,27,0.07), rgba(15,53,92,0.4));
+  border: 1.5px solid rgba(247,174,27,0.3);
+  border-right: 4px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 18px 18px 14px;
+  margin-bottom: 18px;
+  display: flex; gap: 14px; align-items: flex-start;
+  text-align: right;
+}
+.sab-icon {
+  font-size: 1.8rem; flex-shrink: 0; margin-top: 2px;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.sab-body { flex: 1; }
+.sab-title {
+  font-size: 0.95rem; font-weight: 900; color: var(--gold-pale);
+  margin-bottom: 6px;
+}
+.sab-desc {
+  font-size: 0.82rem; color: var(--muted); line-height: 1.75;
+  margin-bottom: 10px;
+}
+.sab-desc strong { color: var(--text); }
+.sab-rem-label {
+  font-size: 0.75rem; font-weight: 800; color: var(--muted2);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+}
+
 /* ── FINAL RESULT ── */
 .final-screen {
   animation: fadeUp 0.5s ease;
@@ -1043,7 +1171,7 @@
       <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
       <a href="summaries.html" class="nav-link"><i class="fas fa-book-open"></i> الملخصات</a>
       <a href="quiz.html" class="nav-link active"><i class="fas fa-pen-fancy"></i> الاختبار</a>
-      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="nav-link"><i class="fas fa-store"></i> المتجر</a>
+      <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="nav-link"><i class="fas fa-store"></i> المتجر</a>
     </div>
     <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="nav-cta btn btn-gold">
       <i class="fab fa-telegram"></i> تواصل معنا
@@ -1147,7 +1275,7 @@
         <div style="font-size:1.05rem;font-weight:900;margin-bottom:6px;">🚀 انتقل للمستوى التالي مع دوراتنا!</div>
         <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;line-height:1.7;">دورات STEP 2026 المتخصصة — نتائج مضمونة أو استرداد كامل للمبلغ.</p>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F7AE1B,#d4920f);color:#000;font-weight:900;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 14px rgba(247,174,27,0.3);">
+          <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F7AE1B,#d4920f);color:#000;font-weight:900;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 14px rgba(247,174,27,0.3);">
             <i class="fas fa-store"></i> تصفح المتجر
           </a>
           <a href="https://t.me/Ayed_Academy_2026" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:rgba(34,158,217,0.15);border:1px solid rgba(34,158,217,0.4);color:#60CBFF;font-weight:800;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;">
@@ -1405,7 +1533,7 @@
         <div class="footer-col-title">تواصل معنا</div>
         <div class="footer-links">
           <a href="https://t.me/Ayed_Academy_2026" target="_blank"><i class="fab fa-telegram"></i> تيليجرام الأكاديمية</a>
-          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank"><i class="fas fa-store"></i> تصفح المتجر</a>
+          <a href="https://axzjhder.gensparkclaw.com/" target="_blank"><i class="fas fa-store"></i> تصفح المتجر</a>
         </div>
       </div>
     </div>
@@ -1413,7 +1541,7 @@
       <p>© 2026 أكاديمية عايد — جميع الحقوق محفوظة</p>
       <div class="footer-social">
         <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="social-btn" title="تيليجرام"><i class="fab fa-telegram"></i></a>
-        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="social-btn" title="المتجر" style="color:var(--gold);"><i class="fas fa-store"></i></a>
+        <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="social-btn" title="المتجر" style="color:var(--gold);"><i class="fas fa-store"></i></a>
       </div>
     </div>
   </div>
@@ -1612,64 +1740,91 @@ function selectStartSection(sec, btn) {
   state.startSection = sec;
 }
 
+/* current question index per section */
+const state_qIdx = {grammar:0, reading:0, vocabulary:0, listening:0};
+
 function startExam() {
   document.getElementById('startScreen').style.display = 'none';
   document.getElementById('examArea').style.display = 'block';
   state.startTime = Date.now();
   startTimer();
-  buildAllQuestions();
   goSection(state.startSection);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
 /* ════════════════════════
-   BUILD QUESTIONS
+   BUILD SINGLE QUESTION
 ════════════════════════ */
-function buildAllQuestions() {
-  sections.forEach(sec => {
-    const container = document.getElementById(sec + '-questions');
-    QUESTIONS[sec].forEach((q, idx) => {
-      const card = document.createElement('div');
-      card.className = 'lems-q-card';
-      card.id = `q-${sec}-${idx}`;
+function buildQuestion(sec, idx) {
+  const container = document.getElementById(sec + '-questions');
+  container.innerHTML = '';
 
-      let passageHTML = '';
-      if (q.passage) {
-        passageHTML = `<div class="passage-lems"><p>${q.passage.replace(/\n/g,'<br>')}</p></div>`;
+  const q = QUESTIONS[sec][idx];
+  const total = QUESTIONS[sec].length;
+
+  // Progress dots row
+  const dots = QUESTIONS[sec].map((_,i) => {
+    let cls = 'qdot';
+    if (state.answers[sec][i] !== undefined)
+      cls += state.answers[sec][i] === QUESTIONS[sec][i].ans ? ' qdot-ok' : ' qdot-err';
+    else if (i === idx) cls += ' qdot-cur';
+    return `<span class="${cls}"></span>`;
+  }).join('');
+
+  let passageHTML = '';
+  if (q.passage) {
+    passageHTML = `<div class="passage-lems"><p>${q.passage.replace(/\n/g,'<br>')}</p></div>`;
+  }
+
+  const optsHTML = q.opts.map((opt, oi) => `
+    <button class="opt-lems" id="opt-${sec}-${idx}-${oi}"
+      onclick="selectAnswer('${sec}',${idx},${oi})">
+      <span class="ol-letter">${['A','B','C','D'][oi]}</span>
+      <span class="ol-text">${opt}</span>
+      <span class="ol-indicator"></span>
+    </button>`).join('');
+
+  container.innerHTML = `
+    <div class="sq-progress-row">
+      <span class="sq-counter">سؤال <strong>${idx+1}</strong> / ${total}</span>
+      <div class="sq-dots">${dots}</div>
+      <button class="q-share-icon" onclick="shareQuestion('${sec}',${idx})" title="مشاركة السؤال" style="margin-right:auto">
+        <i class="fas fa-share-alt"></i>
+      </button>
+    </div>
+    <div class="sq-prog-bar-wrap">
+      <div class="sq-prog-bar-fill" style="width:${Math.round(idx/total*100)}%"></div>
+    </div>
+    <div class="lems-q-card" id="q-${sec}-${idx}" style="margin-bottom:0;animation:fadeUp 0.35s ease;">
+      ${passageHTML}
+      <div class="q-body">
+        <div class="q-text-lems">${q.q.replace(/\n/g,'<br>')}</div>
+        <div class="options-lems">${optsHTML}</div>
+        <div class="exp-lems" id="exp-${sec}-${idx}"></div>
+      </div>
+    </div>
+    <div class="sq-nav-row" id="sq-nav-${sec}-${idx}" style="display:none;">
+      ${idx + 1 < total
+        ? `<button class="sq-next-btn" onclick="nextQuestion('${sec}',${idx+1})">
+             التالي — سؤال ${idx+2} <i class="fas fa-arrow-left"></i>
+           </button>`
+        : `<button class="sq-next-btn sq-finish-btn" onclick="finishSection('${sec}')">
+             <i class="fas fa-flag-checkered"></i> إنهاء ${secName(sec)} وعرض نتيجتي
+           </button>`
       }
+    </div>
+  `;
+}
 
-      const optsHTML = q.opts.map((opt, oi) => `
-        <button class="opt-lems" id="opt-${sec}-${idx}-${oi}"
-          onclick="selectAnswer('${sec}',${idx},${oi})">
-          <span class="ol-letter">${['A','B','C','D'][oi]}</span>
-          <span class="ol-text">${opt}</span>
-          <span class="ol-indicator"></span>
-        </button>`).join('');
+function nextQuestion(sec, idx) {
+  state_qIdx[sec] = idx;
+  buildQuestion(sec, idx);
+  window.scrollTo({top: document.getElementById('examArea').offsetTop - 80, behavior:'smooth'});
+}
 
-      const shareHint = `${q.q.substring(0,60)}...`;
-      card.innerHTML = `
-        <div class="q-num-strip">
-          <span class="q-num-pill">سؤال ${idx+1} من 25</span>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="q-type-tag"><i class="fas fa-tag"></i> ${secName(sec)}</span>
-            <button class="q-share-icon" onclick="shareQuestion('${sec}',${idx})" title="مشاركة السؤال">
-              <i class="fas fa-share-alt"></i>
-            </button>
-          </div>
-        </div>
-        ${passageHTML}
-        <div class="q-body">
-          <div class="q-text-lems">${q.q.replace(/\n/g,'<br>')}</div>
-          <div class="options-lems">${optsHTML}</div>
-          <div class="exp-lems" id="exp-${sec}-${idx}"></div>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-  });
-
-  // Build question map
-  updateQuestionMap('grammar');
+function finishSection(sec) {
+  // mark remaining as done (edge-case guard)
+  checkSectionComplete(sec);
 }
 
 /* ════════════════════════
@@ -1690,9 +1845,7 @@ function selectAnswer(sec, idx, chosen) {
     btn.disabled = true;
     if (i === q.ans) btn.classList.add('opt-correct');
     else if (i === chosen && !isCorrect) btn.classList.add('opt-wrong');
-    else { btn.classList.add('selected'); }
   }
-  document.getElementById(`opt-${sec}-${idx}-${chosen}`).classList.remove('selected');
 
   // Show explanation
   const expEl = document.getElementById(`exp-${sec}-${idx}`);
@@ -1704,11 +1857,15 @@ function selectAnswer(sec, idx, chosen) {
 
   // Mark card
   const card = document.getElementById(`q-${sec}-${idx}`);
-  card.classList.add('answered', isCorrect ? 'correct-card' : 'wrong-card');
+  if(card) card.classList.add('answered', isCorrect ? 'correct-card' : 'wrong-card');
+
+  // Show next button after short delay
+  setTimeout(() => {
+    const nav = document.getElementById(`sq-nav-${sec}-${idx}`);
+    if (nav) { nav.style.display = 'flex'; nav.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+  }, 700);
 
   updateProgress(sec);
-  updateQuestionMap(sec);
-  checkSectionComplete(sec);
 }
 
 /* ════════════════════════
@@ -1721,31 +1878,47 @@ function updateProgress(sec) {
   const pct = Math.round(answered / 25 * 100);
   const p = sec[0];
 
-  document.getElementById(`${p}-answered`).textContent = answered;
-  document.getElementById(`${p}-correct`).textContent = correct;
-  document.getElementById(`${p}-wrong`).textContent = wrong;
-  document.getElementById(`${p}-prog-text`).textContent = `${answered} / 25`;
-  document.getElementById(`${p}-prog-bar`).style.width = pct + '%';
+  const aEl = document.getElementById(`${p}-answered`);
+  const cEl = document.getElementById(`${p}-correct`);
+  const wEl = document.getElementById(`${p}-wrong`);
+  const ptEl = document.getElementById(`${p}-prog-text`);
+  const pbEl = document.getElementById(`${p}-prog-bar`);
+  if(aEl) aEl.textContent = answered;
+  if(cEl) cEl.textContent = correct;
+  if(wEl) wEl.textContent = wrong;
+  if(ptEl) ptEl.textContent = `${answered} / 25`;
+  if(pbEl) pbEl.style.width = pct + '%';
 
   // Panel
-  document.getElementById(`lprog-${sec}`).textContent = `${answered} / 25`;
-  document.getElementById(`lbar-${sec}`).style.width = pct + '%';
-  if (answered > 0) document.getElementById(`lscore-${sec}`).textContent = `${correct}/${answered}`;
+  const lpEl = document.getElementById(`lprog-${sec}`);
+  const lbEl = document.getElementById(`lbar-${sec}`);
+  const lsEl = document.getElementById(`lscore-${sec}`);
+  if(lpEl) lpEl.textContent = `${answered} / 25`;
+  if(lbEl) lbEl.style.width = pct + '%';
+  if(answered > 0 && lsEl) lsEl.textContent = `${correct}/${answered}`;
 
   // Overall
   const total = sections.reduce((s,x)=>s+Object.keys(state.answers[x]).length,0);
-  document.getElementById('overallProgress').textContent = `${total} / 100`;
-  document.getElementById('overallBar').style.width = total + '%';
-  document.getElementById('mobileProgress').textContent = `${total}/100`;
-  document.getElementById('mobileTimer').textContent = document.getElementById('timerDisplay').textContent;
+  const opEl = document.getElementById('overallProgress');
+  const obEl = document.getElementById('overallBar');
+  const mpEl = document.getElementById('mobileProgress');
+  const mtEl = document.getElementById('mobileTimer');
+  if(opEl) opEl.textContent = `${total} / 100`;
+  if(obEl) obEl.style.width = total + '%';
+  if(mpEl) mpEl.textContent = `${total}/100`;
+  if(mtEl) mtEl.textContent = document.getElementById('timerDisplay').textContent;
+
+  // Update qmap
+  updateQuestionMap(sec);
 }
 
 /* ════════════════════════
-   QUESTION MAP
+   QUESTION MAP (panel mini-dots)
 ════════════════════════ */
 function updateQuestionMap(sec) {
   const grid = document.getElementById('qmap-grid');
-  document.getElementById('qmap-sec-label').textContent = `خريطة ${secName(sec)}`;
+  if (!grid) return;
+  document.getElementById('qmap-sec-label').textContent = `تقدّم ${secName(sec)}`;
   grid.innerHTML = '';
   QUESTIONS[sec].forEach((q, i) => {
     const cell = document.createElement('div');
@@ -1753,11 +1926,10 @@ function updateQuestionMap(sec) {
     cell.textContent = i+1;
     if (state.answers[sec][i] !== undefined) {
       cell.classList.add(state.answers[sec][i] === q.ans ? 'answered-correct' : 'answered-wrong');
+    } else if (i === state_qIdx[sec]) {
+      cell.classList.add('qm-current');
     }
-    if (state.current === sec) cell.title = `سؤال ${i+1}`;
-    cell.onclick = () => {
-      document.getElementById(`q-${sec}-${i}`).scrollIntoView({behavior:'smooth', block:'center'});
-    };
+    cell.onclick = () => nextQuestion(sec, i);
     grid.appendChild(cell);
   });
 }
@@ -1770,7 +1942,7 @@ function checkSectionComplete(sec) {
   if (state.done[sec]) return;
   state.done[sec] = true;
   document.getElementById(`lpbtn-${sec}`).classList.add('done');
-  setTimeout(() => showSectionModal(sec), 600);
+  setTimeout(() => showSectionModal(sec), 400);
 }
 
 const quranBySection = {
@@ -1802,79 +1974,55 @@ const shareQuran = {
 };
 function showSectionModal(sec) {
   const score = state.scores[sec];
-  const pct = Math.round(score / 25 * 100);
+  const pct   = Math.round(score / 25 * 100);
   const qData = quranBySection[sec];
 
+  /* ── Grade & colors ── */
   let grade, msg, color, ringColor;
   if (pct >= 80) {
-    grade = '🏆 ممتاز!'; msg = `أداء رائع في قسم ${secName(sec)}! نتيجتك تعكس تمكّنًا حقيقيًا. واصل بهذا المستوى.`;
-    color = 'var(--success)'; ringColor = 'rgba(34,197,94,0.15)';
+    grade = '🏆 ممتاز!';
+    msg = `أداء رائع في قسم ${secName(sec)}! نتيجتك ${pct}% تعكس تمكّنًا حقيقيًا. استمر على هذا المستوى 💪`;
+    color = 'var(--success)';  ringColor = 'rgba(34,197,94,0.15)';
   } else if (pct >= 60) {
-    grade = '👍 جيد'; msg = `أداء جيد في ${secName(sec)}! توجد مساحة للتطوير — راجع الملخصات للتحسين.`;
-    color = 'var(--gold)'; ringColor = 'rgba(247,174,27,0.12)';
+    grade = '👍 جيد';
+    msg = `أداء جيد في قسم ${secName(sec)}! نتيجتك ${pct}% — هناك مساحة للتطوير، راجع الملخصات وستتحسن كثيرًا.`;
+    color = 'var(--gold)';     ringColor = 'rgba(247,174,27,0.12)';
   } else {
-    grade = '📚 يحتاج تقوية'; msg = `نتيجتك في ${secName(sec)} تحتاج لمزيد من التدريب. لا تيأس — راجع الملخصات وحاول مرة أخرى.`;
-    color = 'var(--danger)'; ringColor = 'rgba(239,68,68,0.1)';
+    grade = '📚 يحتاج تقوية';
+    msg = `نتيجتك في قسم ${secName(sec)} هي ${pct}% — لا تقلق! بالخطة الصحيحة والدورة المناسبة ستتقدم بسرعة مذهلة 🚀`;
+    color = 'var(--danger)';   ringColor = 'rgba(239,68,68,0.1)';
   }
 
+  /* ── Section navigation data ── */
   const nextSecIdx = sections.indexOf(sec) + 1;
-  const hasNext = nextSecIdx < sections.length;
-  const nextSec = hasNext ? sections[nextSecIdx] : null;
+  const hasNext    = nextSecIdx < sections.length;
+  const nextSec    = hasNext ? sections[nextSecIdx] : null;
+  const doneCount  = sections.filter(s => state.done[s]).length;
+  const remaining  = sections.filter(s => !state.done[s] && s !== sec);
+  const allDone    = doneCount === sections.length;
 
-  const shareText = encodeURIComponent(`أتممت قسم ${secName(sec)} في اختبار STEP 2026 التجريبي من أكاديمية عايد ✅\nنتيجتي: ${score}/25 (${pct}%)\n\nجرّب الاختبار أنت أيضًا → ${window.location.href}`);
+  /* ── Share text ── */
+  const shareText = encodeURIComponent(
+    `✅ أتممت قسم ${secName(sec)} في اختبار STEP 2026 — أكاديمية عايد\n` +
+    `نتيجتي: ${score}/25 (${pct}%)\n\n` +
+    `جرّب الاختبار مجانًا 👉 ${window.location.href.split('?')[0]}`
+  );
 
-  // ── Smart course selection based on score ──
-  const courseData = {
-    advanced: {
-      emoji: '🌟',
-      name: 'دورة STEP المميزة (2026)',
-      pitch: 'هدفك درجة عالية +90؟ هذه هي بدايتك الصح! الدورة المميزة بنسختها الحديثة تضمن لك التفوّق.',
-      price: '249',
-      orig: '749',
-      save: 'وفّرت 500 ر.س!',
-      features: ['محاكاة كاملة لاختبار STEP الحقيقي','استراتيجيات متقدمة للدرجات العليا','شرح معمّق لكل قسم وتقنيات الإجابة السريعة','دعم مباشر ومتابعة شخصية'],
-      ctaText: '🔥 احصل على الدورة المميزة — 249 ر.س فقط'
-    },
-    intermediate: {
-      emoji: '🚀',
-      name: 'دورة STEP المكثّفة (2026)',
-      pitch: 'وقتك ضيّق وتحتاج نتيجة سريعة؟ الدورة المكثّفة صُمِّمت خصيصًا لتحقيق أقصى تقدّم في أقل وقت.',
-      price: '199',
-      orig: '549',
-      save: 'وفّرت 350 ر.س!',
-      features: ['خطة مكثّفة تُغطّي الأقسام الأربعة','تركيز على الأسئلة الأكثر تكرارًا في STEP','نماذج محاكاة حقيقية مع تصحيح فوري','مثالية للتحضير السريع قبل الاختبار'],
-      ctaText: '⚡ سجّل في الدورة المكثّفة — 199 ر.س فقط'
-    },
-    foundation: {
-      emoji: '📘',
-      name: 'دورة STEP الشاملة (2026)',
-      pitch: 'تحتاج أساسًا متينًا؟ الدورة الشاملة تأخذك خطوة بخطوة من الصفر حتى الإتقان الكامل.',
-      price: '149',
-      orig: '399',
-      save: 'وفّرت 250 ر.س!',
-      features: ['تأسيس قوي في القواعد والمفردات','شرح مبسّط يناسب جميع المستويات','تمارين تفاعلية مع تغذية راجعة فورية','الأنسب لبناء ثقتك قبل الاختبار'],
-      ctaText: '📘 ابدأ بالدورة الشاملة — 149 ر.س فقط'
-    }
-  };
+  /* ── Remaining sections buttons ── */
+  const secIcons = {grammar:'✏️', reading:'📖', vocabulary:'📝', listening:'🎧'};
+  const remBtns = remaining.map(s =>
+    `<button class="rsb-btn" onclick="closeModal();goSection('${s}')">
+       ${secIcons[s]} ${secName(s)}
+       <i class="fas fa-arrow-left" style="font-size:0.7rem"></i>
+     </button>`
+  ).join('');
 
-  const level = pct >= 80 ? 'advanced' : pct >= 60 ? 'intermediate' : 'foundation';
-  const cd = courseData[level];
-
-  // ── Remaining sections navigator ──
-  const secIcons = { grammar:'✏️', reading:'📖', vocabulary:'📝', listening:'🎧' };
-  const remainingBtns = sections.map(s => {
-    const isDone = state.done[s];
-    const isCurrent = s === sec;
-    if (isCurrent) return ''; // skip current
-    return `<button class="rsb-btn${isDone?' done-sec':''}" onclick="closeModal();goSection('${s}')">
-      ${secIcons[s]} ${secName(s)}${isDone?' ✓':''}
-    </button>`;
-  }).join('');
-
-  const doneCount = sections.filter(s => state.done[s]).length;
-  const totalSecs = sections.length;
+  /* ── Progress summary ── */
+  const doneNames = sections.filter(s => state.done[s]).map(s => secName(s)).join('، ');
 
   document.getElementById('secCompleteBox').innerHTML = `
+
+    <!-- Score Circle -->
     <div class="sec-circle-wrap">
       <div class="sec-score-circle" style="border-color:${color};box-shadow:0 0 40px ${ringColor};">
         <div class="sec-circle-pct" style="color:${color};">${pct}%</div>
@@ -1883,72 +2031,39 @@ function showSectionModal(sec) {
     </div>
     <div class="sec-grade">${grade}</div>
     <p class="sec-msg">${msg}</p>
+
+    <!-- Stats pills -->
     <div class="sec-stats-row">
       <div class="sec-stat-pill">
         <div class="sn" style="color:var(--success);">${score}</div>
-        <div class="sl">صحيح</div>
+        <div class="sl">✅ صحيح</div>
       </div>
       <div class="sec-stat-pill">
-        <div class="sn" style="color:var(--danger);">${25-score}</div>
-        <div class="sl">خاطئ</div>
+        <div class="sn" style="color:var(--danger);">${25 - score}</div>
+        <div class="sl">❌ خاطئ</div>
       </div>
       <div class="sec-stat-pill">
         <div class="sn" style="color:var(--gold);">${pct}%</div>
-        <div class="sl">النسبة</div>
+        <div class="sl">📊 النسبة</div>
+      </div>
+      <div class="sec-stat-pill">
+        <div class="sn" style="color:var(--info);">${doneCount}/4</div>
+        <div class="sl">🏁 الأقسام</div>
       </div>
     </div>
 
-    <!-- Remaining Sections Navigator -->
-    ${remainingBtns ? `
-    <div class="remaining-secs-block">
-      <div class="rsb-title">
-        <i class="fas fa-map-signs"></i>
-        أكمل الأقسام المتبقية لتحصل على خطتك الكاملة والدورة المناسبة
-      </div>
-      <div class="rsb-grid">${remainingBtns}</div>
-      <div class="rsb-progress-hint">
-        <i class="fas fa-circle-check" style="color:var(--success)"></i>
-        أكملت ${doneCount} من ${totalSecs} أقسام — ${hasNext ? `${totalSecs - doneCount} قسم متبقٍ` : 'اكتمل الاختبار!'}
-      </div>
-    </div>` : ''}
-
-    <!-- Smart Course Recommendation -->
-    <div class="smart-course-card">
-      <div class="scc-ribbon"><i class="fas fa-fire"></i> موصى بها لك الآن</div>
-      <div class="scc-badge">${cd.emoji} بناءً على نتيجتك في ${secName(sec)}</div>
-      <div class="scc-name">${cd.name}</div>
-      <p class="scc-pitch">${cd.pitch}</p>
-      <div class="scc-price-row">
-        <div class="scc-price">${cd.price} <span style="font-size:0.85rem;font-weight:700;">ر.س</span></div>
-        <div class="scc-orig">${cd.orig} ر.س</div>
-        <div class="scc-save"><i class="fas fa-tag"></i> ${cd.save}</div>
-      </div>
-      <div class="scc-features">
-        ${cd.features.map(f=>`<div class="scc-feat"><i class="fas fa-check-circle"></i> ${f}</div>`).join('')}
-      </div>
-      <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="scc-cta-btn">
-        <i class="fas fa-bolt"></i> ${cd.ctaText}
-      </a>
-      <div class="scc-sub-note">
-        <i class="fas fa-shield-halved"></i> ضمان الرضا التام — استرداد كامل إن لم تُعجبك الدورة
-        &nbsp;|&nbsp;
-        <a href="https://t.me/Ayed_Academy_2026" target="_blank" style="color:var(--gold);text-decoration:none;"><i class="fab fa-telegram"></i> استفسر</a>
-      </div>
-    </div>
-
-    <!-- Quran/Hadith -->
+    <!-- Quran / Hadith -->
     <div class="modal-quran">
       <div class="mq-text">${qData.text}</div>
       <div class="mq-ref">${qData.ref}</div>
       <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
-        <div class="mq-text" style="font-size:0.88rem;">${qData.hadith}</div>
+        <div class="mq-text" style="font-size:0.88rem;color:var(--muted);">${qData.hadith}</div>
       </div>
     </div>
 
-    <!-- Share -->
-    <div style="font-size:0.85rem;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
-      <i class="fas fa-share-alt" style="color:var(--gold)"></i>
-      شارك نتيجتك وساعد زملاءك في التحضير
+    <!-- Share result -->
+    <div style="font-size:0.82rem;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+      <i class="fas fa-share-alt" style="color:var(--gold)"></i> شارك نتيجتك مع أصدقائك
     </div>
     <div class="modal-share-btns">
       <button class="msb msb-tg" onclick="shareOnTelegram('${shareText}')"><i class="fab fa-telegram"></i> تيليجرام</button>
@@ -1957,10 +2072,54 @@ function showSectionModal(sec) {
       <button class="msb msb-cp" onclick="copyShareLink()"><i class="fas fa-link"></i> نسخ الرابط</button>
     </div>
 
-    <div class="modal-actions">
-      ${hasNext ? `<button class="btn btn-gold" onclick="closeModal();goSection('${nextSec}')"><i class="fas fa-arrow-left"></i> القسم التالي: ${secName(nextSec)}</button>` :
-        `<button class="btn btn-gold" onclick="closeModal();buildFinalResult()"><i class="fas fa-trophy"></i> عرض النتيجة الكلية</button>`}
-      <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> تابع المراجعة</button>
+    <!-- ════ COMPLETE SECTIONS REMINDER (shown when not all done) ════ -->
+    ${!allDone ? `
+    <div class="sec-alert-block">
+      <div class="sab-icon">🎯</div>
+      <div class="sab-body">
+        <div class="sab-title">أكمل الأقسام المتبقية لتحصل على خطتك المثالية!</div>
+        <p class="sab-desc">
+          عند إنهاء جميع الأقسام الأربعة ستحصل على
+          <strong>خطة مذاكرة شخصية مخصّصة لمستواك</strong>
+          و<strong>الدورة المناسبة تمامًا</strong> التي تحسّن نتيجتك في STEP 2026 🚀
+        </p>
+        ${remaining.length > 0 ? `
+        <div class="sab-rem-label">▸ الأقسام المتبقية — انقر للانتقال مباشرة:</div>
+        <div class="rsb-grid">${remBtns}</div>` : ''}
+      </div>
+    </div>` : `
+    <div class="sec-alert-block" style="border-color:rgba(34,197,94,0.3);background:linear-gradient(135deg,rgba(34,197,94,0.07),rgba(15,53,92,0.4));">
+      <div class="sab-icon">🎉</div>
+      <div class="sab-body">
+        <div class="sab-title" style="color:var(--success);">أنهيت جميع الأقسام! النتيجة الكلية جاهزة 🏆</div>
+        <p class="sab-desc">يمكنك الآن الاطلاع على خطة المذاكرة الشخصية والدورة الموصى بها لمستواك.</p>
+      </div>
+    </div>`}
+
+    <!-- ════ PRIMARY ACTION BUTTONS ════ -->
+    <div class="modal-actions" style="margin-top:20px;flex-direction:column;align-items:stretch;gap:10px;">
+      ${allDone
+        ? `<button class="btn-next-sec" onclick="closeModal();buildFinalResult()" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:15px 28px;border-radius:50px;font-family:var(--font);font-weight:900;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;animation:finishPulse 2s ease-in-out infinite;">
+             <i class="fas fa-trophy"></i> 🎉 عرض النتيجة الكلية وخطة المذاكرة
+           </button>`
+        : hasNext
+          ? `<button class="btn-next-sec" onclick="closeModal();goSection('${nextSec}')" style="background:linear-gradient(135deg,#F7AE1B,#d4920f);color:#000;border:none;padding:15px 28px;border-radius:50px;font-family:var(--font);font-weight:900;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;animation:nextSecPulse 2s ease-in-out infinite;">
+               <i class="fas fa-arrow-left"></i> انتقل للقسم التالي — ${secName(nextSec)}
+             </button>`
+          : `<button class="btn-next-sec" onclick="closeModal();buildFinalResult()" style="background:linear-gradient(135deg,#F7AE1B,#d4920f);color:#000;border:none;padding:15px 28px;border-radius:50px;font-family:var(--font);font-weight:900;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;animation:nextSecPulse 2s ease-in-out infinite;">
+               <i class="fas fa-flag-checkered"></i> عرض النتيجة الكلية
+             </button>`
+      }
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        ${!allDone && remaining.length > 0 ? remaining.slice(0,3).map(s =>
+          `<button onclick="closeModal();goSection('${s}')" style="display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:50px;font-family:var(--font);font-weight:800;font-size:0.8rem;border:1.5px solid var(--border2);background:var(--glass2);color:var(--text);cursor:pointer;transition:all 0.25s;">
+             ${secIcons[s]} ${secName(s)}
+           </button>`
+        ).join('') : ''}
+        <button class="btn btn-outline" onclick="closeModal()" style="flex:0 0 auto;">
+          <i class="fas fa-eye"></i> مراجعة إجاباتي
+        </button>
+      </div>
     </div>
   `;
 
@@ -1976,26 +2135,28 @@ function closeModal() {
 ════════════════════════ */
 function buildFinalResult() {
   const total = sections.reduce((s,x)=>s+state.scores[x],0);
-  const pct = total;
+  const pct = total; // out of 100
 
   let grade, msg, color;
-  if (pct >= 85)       { grade='🏆 ممتاز جدًا — أنت جاهز!'; msg=`نتيجتك ${pct}% تعكس استعدادًا قويًا جدًا. أنت مرشح للنجاح في STEP 2026 بامتياز.`; color='#22c55e'; }
-  else if (pct >= 70)  { grade='👍 جيد جدًا — قريب من الهدف'; msg=`نتيجتك ${pct}% تعني أنك قريب من الإتقان. بتدريب إضافي ستصل بكل تأكيد.`; color='#F7AE1B'; }
-  else if (pct >= 55)  { grade='📖 متوسط — تحتاج تطوير'; msg=`نتيجتك ${pct}% تشير لوجود ثغرات. الدورة المناسبة ستساعدك على تحسين نتيجتك بشكل ملموس.`; color='#f59e0b'; }
-  else                 { grade='📚 تحتاج تأسيس قوي'; msg=`نتيجتك ${pct}% تعني أنك بحاجة لتأسيس شامل. الدورة التأسيسية مصممة خصيصًا لهذا الغرض.`; color='#ef4444'; }
+  if      (pct >= 85) { grade='🏆 ممتاز جدًا — أنت جاهز!';       msg=`نتيجتك ${pct}/100 تعكس استعدادًا قويًا جدًا. أنت مرشح للنجاح في STEP 2026 بامتياز 🌟`;    color='#22c55e'; }
+  else if (pct >= 70) { grade='👍 جيد جدًا — قريب من الهدف';      msg=`نتيجتك ${pct}/100 رائعة! بتدريب إضافي مع الدورة المناسبة ستصل للقمة بكل تأكيد.`;     color='#F7AE1B'; }
+  else if (pct >= 55) { grade='📖 متوسط — قابل للتطوير';           msg=`نتيجتك ${pct}/100 تشير لوجود ثغرات يمكن معالجتها. الدورة الصحيحة ستغيّر مسارك.`;     color='#f59e0b'; }
+  else                { grade='📚 تحتاج تأسيس قوي';                msg=`نتيجتك ${pct}/100 — مبدأ رحلة التحسين تبدأ الآن! الدورة الشاملة ستبني أساسك بثبات.`; color='#ef4444'; }
 
   sections.forEach(s => { document.getElementById(`sec-${s}`).style.display = 'none'; });
   const fr = document.getElementById('final-result');
   fr.style.display = 'block';
 
-  // Breakdown rows
+  /* ────── Section breakdown rows ────── */
   const bdEl = sections.map(sec => {
     const sc = state.scores[sec];
     const sp = Math.round(sc/25*100);
-    const c = secColors[sec].color;
-    const gradeTag = sp>=80 ? `<span class="frt-grade" style="background:rgba(34,197,94,0.15);color:var(--success);">ممتاز</span>` :
-                    sp>=60 ? `<span class="frt-grade" style="background:rgba(247,174,27,0.15);color:var(--gold);">جيد</span>` :
-                             `<span class="frt-grade" style="background:rgba(239,68,68,0.1);color:var(--danger);">يحتاج تقوية</span>`;
+    const c  = secColors[sec].color;
+    const gradeTag = sp>=80
+      ? `<span class="frt-grade" style="background:rgba(34,197,94,0.15);color:var(--success);">ممتاز</span>`
+      : sp>=60
+        ? `<span class="frt-grade" style="background:rgba(247,174,27,0.15);color:var(--gold);">جيد</span>`
+        : `<span class="frt-grade" style="background:rgba(239,68,68,0.1);color:var(--danger);">يحتاج تقوية</span>`;
     return `
     <div class="frt-row">
       <div class="frt-icon">${secColors[sec].icon}</div>
@@ -2006,10 +2167,10 @@ function buildFinalResult() {
     </div>`;
   }).join('');
 
-  // Breakdown cards
+  /* ────── Section breakdown cards ────── */
   const bdCards = sections.map(sec => {
     const sc = state.scores[sec]; const sp = Math.round(sc/25*100);
-    const c = secColors[sec].color; const b = secColors[sec].bar;
+    const c  = secColors[sec].color; const b = secColors[sec].bar;
     return `
     <div class="fr-sec-card" style="border-color:${c}22;">
       <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:${b};"></div>
@@ -2021,101 +2182,306 @@ function buildFinalResult() {
     </div>`;
   }).join('');
 
-  // Course recommendation
-  const recLevel = pct>=80?'advanced':pct>=60?'intermediate':'foundation';
-  const recData = {
-    foundation:{name:'دورة STEP التأسيسية',emoji:'🌟',desc:'مصممة للمبتدئين لبناء أساس لغوي متين. 8 أسابيع تفاعلية.',price:'199',orig:'399',tag:'خصم 50%',features:['قواعد اللغة من الصفر','فهم أسلوب STEP الحديث','تدريبات أسبوعية مكثفة','دعم مباشر من المدرب']},
-    intermediate:{name:'دورة STEP المتوسطة',emoji:'🚀',desc:'للطلاب ذوي القاعدة اللغوية الراغبين في الارتقاء. تتضمن نموذج اختبار كامل.',price:'299',orig:'499',tag:'يشمل تصحيح تجريبي',features:['استراتيجيات متقدمة','Reading & Listening معمّق','نماذج اختبار حقيقية','تصحيح فوري من المدرب']},
-    advanced:{name:'دورة STEP المتقدمة',emoji:'💎',desc:'للمتقدمين الذين يستهدفون أعلى الدرجات. محاكاة كاملة لاختبار STEP.',price:'399',orig:'599',tag:'الأكثر مبيعًا',features:['محاكاة كاملة لـ STEP','استراتيجيات الوقت والدرجات','مراجعة نهائية مكثفة','ضمان الرضا أو الاسترداد']},
+  /* ────── Courses data ────── */
+  const allCourses = {
+    /* === FEATURED: دورة المميزة (PRIMARY FOCUS) === */
+    featured: {
+      id: 'featured',
+      name: 'دورة STEP المميزة',
+      subtitle: 'بنسختها الحديثة لاختبار كفايات اللغة الإنجليزية STEP 2026',
+      emoji: '⭐',
+      badge: '🔥 الأفضل والأشهر — يُنصح بها لجميع المستويات',
+      goal: 'هدفك درجة عالية +90… فهنا البداية الصح!',
+      price: '249', orig: '749', save: '500', pct: '67',
+      tag: 'خصم استثنائي 67%',
+      highlight: true,
+      features: [
+        'تأهيل شامل من الصفر حتى الاحتراف',
+        'أحدث نسخة مُحدَّثة لاختبار 2026',
+        'استراتيجيات حصرية لرفع الدرجة',
+        'تدريبات مكثفة + نماذج حقيقية',
+        'متابعة شخصية من فريق الأكاديمية',
+        'ضمان تحسّن الدرجة أو استرداد المبلغ'
+      ]
+    },
+    /* === دورة المكثفة === */
+    intensive: {
+      id: 'intensive',
+      name: 'دورة STEP المكثفة',
+      subtitle: 'تحديث 2026',
+      emoji: '⚡',
+      badge: '⏰ مثالية لضيق الوقت',
+      goal: 'مثالية إذا وقتك ضيق وتحتاج نتيجة سريعة قبل الاختبار.',
+      price: '199', orig: '549', save: '350', pct: '64',
+      tag: 'خصم 64%',
+      highlight: false,
+      features: [
+        'مراجعة مكثفة في وقت قصير',
+        'تركيز على أهم المحاور',
+        'نماذج اختبار تجريبية',
+        'استراتيجيات سرعة الإجابة'
+      ]
+    },
+    /* === دورة الشاملة === */
+    comprehensive: {
+      id: 'comprehensive',
+      name: 'دورة STEP الشاملة',
+      subtitle: 'تحديث 2026',
+      emoji: '📚',
+      badge: '🏗️ لبناء أساس متين',
+      goal: 'مناسبة لمن يريد بناء أساس قوي ومراجعة خطوة بخطوة.',
+      price: '149', orig: '399', save: '250', pct: '63',
+      tag: 'خصم 63%',
+      highlight: false,
+      features: [
+        'شرح شامل لكل محاور STEP',
+        'بناء الأساس اللغوي القوي',
+        'تدريبات تدريجية خطوة بخطوة',
+        'مراجعة جميع الأقسام'
+      ]
+    }
   };
-  const rd = recData[recLevel];
 
-  // Study plan
-  const planData = buildStudyPlanHTML(recLevel);
+  /* Choose recommended course based on score */
+  let recCourseId;
+  if      (pct >= 80) recCourseId = 'featured';    // High scorers → المميزة (to reach +90)
+  else if (pct >= 60) recCourseId = 'intensive';   // Medium → المكثفة
+  else                recCourseId = 'comprehensive'; // Low → الشاملة
 
-  // Share text
-  const shareMsg = encodeURIComponent(`أتممت اختبار STEP 2026 التجريبي من أكاديمية عايد ✅\nنتيجتي الكلية: ${pct}% (${total}/100)\n\nGrammar: ${state.scores.grammar}/25 | Reading: ${state.scores.reading}/25\nVocabulary: ${state.scores.vocabulary}/25 | Listening: ${state.scores.listening}/25\n\nجرّب الاختبار أنت أيضًا → ${window.location.href}`);
+  const rd = allCourses[recCourseId];
+
+  /* ────── Study plan ────── */
+  const planLevel = pct>=80 ? 'advanced' : pct>=60 ? 'intermediate' : 'foundation';
+  const planData  = buildStudyPlanHTML(planLevel);
+
+  /* ────── Share text ────── */
+  const shareMsg = encodeURIComponent(
+    `أتممت اختبار STEP 2026 التجريبي من أكاديمية عايد ✅\n` +
+    `نتيجتي الكلية: ${pct}/100\n\n` +
+    `✏️ Grammar: ${state.scores.grammar}/25\n` +
+    `📖 Reading: ${state.scores.reading}/25\n` +
+    `📝 Vocabulary: ${state.scores.vocabulary}/25\n` +
+    `🎧 Listening: ${state.scores.listening}/25\n\n` +
+    `جرّب الاختبار أنت أيضًا 👉 ${window.location.href.split('?')[0]}\n` +
+    `🎓 أكاديمية عايد | STEP 2026`
+  );
 
   fr.innerHTML = `
   <div class="final-screen">
+
+    <!-- ══════ HERO ══════ -->
     <div class="fr-hero-lems">
       <div class="fr-confetti" id="frConfetti"></div>
       <div class="fr-big-score" id="frCircle" style="border-color:${color};box-shadow:0 0 60px ${color}22;">
-        <div class="fr-score-num" style="color:${color};">${pct}%</div>
-        <div class="fr-score-lbl">النتيجة الكلية</div>
+        <div class="fr-score-num" style="color:${color};">${pct}</div>
+        <div class="fr-score-lbl">/ 100 — النتيجة الكلية</div>
       </div>
       <h2 class="fr-title">${grade}</h2>
       <p class="fr-subtitle">${msg}</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:0;">
         <a href="quiz.html" class="btn btn-outline"><i class="fas fa-redo"></i> إعادة الاختبار</a>
         <a href="summaries.html" class="btn btn-navy"><i class="fas fa-book-open"></i> مراجعة الملخصات</a>
       </div>
-
-      <!-- Big Store CTA after final score -->
-      <div style="margin-top:28px;padding:24px 20px;background:linear-gradient(135deg,rgba(247,174,27,0.13),rgba(15,53,92,0.55));border:2px solid var(--gold);border-radius:var(--radius);text-align:center;">
-        <div style="font-size:1.4rem;font-weight:900;margin-bottom:8px;">🛒 استثمر نتيجتك — سجّل في الدورة المناسبة الآن!</div>
-        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:18px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8;">دوراتنا مصممة لرفع درجتك في STEP 2026 — تصفّح المتجر أو تواصل معنا عبر تيليجرام للاستفسار والتسجيل.</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold btn-lg" style="box-shadow:0 6px 24px rgba(247,174,27,0.4);">
-            <i class="fas fa-store"></i> اذهب للمتجر الآن
-          </a>
-          <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn" style="background:#229ED9;color:#fff;padding:12px 24px;border-radius:50px;font-weight:900;font-size:0.95rem;display:inline-flex;align-items:center;gap:8px;text-decoration:none;">
-            <i class="fab fa-telegram"></i> تواصل عبر تيليجرام
-          </a>
-        </div>
-      </div>
     </div>
 
-    <!-- Section Breakdown Cards -->
+    <!-- ══════ SECTION BREAKDOWN CARDS ══════ -->
     <h3 style="font-size:1rem;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
       <i class="fas fa-chart-bar" style="color:var(--gold)"></i> النتيجة التفصيلية لكل قسم
     </h3>
     <div class="fr-breakdown-lems">${bdCards}</div>
 
-    <!-- Detailed Table -->
+    <!-- Detailed table -->
     <div class="fr-review-table">
       <div class="frt-header"><i class="fas fa-table" style="color:var(--gold)"></i> تفصيل الأقسام</div>
       <div class="frt-rows">${bdEl}</div>
     </div>
 
-    <!-- Course Recommendation -->
-    <div class="rec-course-lems">
-      <div class="rcl-tag"><i class="fas fa-star"></i> الدورة الموصى بها لك</div>
-      <div class="rcl-title">${rd.emoji} ${rd.name}</div>
-      <p class="rcl-desc">${rd.desc}</p>
-      <div class="rcl-features">${rd.features.map(f=>`<div class="rcl-feat"><i class="fas fa-check-circle"></i> ${f}</div>`).join('')}</div>
-      <div class="rcl-price-row">
-        <div class="rcl-price">${rd.price} ر.س</div>
-        <div class="rcl-orig">${rd.orig} ر.س</div>
-        <div class="rcl-disc"><i class="fas fa-tag"></i> ${rd.tag}</div>
+    <!-- ══════ ★ FEATURED COURSE — دورة STEP المميزة ══════ -->
+    <div style="
+      background: linear-gradient(145deg,rgba(247,174,27,0.12),rgba(15,53,92,0.7));
+      border: 2.5px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 32px 28px 28px;
+      margin-bottom: 22px;
+      position: relative; overflow: hidden;
+      text-align: right;
+      box-shadow: 0 8px 40px rgba(247,174,27,0.2);
+    ">
+      <!-- Glow -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 75% 20%,rgba(247,174,27,0.12),transparent);pointer-events:none;"></div>
+
+      <!-- Crown ribbon -->
+      <div style="
+        position:absolute;top:0;right:0;
+        background:linear-gradient(135deg,#F7AE1B,#e09900);
+        color:#000;font-size:0.7rem;font-weight:900;
+        padding:6px 18px 6px 12px; border-radius:0 var(--radius) 0 14px;
+        display:flex;align-items:center;gap:5px;
+        box-shadow:0 3px 12px rgba(247,174,27,0.5);
+        animation:ribbonPulse 2s ease-in-out infinite;
+      ">👑 الأفضل والأكثر مبيعًا</div>
+
+      <!-- Heading -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap;padding-left:90px;">
+        <span style="font-size:2.8rem;">⭐</span>
+        <div>
+          <div style="font-size:1.45rem;font-weight:900;color:var(--gold-pale);">دورة STEP المميزة</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:2px;">بنسختها الحديثة لاختبار كفايات اللغة الإنجليزية STEP 2026</div>
+        </div>
       </div>
+
+      <!-- Goal line -->
+      <p style="font-size:0.95rem;color:#fde68a;font-weight:700;margin-bottom:18px;line-height:1.6;">
+        🎯 هدفك درجة عالية <strong>+90</strong>… فهنا البداية الصح!
+      </p>
+
+      <!-- Features grid -->
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:22px;">
+        ${[
+          '✅ تأهيل شامل من الصفر حتى الاحتراف',
+          '✅ أحدث نسخة مُحدَّثة لاختبار 2026',
+          '✅ استراتيجيات حصرية لرفع الدرجة',
+          '✅ تدريبات مكثفة + نماذج حقيقية',
+          '✅ متابعة شخصية من فريق الأكاديمية',
+          '✅ ضمان تحسّن الدرجة أو استرداد المبلغ'
+        ].map(f=>`<div style="font-size:0.84rem;color:var(--text2);display:flex;gap:7px;">${f}</div>`).join('')}
+      </div>
+
+      <!-- Price row -->
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
+        <div style="font-size:2.5rem;font-weight:900;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;">249 ر.س</div>
+        <div>
+          <div style="font-size:1rem;color:var(--muted);text-decoration:line-through;line-height:1;">749 ر.س</div>
+          <div style="font-size:0.78rem;background:rgba(239,68,68,0.15);color:#f87171;padding:3px 10px;border-radius:50px;font-weight:900;display:inline-block;">وفّر 500 ر.س — خصم 67%</div>
+        </div>
+      </div>
+
+      <!-- CTA buttons -->
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="https://studentservices241445-rgb.github.io/STEP-2030/" target="_blank" class="btn btn-gold btn-lg"><i class="fas fa-shopping-cart"></i> تصفح دورات المتجر الآن</a>
-        <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn btn-outline"><i class="fab fa-telegram"></i> استفسر عبر تيليجرام</a>
+        <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="
+          display:inline-flex;align-items:center;gap:10px;
+          padding:15px 32px;border-radius:50px;
+          background:linear-gradient(135deg,#F7AE1B,#e09900);
+          color:#000;font-family:var(--font);font-weight:900;font-size:1.05rem;
+          text-decoration:none;
+          box-shadow:0 8px 28px rgba(247,174,27,0.5);
+          animation:ctaPulse 2.5s ease-in-out infinite;
+          border:none;cursor:pointer;
+        ">
+          <i class="fas fa-shopping-cart"></i> سجّل الآن في المتجر
+        </a>
+        <a href="https://t.me/Ayed_Academy_2026" target="_blank" style="
+          display:inline-flex;align-items:center;gap:9px;
+          padding:14px 24px;border-radius:50px;
+          background:#229ED9;color:#fff;
+          font-family:var(--font);font-weight:900;font-size:0.95rem;
+          text-decoration:none;
+        ">
+          <i class="fab fa-telegram"></i> استفسر عبر تيليجرام
+        </a>
+      </div>
+
+      <!-- Trust note -->
+      <div style="margin-top:14px;font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span>🛡️ ضمان استرداد كامل خلال 7 أيام</span>
+        <span>•</span>
+        <span>⚡ تفعيل فوري بعد الدفع</span>
+        <span>•</span>
+        <span>📲 دعم مباشر على مدار الساعة</span>
       </div>
     </div>
 
-    <!-- Study Plan -->
+    <!-- ══════ OTHER COURSES (compact) ══════ -->
+    <div style="margin-bottom:28px;">
+      <h3 style="font-size:0.88rem;font-weight:900;color:var(--muted2);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:16px;">
+        📦 الدورات الأخرى المتاحة
+      </h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+        <!-- دورة المكثفة -->
+        <div style="background:var(--grad-card);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:20px;text-align:right;position:relative;overflow:hidden;">
+          <div style="font-size:1.8rem;margin-bottom:8px;">⚡</div>
+          <div style="font-size:1rem;font-weight:900;color:var(--text);margin-bottom:4px;">دورة STEP المكثفة</div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-bottom:10px;">تحديث 2026</div>
+          <div style="font-size:0.78rem;color:var(--muted2);margin-bottom:12px;line-height:1.65;">
+            ⏰ مثالية إذا وقتك ضيق وتحتاج نتيجة سريعة قبل الاختبار.
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px;">
+            <span style="font-size:1.6rem;font-weight:900;color:var(--gold);">199</span>
+            <span style="color:var(--muted);font-size:0.8rem;font-weight:700;">ر.س</span>
+            <span style="font-size:0.75rem;color:var(--muted);text-decoration:line-through;">549 ر.س</span>
+          </div>
+          <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="
+            display:flex;align-items:center;justify-content:center;gap:7px;
+            padding:10px 0;border-radius:50px;
+            background:var(--glass2);border:1.5px solid var(--border2);
+            color:var(--text);font-family:var(--font);font-weight:800;font-size:0.82rem;
+            text-decoration:none;transition:all 0.25s;
+          " onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text)'">
+            <i class="fas fa-store"></i> عرض في المتجر
+          </a>
+        </div>
+
+        <!-- دورة الشاملة -->
+        <div style="background:var(--grad-card);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:20px;text-align:right;position:relative;overflow:hidden;">
+          <div style="font-size:1.8rem;margin-bottom:8px;">📚</div>
+          <div style="font-size:1rem;font-weight:900;color:var(--text);margin-bottom:4px;">دورة STEP الشاملة</div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-bottom:10px;">تحديث 2026</div>
+          <div style="font-size:0.78rem;color:var(--muted2);margin-bottom:12px;line-height:1.65;">
+            🏗️ لمن يريد بناء أساس قوي ومراجعة خطوة بخطوة.
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px;">
+            <span style="font-size:1.6rem;font-weight:900;color:var(--gold);">149</span>
+            <span style="color:var(--muted);font-size:0.8rem;font-weight:700;">ر.س</span>
+            <span style="font-size:0.75rem;color:var(--muted);text-decoration:line-through;">399 ر.س</span>
+          </div>
+          <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="
+            display:flex;align-items:center;justify-content:center;gap:7px;
+            padding:10px 0;border-radius:50px;
+            background:var(--glass2);border:1.5px solid var(--border2);
+            color:var(--text);font-family:var(--font);font-weight:800;font-size:0.82rem;
+            text-decoration:none;transition:all 0.25s;
+          " onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text)'">
+            <i class="fas fa-store"></i> عرض في المتجر
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Comparison note -->
+      <div style="margin-top:12px;padding:12px 16px;background:var(--glass);border-radius:var(--radius-sm);font-size:0.8rem;color:var(--muted);text-align:center;">
+        💡 <strong style="color:var(--gold-pale);">نصيحة الأكاديمية:</strong>
+        معظم الطلاب الناجحين يختارون <strong style="color:var(--text);">دورة STEP المميزة</strong> — فهي تجمع الشمولية والتكثيف بسعر لا يُقاوم.
+        <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="color:var(--gold);font-weight:900;text-decoration:none;margin-right:4px;">تصفّح المتجر الآن ←</a>
+      </div>
+    </div>
+
+    <!-- ══════ STUDY PLAN ══════ -->
     <div class="study-plan-lems">
       <div class="spl-header">
         <i class="fas fa-calendar-alt" style="color:var(--gold);font-size:1.2rem;"></i>
-        <h3>خطة مذاكرتك المقترحة (4 أسابيع)</h3>
+        <h3>خطة مذاكرتك الشخصية (4 أسابيع)</h3>
       </div>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:18px;padding-right:2px;">
+        هذه الخطة مُعدَّة خصيصًا بناءً على مستواك في الاختبار — التزم بها مع دورتك للحصول على أفضل النتائج 💪
+      </p>
       <div class="sp-weeks-grid">${planData}</div>
     </div>
 
-    <!-- Final Share -->
+    <!-- ══════ FINAL SHARE ══════ -->
     <div class="final-share">
       <div class="final-share-header">
         <i class="fas fa-share-nodes" style="color:var(--gold)"></i>
         شارك نتيجتك وساعد زملاءك
       </div>
-      <p class="final-share-sub">شارك نتيجتك وأوصِ بالموقع لزملائك — كل طالب تساعده هو أجر لك بإذن الله</p>
+      <p class="final-share-sub">
+        شارك نتيجتك وأوصِ بالموقع لزملائك — كل طالب تساعده هو أجر لك بإذن الله 🤲
+      </p>
       <div class="final-share-quran">
         <div class="fsq-text">${shareQuran.text}</div>
         <div class="fsq-ref">${shareQuran.ref}</div>
         <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
-          <div class="fsq-text" style="font-size:0.88rem;">${shareQuran.hadith}</div>
+          <div class="fsq-text" style="font-size:0.88rem;color:var(--muted);">${shareQuran.hadith}</div>
         </div>
       </div>
       <div class="final-share-btns">
@@ -2125,6 +2491,7 @@ function buildFinalResult() {
         <button class="fsb fsb-cp" onclick="copyShareLink()"><i class="fas fa-link"></i> نسخ رابط الموقع</button>
       </div>
     </div>
+
   </div>
   `;
 
@@ -2191,7 +2558,12 @@ function goSection(sec) {
   document.getElementById(`lpbtn-${sec}`).classList.add('active');
   document.getElementById('final-result').style.display = 'none';
   state.current = sec;
-  updateQuestionMap(sec);
+
+  // If section not done, show current question; else show done message
+  if (!state.done[sec]) {
+    buildQuestion(sec, state_qIdx[sec]);
+    updateQuestionMap(sec);
+  }
   closeMobilePanel();
   window.scrollTo({top: document.getElementById('examArea').offsetTop - 80, behavior:'smooth'});
 }
@@ -2277,7 +2649,7 @@ function closeMobilePanel() {
 const aiResponses = {
   start: `🚀 لبدأ الاختبار:\n1️⃣ اختر القسم الذي تريد البدء منه من الأزرار أدناه\n2️⃣ اضغط "ابدأ الاختبار الآن"\n3️⃣ اختر إجابة لكل سؤال وستظهر النتيجة فورًا\n4️⃣ ستحصل على شرح مفصّل مع كل إجابة\n\n📊 يمكنك التنقل بين الأقسام الأربعة بحرية من الشريط الجانبي في أي وقت.`,
   sections: `📋 اختبار STEP 2026 يتكون من 4 أقسام:\n\n✏️ Grammar — القواعد النحوية (25 سؤالًا)\n📖 Reading — الفهم القرائي (25 سؤالًا)\n📝 Vocabulary — المفردات في السياق (25 سؤالًا)\n🎧 Listening — مهارات الاستماع (25 سؤالًا)\n\n📊 الإجمالي: 100 سؤال بمستوى STEP الحقيقي`,
-  course: `🎯 الدورة المناسبة تعتمد على نتيجة الاختبار:\n\n📘 أقل من 60% → الدورة التأسيسية (199 ر.س)\n  ✓ مناسبة للمبتدئين\n  ✓ تأسيس قوي في القواعد والمفردات\n\n📗 60-80% → الدورة المتوسطة (299 ر.س)\n  ✓ للطلاب ذوي المستوى المتوسط\n  ✓ تعمّق في مهارات STEP\n\n📙 أكثر من 80% → الدورة المتقدمة (399 ر.س)\n  ✓ لمن يستهدف الدرجات العليا\n  ✓ استراتيجيات متقدمة\n\n🛒 المتجر: studentservices241445-rgb.github.io/STEP-2030/\n📞 للتسجيل والاستفسار: t.me/Ayed_Academy_2026`,
+  course: `🎯 الدورة المناسبة تعتمد على نتيجة الاختبار:\n\n📘 أقل من 60% → الدورة التأسيسية (199 ر.س)\n  ✓ مناسبة للمبتدئين\n  ✓ تأسيس قوي في القواعد والمفردات\n\n📗 60-80% → الدورة المتوسطة (299 ر.س)\n  ✓ للطلاب ذوي المستوى المتوسط\n  ✓ تعمّق في مهارات STEP\n\n📙 أكثر من 80% → الدورة المتقدمة (399 ر.س)\n  ✓ لمن يستهدف الدرجات العليا\n  ✓ استراتيجيات متقدمة\n\n🛒 المتجر: axzjhder.gensparkclaw.com/\n📞 للتسجيل والاستفسار: t.me/Ayed_Academy_2026`,
   contact: `📱 التواصل مع أكاديمية عايد:\n\n📩 تيليجرام (الأفضل):\nt.me/Ayed_Academy_2026\n\n✅ يمكنك الاستفسار عن:\n• تسجيل الدورات والأسعار\n• الجداول الدراسية\n• تفاصيل المناهج\n• الضمانات والعروض\n• أي سؤال تعليمي\n\nنتشرف بخدمتك! 🌟`,
   summaries: `📚 الملخصات التعليمية متاحة في صفحة الملخصات:\n\n📖 Grammar — أهم القواعد النحوية وأكثرها ظهورًا في STEP\n📚 Reading — استراتيجيات الفهم القرائي والأسئلة الاستنتاجية\n📝 Vocabulary — المفردات الأكاديمية المتكررة مع أمثلة\n🎧 Listening — أنواع أسئلة الاستماع ومفاتيح الإجابة\n\n🔗 اضغط على "الملخصات" في القائمة العلوية للوصول إليها مباشرةً.`,
   score: `📊 نسبة النجاح في STEP تختلف حسب الجهة الطالبة:\n\n🏛️ القبول الجامعي العام: 60%+\n🎓 البرامج الأكاديمية المتقدمة: 70%+\n🌟 البرامج التنافسية: 85%+\n💼 بعض وظائف الحكومة: 65%+\n\n💡 نصيحتنا: استهدف 75%+ لضمان تجاوز معظم المتطلبات وترك هامش أمان.`,
