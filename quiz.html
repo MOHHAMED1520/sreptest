@@ -347,19 +347,38 @@
 .exp-lems.exp-wrong   { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); color: #fca5a5; }
 .exp-lems .exp-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
 
-/* ── SECTION COMPLETION MODAL ── */
+/* ══════════════════════════════════════
+   SECTION COMPLETION MODAL — FULLY RESPONSIVE
+══════════════════════════════════════ */
 .sec-complete-overlay {
-  display: none; position: fixed; inset: 0; z-index: 3000;
-  background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
-  align-items: center; justify-content: center; padding: 20px;
+  display: none;
+  position: fixed; inset: 0; z-index: 3000;
+  background: rgba(0,0,0,0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
-.sec-complete-overlay.open { display: flex; animation: fadeIn 0.3s ease; }
+.sec-complete-overlay.open {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
 .sec-complete-box {
-  background: var(--card2); border: 1px solid var(--border2);
-  border-radius: var(--radius); padding: 40px 32px;
-  max-width: 560px; width: 100%; text-align: center;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
   animation: scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  position: relative; overflow: hidden;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  box-sizing: border-box;
 }
 .sec-complete-box::before {
   content: '';
@@ -367,28 +386,34 @@
   background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(247,174,27,0.08), transparent);
   pointer-events: none;
 }
+/* Smaller circles on mobile */
 .sec-circle-wrap {
-  position: relative; display: inline-block; margin-bottom: 20px;
+  position: relative; display: inline-block; margin-bottom: 16px;
 }
 .sec-score-circle {
-  width: 130px; height: 130px; border-radius: 50%;
+  width: 110px; height: 110px; border-radius: 50%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   border: 5px solid;
   margin: 0 auto;
   position: relative;
 }
-.sec-circle-pct { font-size: 2.2rem; font-weight: 900; line-height: 1; }
-.sec-circle-label { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
-.sec-grade { font-size: 1.6rem; font-weight: 900; margin-bottom: 8px; }
-.sec-msg { color: var(--muted); font-size: 0.9rem; line-height: 1.8; margin-bottom: 20px; }
-.sec-stats-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
-.sec-stat-pill {
-  padding: 10px 18px; border-radius: var(--radius-sm);
-  background: var(--glass2); border: 1px solid var(--border);
-  text-align: center; min-width: 70px;
+.sec-circle-pct { font-size: 2rem; font-weight: 900; line-height: 1; }
+.sec-circle-label { font-size: 0.65rem; color: var(--muted); margin-top: 2px; }
+.sec-grade { font-size: 1.4rem; font-weight: 900; margin-bottom: 6px; }
+.sec-msg {
+  color: var(--muted); font-size: 0.88rem; line-height: 1.75;
+  margin-bottom: 16px;
 }
-.sec-stat-pill .sn { font-size: 1.3rem; font-weight: 900; line-height: 1; }
-.sec-stat-pill .sl { font-size: 0.65rem; color: var(--muted); margin-top: 3px; }
+.sec-stats-row {
+  display: flex; gap: 8px; justify-content: center; margin-bottom: 18px; flex-wrap: wrap;
+}
+.sec-stat-pill {
+  padding: 8px 14px; border-radius: var(--radius-sm);
+  background: var(--glass2); border: 1px solid var(--border);
+  text-align: center; min-width: 60px; flex: 1; max-width: 90px;
+}
+.sec-stat-pill .sn { font-size: 1.2rem; font-weight: 900; line-height: 1; }
+.sec-stat-pill .sl { font-size: 0.6rem; color: var(--muted); margin-top: 3px; }
 
 /* Quran/Hadith block in modal */
 .modal-quran {
@@ -396,17 +421,19 @@
   border: 1px solid var(--border2);
   border-right: 4px solid var(--gold);
   border-radius: var(--radius-sm);
-  padding: 18px 20px; margin-bottom: 20px; text-align: right;
+  padding: 14px 16px; margin-bottom: 16px; text-align: right;
 }
-.modal-quran .mq-text { font-size: 1.05rem; font-weight: 700; color: var(--gold-pale); line-height: 1.9; margin-bottom: 6px; }
-.modal-quran .mq-ref { font-size: 0.75rem; color: var(--muted); }
+.modal-quran .mq-text { font-size: 0.95rem; font-weight: 700; color: var(--gold-pale); line-height: 1.85; margin-bottom: 5px; }
+.modal-quran .mq-ref { font-size: 0.72rem; color: var(--muted); }
 
 /* Share buttons in modal */
-.modal-share-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+.modal-share-btns {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;
+}
 .msb {
-  display: flex; align-items: center; gap: 7px;
-  padding: 10px 18px; border-radius: 50px;
-  font-family: var(--font); font-weight: 800; font-size: 0.82rem;
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 14px; border-radius: 50px;
+  font-family: var(--font); font-weight: 800; font-size: 0.78rem;
   border: none; cursor: pointer; transition: var(--transition);
 }
 .msb:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
@@ -415,7 +442,26 @@
 .msb-tw  { background: #1DA1F2; color: #fff; }
 .msb-cp  { background: var(--glass2); border: 1px solid var(--border); color: var(--text); }
 
-.modal-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.modal-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Responsive: modal adjustments on small screens ── */
+@media (max-width: 480px) {
+  .sec-complete-overlay { padding: 10px; }
+  .sec-complete-box { padding: 20px 14px; border-radius: 16px; }
+  .sec-score-circle { width: 90px; height: 90px; border-width: 4px; }
+  .sec-circle-pct { font-size: 1.7rem; }
+  .sec-grade { font-size: 1.2rem; }
+  .sec-msg { font-size: 0.82rem; }
+  .sec-stats-row { gap: 6px; }
+  .sec-stat-pill { padding: 6px 10px; min-width: 54px; }
+  .sec-stat-pill .sn { font-size: 1rem; }
+  .msb { padding: 8px 11px; font-size: 0.73rem; gap: 5px; }
+  .modal-quran { padding: 12px 12px; }
+  .modal-quran .mq-text { font-size: 0.88rem; }
+}
+
+  pointer-events: none;
+}
 
 /* ── STORE CTA BUTTON (after each section) ── */
 .store-cta-block {
@@ -1137,6 +1183,157 @@
   pointer-events: none;
 }
 .copy-toast.show { opacity: 1; }
+
+/* ══════════════════════════════════════════════
+   COMPREHENSIVE RESPONSIVE — ALL DEVICES
+══════════════════════════════════════════════ */
+
+/* ── Tablet / Mid screens (≤ 768px) ── */
+@media (max-width: 768px) {
+
+  /* Start screen */
+  .start-title { font-size: 1.6rem; }
+  .start-desc  { font-size: 0.88rem; }
+  .start-rules { padding: 16px; }
+  .start-rules li { font-size: 0.82rem; }
+
+  /* Exam header bar */
+  .exam-header-bar { padding: 12px 16px; gap: 8px; }
+  .ehb-title { font-size: 0.95rem; }
+  .ehb-sub   { font-size: 0.68rem; }
+  .ehb-stat .en { font-size: 1.1rem; }
+  .ehb-right { gap: 14px; }
+
+  /* Question card */
+  .lems-q-card { border-radius: 12px; }
+  .q-num-strip { padding: 8px 14px; }
+  .q-body      { padding: 14px 14px 10px; }
+  .q-text-lems { font-size: 0.95rem; margin-bottom: 14px; }
+  .opt-lems .ol-text { font-size: 0.88rem; padding: 10px 12px; }
+  .opt-lems .ol-letter { width: 38px; min-width: 38px; height: 38px; font-size: 0.72rem; }
+  .opt-lems .ol-indicator { width: 32px; height: 38px; }
+  .exp-lems { margin: 0 14px 14px; font-size: 0.83rem; }
+
+  /* Single-question nav */
+  .sq-progress-row { padding: 10px 14px 6px; gap: 8px; }
+  .sq-prog-bar-wrap { margin: 0 14px 12px; }
+  .sq-nav-row { padding: 0 14px 16px; }
+  .sq-next-btn { padding: 13px 24px; font-size: 0.92rem; }
+  .sq-finish-btn { font-size: 0.92rem; }
+
+  /* Passage */
+  .passage-lems { margin: 12px 14px 0; }
+  .passage-lems p { font-size: 0.85rem; }
+
+  /* Final result */
+  .fr-hero-lems { padding: 36px 20px 32px; }
+  .fr-big-score { width: 140px; height: 140px; border-width: 5px; }
+  .fr-score-num { font-size: 2.5rem; }
+  .fr-title    { font-size: 1.4rem; }
+  .fr-subtitle  { font-size: 0.88rem; }
+
+  /* Section alert block */
+  .sec-alert-block { flex-direction: row; gap: 10px; }
+  .sab-icon { font-size: 1.4rem; }
+  .sab-title { font-size: 0.88rem; }
+  .sab-desc  { font-size: 0.78rem; }
+}
+
+/* ── Small mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+
+  /* Layout */
+  .container { padding: 0 12px; }
+
+  /* Start screen */
+  .start-logo-ring { width: 90px; height: 90px; font-size: 2.2rem; }
+  .start-title  { font-size: 1.4rem; }
+  .start-desc   { font-size: 0.84rem; margin-bottom: 24px; }
+  .start-stats-grid { gap: 10px; margin-bottom: 24px; }
+  .start-stat .ssn  { font-size: 1.3rem; }
+  .start-stat .ssl  { font-size: 0.65rem; }
+  .start-rules      { padding: 14px 12px; margin-bottom: 20px; }
+  .sec-select-btn   { padding: 10px 8px; font-size: 0.78rem; }
+  .sec-select-btn .ss-icon { font-size: 1.2rem; }
+
+  /* Exam area */
+  .exam-header-bar { flex-direction: column; align-items: flex-start; padding: 10px 12px; gap: 8px; }
+  .ehb-right { align-self: flex-end; }
+  .ehb-stat .en { font-size: 1rem; }
+
+  /* Q card */
+  .q-num-strip  { padding: 7px 12px; }
+  .q-num-pill   { font-size: 0.66rem; padding: 2px 10px; }
+  .q-type-tag   { font-size: 0.63rem; }
+  .q-body       { padding: 12px 12px 8px; }
+  .q-text-lems  { font-size: 0.88rem; line-height: 1.65; margin-bottom: 12px; }
+  .opt-lems .ol-letter { width: 34px; min-width: 34px; height: 36px; }
+  .opt-lems .ol-text   { font-size: 0.82rem; padding: 8px 10px; }
+  .opt-lems .ol-indicator { width: 28px; height: 36px; }
+  .exp-lems { margin: 0 12px 12px; padding: 10px 12px; font-size: 0.79rem; }
+
+  /* Nav button — full width on tiny screens */
+  .sq-nav-row { padding: 0 12px 14px; justify-content: stretch; }
+  .sq-next-btn { width: 100%; justify-content: center; padding: 13px 18px; font-size: 0.88rem; }
+
+  /* Progress dots — smaller */
+  .qdot { width: 8px; height: 8px; }
+  .sq-counter { font-size: 0.76rem; }
+
+  /* Section panel buttons */
+  .lp-sec-name     { font-size: 0.8rem; }
+  .lp-sec-progress { font-size: 0.63rem; }
+
+  /* Final result cards — 2 column */
+  .fr-breakdown-lems { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .fr-sec-card { padding: 14px 10px; }
+  .fr-sec-icon { font-size: 1.5rem; }
+  .fr-sec-score { font-size: 1.2rem; }
+  .fr-hero-lems { padding: 28px 14px 24px; }
+  .fr-big-score { width: 120px; height: 120px; }
+  .fr-score-num { font-size: 2rem; }
+  .fr-title     { font-size: 1.2rem; }
+
+  /* Study plan days — wrap better */
+  .sp-days-row { gap: 4px; }
+  .sp-day-pill { min-width: 38px; }
+  .sp-day-pill .dd { font-size: 0.6rem; }
+  .sp-day-pill .dt { font-size: 0.55rem; }
+
+  /* Final share buttons */
+  .final-share-btns { gap: 7px; }
+  .fsb { padding: 9px 13px; font-size: 0.76rem; gap: 5px; }
+
+  /* Remaining section buttons */
+  .rsb-btn { padding: 7px 12px; font-size: 0.75rem; }
+
+  /* Alert block */
+  .sec-alert-block { padding: 14px 12px 12px; gap: 10px; }
+  .sab-icon { font-size: 1.3rem; }
+  .sab-title { font-size: 0.85rem; }
+  .sab-desc  { font-size: 0.76rem; }
+  .sab-rem-label { font-size: 0.7rem; }
+}
+
+/* ── Very small phones (≤ 360px) ── */
+@media (max-width: 360px) {
+  .sec-complete-box  { padding: 16px 10px; }
+  .sec-score-circle  { width: 80px; height: 80px; border-width: 3px; }
+  .sec-circle-pct    { font-size: 1.5rem; }
+  .sec-grade         { font-size: 1.1rem; }
+  .msb               { padding: 7px 9px; font-size: 0.7rem; }
+  .fr-breakdown-lems { grid-template-columns: 1fr 1fr; }
+  .fr-sec-card       { padding: 12px 8px; }
+  .fr-sec-score      { font-size: 1.1rem; }
+  .q-text-lems       { font-size: 0.83rem; }
+  .opt-lems .ol-text { font-size: 0.78rem; }
+}
+
+/* ── Wide tablets / small laptops (768px–1000px) ── */
+@media (min-width: 481px) and (max-width: 1000px) {
+  .fr-breakdown-lems { grid-template-columns: repeat(2, 1fr); }
+  .sp-weeks-grid { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
@@ -1171,7 +1368,7 @@
       <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
       <a href="summaries.html" class="nav-link"><i class="fas fa-book-open"></i> الملخصات</a>
       <a href="quiz.html" class="nav-link active"><i class="fas fa-pen-fancy"></i> الاختبار</a>
-      <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="nav-link"><i class="fas fa-store"></i> المتجر</a>
+      <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="nav-link"><i class="fas fa-store"></i> المتجر</a>
     </div>
     <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="nav-cta btn btn-gold">
       <i class="fab fa-telegram"></i> تواصل معنا
@@ -1275,7 +1472,7 @@
         <div style="font-size:1.05rem;font-weight:900;margin-bottom:6px;">🚀 انتقل للمستوى التالي مع دوراتنا!</div>
         <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;line-height:1.7;">دورات STEP 2026 المتخصصة — نتائج مضمونة أو استرداد كامل للمبلغ.</p>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-          <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F7AE1B,#d4920f);color:#000;font-weight:900;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 14px rgba(247,174,27,0.3);">
+          <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#F7AE1B,#d4920f);color:#000;font-weight:900;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 14px rgba(247,174,27,0.3);">
             <i class="fas fa-store"></i> تصفح المتجر
           </a>
           <a href="https://t.me/Ayed_Academy_2026" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:rgba(34,158,217,0.15);border:1px solid rgba(34,158,217,0.4);color:#60CBFF;font-weight:800;font-size:0.85rem;padding:10px 22px;border-radius:50px;text-decoration:none;">
@@ -1479,8 +1676,20 @@
 </main>
 
 <!-- ══ SECTION COMPLETE MODAL ══ -->
-<div class="sec-complete-overlay" id="secCompleteModal">
-  <div class="sec-complete-box" id="secCompleteBox"></div>
+<div class="sec-complete-overlay" id="secCompleteModal" onclick="handleModalOverlayClick(event)">
+  <div class="sec-complete-box" id="secCompleteBox">
+    <!-- Close button (mobile) -->
+    <button onclick="closeModal()" aria-label="إغلاق" style="
+      position:absolute;top:12px;left:12px;
+      background:var(--glass2);border:1px solid var(--border);
+      border-radius:50%;width:32px;height:32px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--muted);font-size:0.9rem;
+      z-index:10;transition:all 0.2s;
+    " onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
 </div>
 
 <!-- ══ QUESTION SHARE MODAL ══ -->
@@ -1533,7 +1742,7 @@
         <div class="footer-col-title">تواصل معنا</div>
         <div class="footer-links">
           <a href="https://t.me/Ayed_Academy_2026" target="_blank"><i class="fab fa-telegram"></i> تيليجرام الأكاديمية</a>
-          <a href="https://axzjhder.gensparkclaw.com/" target="_blank"><i class="fas fa-store"></i> تصفح المتجر</a>
+          <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank"><i class="fas fa-store"></i> تصفح المتجر</a>
         </div>
       </div>
     </div>
@@ -1541,7 +1750,7 @@
       <p>© 2026 أكاديمية عايد — جميع الحقوق محفوظة</p>
       <div class="footer-social">
         <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="social-btn" title="تيليجرام"><i class="fab fa-telegram"></i></a>
-        <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="social-btn" title="المتجر" style="color:var(--gold);"><i class="fas fa-store"></i></a>
+        <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="social-btn" title="المتجر" style="color:var(--gold);"><i class="fas fa-store"></i></a>
       </div>
     </div>
   </div>
@@ -2021,6 +2230,14 @@ function showSectionModal(sec) {
   const doneNames = sections.filter(s => state.done[s]).map(s => secName(s)).join('، ');
 
   document.getElementById('secCompleteBox').innerHTML = `
+    <!-- Close button -->
+    <button onclick="closeModal()" aria-label="إغلاق" style="
+      position:absolute;top:10px;left:10px;
+      background:var(--glass2);border:1px solid var(--border);
+      border-radius:50%;width:30px;height:30px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--muted);font-size:0.82rem;z-index:10;
+    "><i class="fas fa-times"></i></button>
 
     <!-- Score Circle -->
     <div class="sec-circle-wrap">
@@ -2123,11 +2340,22 @@ function showSectionModal(sec) {
     </div>
   `;
 
-  document.getElementById('secCompleteModal').classList.add('open');
+  const overlay = document.getElementById('secCompleteModal');
+  overlay.classList.add('open');
+  // Scroll overlay itself to top (important on mobile)
+  overlay.scrollTop = 0;
+  // Also prevent body scroll while modal is open
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
   document.getElementById('secCompleteModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* Close modal when clicking backdrop (outside the box) */
+function handleModalOverlayClick(e) {
+  if (e.target === document.getElementById('secCompleteModal')) closeModal();
 }
 
 /* ════════════════════════
@@ -2358,7 +2586,7 @@ function buildFinalResult() {
 
       <!-- CTA buttons -->
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="
+        <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" style="
           display:inline-flex;align-items:center;gap:10px;
           padding:15px 32px;border-radius:50px;
           background:linear-gradient(135deg,#F7AE1B,#e09900);
@@ -2411,7 +2639,7 @@ function buildFinalResult() {
             <span style="color:var(--muted);font-size:0.8rem;font-weight:700;">ر.س</span>
             <span style="font-size:0.75rem;color:var(--muted);text-decoration:line-through;">549 ر.س</span>
           </div>
-          <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="
+          <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" style="
             display:flex;align-items:center;justify-content:center;gap:7px;
             padding:10px 0;border-radius:50px;
             background:var(--glass2);border:1.5px solid var(--border2);
@@ -2435,7 +2663,7 @@ function buildFinalResult() {
             <span style="color:var(--muted);font-size:0.8rem;font-weight:700;">ر.س</span>
             <span style="font-size:0.75rem;color:var(--muted);text-decoration:line-through;">399 ر.س</span>
           </div>
-          <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="
+          <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" style="
             display:flex;align-items:center;justify-content:center;gap:7px;
             padding:10px 0;border-radius:50px;
             background:var(--glass2);border:1.5px solid var(--border2);
@@ -2452,7 +2680,7 @@ function buildFinalResult() {
       <div style="margin-top:12px;padding:12px 16px;background:var(--glass);border-radius:var(--radius-sm);font-size:0.8rem;color:var(--muted);text-align:center;">
         💡 <strong style="color:var(--gold-pale);">نصيحة الأكاديمية:</strong>
         معظم الطلاب الناجحين يختارون <strong style="color:var(--text);">دورة STEP المميزة</strong> — فهي تجمع الشمولية والتكثيف بسعر لا يُقاوم.
-        <a href="https://axzjhder.gensparkclaw.com/" target="_blank" style="color:var(--gold);font-weight:900;text-decoration:none;margin-right:4px;">تصفّح المتجر الآن ←</a>
+        <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" style="color:var(--gold);font-weight:900;text-decoration:none;margin-right:4px;">تصفّح المتجر الآن ←</a>
       </div>
     </div>
 

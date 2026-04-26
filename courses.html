@@ -178,6 +178,21 @@
   font-size: 0.85rem; font-weight: 700;
 }
 .gs-badge i { color: var(--success); }
+
+/* ── Bundle card responsive ── */
+@media (max-width: 640px) {
+  .bundle-inner { grid-template-columns: 1fr !important; }
+  .bundle-inner .cc-header { border-left: none !important; border-bottom: 1px solid var(--border); }
+  .courses-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  .course-card { padding: 0; }
+  .cc-header { padding: 20px 16px; }
+  .cc-body   { padding: 18px 16px; }
+  .cc-price  { font-size: 1.8rem; }
+  .cc-name   { font-size: 1.1rem; }
+  .hero-banner { padding: 40px 16px 32px; }
+}
 </style>
 </head>
 <body>
@@ -210,7 +225,7 @@
       <a href="index.html" class="nav-link"><i class="fas fa-home"></i> الرئيسية</a>
       <a href="summaries.html" class="nav-link"><i class="fas fa-book-open"></i> الملخصات</a>
       <a href="quiz.html" class="nav-link"><i class="fas fa-pen-fancy"></i> الاختبار</a>
-      <a href="https://axzjhder.gensparkclaw.com/" class="nav-link active"><i class="fas fa-graduation-cap"></i> الدورات</a>
+      <a href="https://mohhamed1520.github.io/ayedacdyme/" class="nav-link active"><i class="fas fa-graduation-cap"></i> الدورات</a>
     </div>
     <a href="quiz.html" class="nav-cta btn btn-gold">
       <i class="fas fa-play"></i> ابدأ الاختبار
@@ -221,7 +236,7 @@
     <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
     <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
     <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار</a>
-    <a href="https://axzjhder.gensparkclaw.com/" class="active"><i class="fas fa-graduation-cap"></i> الدورات</a>
+    <a href="https://mohhamed1520.github.io/ayedacdyme/" class="active"><i class="fas fa-graduation-cap"></i> الدورات</a>
   </div>
 </nav>
 
@@ -243,7 +258,7 @@
       <a href="quiz.html" class="btn btn-outline btn-lg">
         <i class="fas fa-compass"></i> اختبر مستواك أولًا
       </a>
-      <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="btn btn-gold btn-lg">
+      <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="btn btn-gold btn-lg">
         <i class="fas fa-store"></i> تصفح المتجر الآن
       </a>
       <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="btn btn-lg" style="background:#229ED9;color:#fff;font-weight:900;border-radius:50px;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;text-decoration:none;">
@@ -332,7 +347,7 @@
             </div>
           </div>
           <div class="cc-footer">
-            <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="btn btn-gold cc-cta btn-lg">
+            <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="btn btn-gold cc-cta btn-lg">
               <i class="fas fa-graduation-cap"></i> سجّل الآن
             </a>
             <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="cc-whatsapp" style="display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(34,163,217,0.12);border:1px solid rgba(34,163,217,0.3);color:#60CBFF;border-radius:10px;padding:12px;font-size:0.82rem;font-weight:800;text-decoration:none;">
@@ -374,7 +389,7 @@
             </div>
           </div>
           <div class="cc-footer">
-            <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="btn btn-gold cc-cta btn-lg">
+            <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="btn btn-gold cc-cta btn-lg">
               <i class="fas fa-graduation-cap"></i> سجّل الآن — الأكثر مبيعًا
             </a>
             <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="cc-whatsapp" style="display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(34,163,217,0.12);border:1px solid rgba(34,163,217,0.3);color:#60CBFF;border-radius:10px;padding:12px;font-size:0.82rem;font-weight:800;text-decoration:none;">
@@ -414,7 +429,7 @@
             </div>
           </div>
           <div class="cc-footer">
-            <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="btn btn-gold cc-cta btn-lg">
+            <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="btn btn-gold cc-cta btn-lg">
               <i class="fas fa-graduation-cap"></i> سجّل الآن
             </a>
             <a href="https://t.me/Ayed_Academy_2026" target="_blank" class="cc-whatsapp" style="display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(34,163,217,0.12);border:1px solid rgba(34,163,217,0.3);color:#60CBFF;border-radius:10px;padding:12px;font-size:0.82rem;font-weight:800;text-decoration:none;">
@@ -425,7 +440,7 @@
 
         <!-- Course 4: Full Bundle -->
         <div class="course-card" data-level="all" style="grid-column:1/-1;background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-color:var(--gold);">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;">
+          <div class="bundle-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;">
             <div class="cc-header" style="border-left:1px solid var(--border);">
               <div class="cc-emoji">👑</div>
               <div class="cc-badge"><span class="badge badge-gold"><i class="fas fa-crown"></i> باقة شاملة</span></div>
@@ -450,7 +465,7 @@
                 <div class="cc-feat"><i class="fas fa-check-circle"></i> شهادة + ضمان النجاح</div>
               </div>
               <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
-                <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="btn btn-gold btn-lg">
+                <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="btn btn-gold btn-lg">
                   <i class="fas fa-crown"></i> احصل على الباقة الشاملة
                 </a>
                 <button class="cc-whatsapp" style="width:auto;padding:12px 20px;background:rgba(34,163,217,0.12);border:1px solid rgba(34,163,217,0.3);color:#60CBFF;border-radius:10px;font-size:0.82rem;font-weight:800;cursor:pointer;" onclick="window.open('https://t.me/Ayed_Academy_2026','_blank')">
@@ -694,7 +709,7 @@
         سجّل الآن واستمتع بخصومات حصرية لفترة محدودة. آلاف الطلاب سبقوك — انضم إليهم اليوم.
       </p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-        <a href="https://axzjhder.gensparkclaw.com/" target="_blank" class="btn btn-gold btn-xl">
+        <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank" class="btn btn-gold btn-xl">
           <i class="fas fa-graduation-cap"></i> سجّل في الدورة الآن
         </a>
         <a href="quiz.html" class="btn btn-outline btn-xl">
@@ -728,14 +743,14 @@
           <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
           <a href="summaries.html"><i class="fas fa-book-open"></i> الملخصات</a>
           <a href="quiz.html"><i class="fas fa-pen-fancy"></i> الاختبار</a>
-          <a href="https://axzjhder.gensparkclaw.com/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+          <a href="https://mohhamed1520.github.io/ayedacdyme/"><i class="fas fa-graduation-cap"></i> الدورات</a>
         </div>
       </div>
       <div>
         <div class="footer-col-title">تواصل</div>
         <div class="footer-links">
           <a href="https://t.me/Ayed_Academy_2026" target="_blank"><i class="fab fa-telegram"></i> تيليجرام الأكاديمية</a>
-          <a href="https://axzjhder.gensparkclaw.com/" target="_blank"><i class="fas fa-store"></i> المتجر</a>
+          <a href="https://mohhamed1520.github.io/ayedacdyme/" target="_blank"><i class="fas fa-store"></i> المتجر</a>
         </div>
       </div>
     </div>
